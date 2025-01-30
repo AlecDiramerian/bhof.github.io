@@ -1,52 +1,53 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>
-			bloxburg news
-		</title>
-		<style type="text/css">
-			#news, button {
-				position: absolute;
-				overflow: hidden;
-				font-size: 10vh;
-				min-width: 100%; 
-				min-height: 100%;
-				height: 1px;
-				object-fit: contain;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%,-50%);
-			}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bloxburg News</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #news {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        #button {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            font-size: 24px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="button" onclick="start()">Click to Turn on the TV</button>
+    <video id="news" src="newsfinal.mp4" loop></video>
+    <audio id="soundfx" src="audio/news.mp3"></audio>
 
-			#breaking {
-				position: fixed;
-				top: 20%;
-				left: 20%;
-				width: 100%;
-				text-size-adjust: none	;
-				font-size: 10vh;
-			}
-		</style>
-		<script>
-			let muted = true
-			const soundfx = new Audio("audio/news.mp3")
-			const news = document.getElementById("news")
-
-			function start() {
-				soundfx.play()
-				const player = document.createElement("video");
-				player.id = "news"
-				player.src = "newsfinal.mp4";
-				player.play();
-				player.loop = true;
-				document.body.appendChild(player);
-				document.getElementById("button").style.display = "none"
-			}
-		</script>
-	</head>
-	<body>
-		<button onclick="start()" id="button" style="position: absolute;">Click me to turn on the TV</button>
-	</body>
+    <script>
+        function start() {
+           
+            document.getElementById("soundfx").play();
+            document.getElementById("news").play();
+            document.getElementById("news").style.display = "block";
+            document.getElementById("button").style.display = "none";
+        }
+    </script>
+</body>
 </html>
