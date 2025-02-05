@@ -1,5 +1,6 @@
 export const newslist = [
 	//local news
+    `local Alec doesn't wear flannel, global population baffled`,
 	`local teacher calls students her 'bane', gets schoolwide attention`,
 	`local Alec gets five adults soaking wet, sings 'Dancing Queen' afterwards`,
 	`local Alec gets called Yacklemore, becomes a rapper`,
@@ -16,6 +17,12 @@ export const newslist = [
 	`local Something Rotten is a smashing success!`,
 	`local iceberg makes a school panic`,
 	`local student goes to Boulder, Colorado, meets Dr. Nefario`,
+    `local student watches grass grow, paint dries instead`,
+    `local Theodore codes for BridgesHOF.com, goes insane`,
+    `local local goes local, localed by local`,
+    `local short film gets made, experts confused`,
+    `local man watches Cooking With Alec, hospitalized`,
+    `local Mark Long gets called Marcus Length, students outraged`,
 	//local pets
 	`local Samson is a good dog`,
 	`local Bentley is a good dog`,
@@ -113,6 +120,8 @@ export const newslist = [
 	`how much smith could a will smith smith if a will smith could smith wood?`,
 	`ooga booga your kneecaps are goonga`,
 	`Gru and Sokka have declared war on eachother, only one will get the moon.`,
+    `This will affect the trout population`,
+    `Mr. Long I don't feel so good`,
 ];
 
 export const radiolist = [
