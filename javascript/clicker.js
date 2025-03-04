@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-import {newslist, radiolist} from './news.js'
+import {newslist} from './news.js'
 window.addEventListener('load', function() {
 	document.getElementById('loading').style.display = 'none';
 	document.getElementById('content').style.display = 'block';
@@ -16,7 +16,8 @@ function Game() {
 	let wyattmode = 0;
 	let lastFrameTime = performance.now();
 	let boughtwyattmode = 0;
-	let upgradeonscreen = 0;
+	let upgradesonscreen = 0;
+	let statsonscreen = 0;
 	let navbarornews = 0;
 	let radioornews = 0;
 	let previousNewsIndex = -1;
@@ -35,6 +36,7 @@ function Game() {
 	let autoclick13cost = 170000000000000;
 	let autoclick14cost = 2100000000000000;
 	let autoclick15cost = 26000000000000000;
+	let autoclick16cost = 310000000000000000;
 	const clickSFX = new Audio('audio/mcclick.mp3');
 	const errorSFX = new Audio('audio/error.mp3');
 	const autoclickSFX = new Audio('audio/autoclick.mp3');
@@ -60,9 +62,11 @@ function Game() {
 	const skinbutton = document.getElementById('skin');
 	const resetbutton = document.getElementById('reset');
 	const upgradesbutton = document.getElementById('upgrades');
+	const statsbutton = document.getElementById('stats');
 	const wyattmodebutton = document.getElementById('wyattmode');
 	const changelogbutton = document.getElementById('changelogb');
-	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, skinbutton, resetbutton, upgradesbutton, changelogbutton, aps, totalnum];
+	const soonupg = document.getElementById('soonupg');
+	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, skinbutton, resetbutton, upgradesbutton, statsbutton, changelogbutton, aps, totalnum];
 
 	function abbreviateNumber(number) {
 		const abbreviations = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ"];
@@ -73,6 +77,14 @@ function Game() {
 		const scaled = number / scale;
 		return scaled.toFixed(1) + suffix;
 	}
+	function commifyNumber(number) {
+		number = number.toString();
+		var pattern = /(-?\d+)(\d{3})/;
+		while (pattern.test(number))
+			number = number.replace(pattern, "$1,$2");
+		return number;
+	}
+
 
 	//news
 	const startTimer = () => timer = setInterval(newsichooseyou, 7500);
@@ -133,6 +145,7 @@ function Game() {
 		if (localStorage.getItem('autoclick13cost')) autoclick13cost = parseInt(localStorage.getItem('autoclick13cost'));
 		if (localStorage.getItem('autoclick14cost')) autoclick14cost = parseInt(localStorage.getItem('autoclick14cost'));
 		if (localStorage.getItem('autoclick15cost')) autoclick15cost = parseInt(localStorage.getItem('autoclick15cost'));
+		if (localStorage.getItem('autoclick16cost')) autoclick16cost = parseInt(localStorage.getItem('autoclick16cost'));
 		if (localStorage.getItem('boughtwyattmode')) boughtwyattmode = parseInt(localStorage.getItem('boughtwyattmode'));
 	};
 
@@ -159,6 +172,7 @@ function Game() {
 		localStorage.setItem('autoclick13cost', autoclick13cost);
 		localStorage.setItem('autoclick14cost', autoclick14cost);
 		localStorage.setItem('autoclick15cost', autoclick15cost);
+		localStorage.setItem('autoclick16cost', autoclick16cost);
 		localStorage.setItem('boughtwyattmode', boughtwyattmode);
 	};
 
@@ -222,14 +236,18 @@ function Game() {
 		autoclick15cost = 26000000000000000;
 		document.getElementById(`autoclick15cost`).innerText = `$${abbreviateNumber(autoclick15cost)}`;
 	}
+	if (autoclick16cost < 310000000000000000) {
+		autoclick16cost = 310000000000000000;
+		document.getElementById(`autoclick16cost`).innerText = `$${abbreviateNumber(autoclick16cost)}`;
+	}
 
 	setInterval(saveProgress, 60000);
 
 	//skins
 	const updateDisplay = () => {
 		document.getElementById('num').innerText = 'Alecs: ' + abbreviateNumber(alecAmount);
-		document.getElementById('aps').innerText = 'APS: ' + abbreviateNumber(cps);
-		document.getElementById('totalnum').innerText = 'Total Alecs: ' + abbreviateNumber(totalAlecAmount);
+		document.getElementById('aps').innerText = abbreviateNumber(cps);
+		document.getElementById('totalnum').innerText = abbreviateNumber(totalAlecAmount);
 		document.getElementById('autoclick1cost').innerText = '$' + abbreviateNumber(autoclick1cost);
 		document.getElementById('autoclick2cost').innerText = '$' + abbreviateNumber(autoclick2cost);
 		document.getElementById('autoclick3cost').innerText = '$' + abbreviateNumber(autoclick3cost);
@@ -245,6 +263,7 @@ function Game() {
 		document.getElementById('autoclick13cost').innerText = '$' + abbreviateNumber(autoclick13cost);
 		document.getElementById('autoclick14cost').innerText = '$' + abbreviateNumber(autoclick14cost);
 		document.getElementById('autoclick15cost').innerText = '$' + abbreviateNumber(autoclick15cost);
+		document.getElementById('autoclick16cost').innerText = '$' + abbreviateNumber(autoclick16cost);
 		if (wyattmode === 1) {
 			alec.src = 'images/skins/why.jpeg';
 		} else {
@@ -265,7 +284,7 @@ function Game() {
 			} else if (skin === 8) {
 				alec.src = alectype === 0 ? 'images/skins/henry.png' : (alectype === 1 ? 'images/skins/henry2.png' : 'images/skins/henry3.png');
 			} else {
-				alec.src = alectype === 0 ? 'images/skins/alec.png' : (alectype === 1 ? 'images/skins/alec2.png' : 'images/skins/alec3.png');
+				alec.src = alectype === 0 ? 'images/skins/alec.png' : (alectype === 1 ? 'images/skins/alec.png' : 'images/skins/alec.png');
 			}
 		}
 	};
@@ -274,7 +293,7 @@ function Game() {
 		clickSFX.cloneNode().play();
 
 		const skinImages = {
-			alec: ['alec.png', 'alec2.png', 'alec3.png'],
+			alec: ['alec.png', 'alec.png', 'alec.png'],
 			abby: ['abby.png', 'abby2.png', 'abby3.png'],
 			nate: ['nate.png', 'nate2.png', 'nate3.png'],
 			dash: ['dash.png', 'dash2.png', 'dash3.png'],
@@ -293,16 +312,28 @@ function Game() {
 		}
 	});
 
-	//upgrades menu
+	//menus
 	upgradesbutton.addEventListener('click', () => {
 		clickSFX.cloneNode().play();
-		if (upgradeonscreen === 0) {
-			upgradeonscreen = 1;
+		if (upgradesonscreen === 0) {
+			upgradesonscreen = 1;
 			news.classList.toggle("active");
 			document.getElementById('upgradesdiv').style.right = "0%";
 		} else {
-			upgradeonscreen = 0;
-			document.getElementById('upgradesdiv').style.right = "-340px";
+			upgradesonscreen = 0;
+			document.getElementById('upgradesdiv').style.right = "-460px";
+		}
+	});
+
+	statsbutton.addEventListener('click', () => {
+		clickSFX.cloneNode().play();
+		if (statsonscreen === 0) {
+			statsonscreen = 1;
+			news.classList.toggle("active");
+			document.getElementById('statsdiv').style.left = "0%";
+		} else {
+			statsonscreen = 0;
+			document.getElementById('statsdiv').style.left = "-340px";
 		}
 	});
 
@@ -333,9 +364,19 @@ function Game() {
 
 				const container = document.querySelector(".container");
 				const newImage = document.createElement("img");
+				const upgradeAmount = document.createElement("p");
+				let posImgIndex = index * 10
+				let posTxtIndex = index + 1 * 11
+				newImage.style.height = "100px"
+				upgradeAmount.innerText = '1'
 				newImage.className = "shape";
+				upgradeAmount.className = "shape";
+				newImage.style.left = posImgIndex += '%'
+				upgradeAmount.style.left = posTxtIndex += '%'
 				newImage.src = index + 1 === 10 ? (Math.round(Math.random()) === 0 ? 'images/autoclickimgs/storm.png' : 'images/autoclickimgs/star.png') : `images/autoclickimgs/autoclick${index + 1}.png`;
 				container.appendChild(newImage);
+				container.appendChild(upgradeAmount);
+
 
 				newImage.addEventListener("animationend", () => {
 					newImage.remove();
@@ -347,7 +388,7 @@ function Game() {
 				element.setAttribute("data-cost", cost);
 				document.getElementById(`autoclick${index + 1}cost`).innerText = `$${abbreviateNumber(cost)}`;
 				document.getElementById('num').innerText = `Alecs: ${abbreviateNumber(alecAmount)}`;
-				document.getElementById('aps').innerText = `APS: ${abbreviateNumber(cps)}`;
+				document.getElementById('aps').innerText = abbreviateNumber(cps);
 				if (element === autoclick1) {
 					autoclick1cost = cost;
 				} else if (element === autoclick2) {
@@ -378,6 +419,8 @@ function Game() {
 					autoclick14cost = cost;
 				} else if (element === autoclick15) {
 					autoclick15cost = cost;
+				} else if (element === autoclick16) {
+					autoclick16cost = cost;
 				}
 				saveProgress();
 			} else {
@@ -472,6 +515,11 @@ function Game() {
 			cost: autoclick15cost,
 			cpsMultiplier: 21000000000
 		},
+		{
+			element: autoclick16,
+			cost: autoclick16cost,
+			cpsMultiplier: 150000000000
+		},
 	];
 
 	autoclickUpgrades.forEach((upgrade, index) => {
@@ -504,6 +552,7 @@ function Game() {
 			autoclick13cost = 170000000000000;
 			autoclick14cost = 2100000000000000;
 			autoclick15cost = 26000000000000000;
+			autoclick16cost = 310000000000000000;
 			saveProgress();
 			document.location.reload();
 		}
@@ -524,9 +573,9 @@ function Game() {
 		clickSFX.cloneNode().play();
 		alecAmount += (a < 1) ? 1 : a;
 		totalAlecAmount += (a < 1) ? 1 : a;
-		document.getElementById('totalnum').innerText = 'Total Alecs: ' + totalAlecAmount;
+		document.getElementById('totalnum').innerText = totalAlecAmount;
 		document.getElementById('num').innerText = 'Alecs: ' + alecAmount;
-		if (totalAlecAmount >= 50 && alectype === 0) {
+		/*if (totalAlecAmount >= 50 && alectype === 0) {
 			alectype = 1;
 			const evolve = document.createElement('div');
 			evolve.textContent = "Your big Alec has evolved";
@@ -534,7 +583,7 @@ function Game() {
 			document.body.appendChild(evolve);
 		} else if (totalAlecAmount >= 500 && alectype === 1) {
 			alectype = 2;
-		}
+		}*/
 
 		const add = document.createElement('div');
 		add.textContent = "+" + abbreviateNumber(a);
@@ -573,7 +622,7 @@ function Game() {
 			} else if (skin === 8) {
 				alec.src = alectype === 0 ? 'images/skins/henrymush.png' : (alectype === 1 ? 'images/skins/henry2mush.png' : 'images/skins/henry3mush.png');
 			} else {
-				alec.src = alectype === 0 ? 'images/skins/alecmush.png' : (alectype === 1 ? 'images/skins/alec2mush.png' : 'images/skins/alec3mush.png');
+				alec.src = alectype === 0 ? 'images/skins/alecmush.png' : (alectype === 1 ? 'images/skins/alecmush.png' : 'images/skins/alecmush.png');
 			}
 		}
 	});
@@ -599,7 +648,7 @@ function Game() {
 			} else if (skin === 8) {
 				alec.src = alectype === 0 ? 'images/skins/henry.png' : (alectype === 1 ? 'images/skins/henry2.png' : 'images/skins/henry3.png');
 			} else {
-				alec.src = alectype === 0 ? 'images/skins/alec.png' : (alectype === 1 ? 'images/skins/alec2.png' : 'images/skins/alec3.png');
+				alec.src = alectype === 0 ? 'images/skins/alec.png' : (alectype === 1 ? 'images/skins/alec.png' : 'images/skins/alec.png');
 			}
 		}
 	});
@@ -626,49 +675,55 @@ function Game() {
 			let text = '';
 			switch (button) {
 				case autoclick1:
-					text = "my dad is roblox ur getting banned";
+					text = "Not sure how this works, but hey, free Alecs!";
 					break;
 				case autoclick2:
 					text = "Like a baby factory, but better";
 					break;
 				case autoclick3:
-					text = "The name 'Alec' is technically Scottish, even though I'm Armenian...";
+					text = "Grandma would be proud";
 					break;
 				case autoclick4:
-					text = "Used as a mating call, very effective";
+					text = "Local Stardew Valley players HATE this ONE TRICK";
 					break;
 				case autoclick5:
-					text = "No, I definitally didn't run out of ideas, that would be crazy... ok yeah I ran out of ideas.";
+					text = "Pump out flannels like I pumped... gas";
 					break;
 				case autoclick6:
-					text = "Get Duo to force Alecs to do thier Duolingo lessons!";
+					text = "Command Blocks are real! Don't you know?";
 					break;
 				case autoclick7:
-					text = "'hey soul sister aint that mister mister'";
+					text = "Hey, anything is possible, right?";
 					break;
 				case autoclick8:
-					text = "It brings the Alecs to the yard";
+					text = "Love this guy. Met him at a party and we clicked instantly";
 					break;
 				case autoclick9:
-					text = "Don't ask where I got this";
+					text = "Technically, this money is just a bribe to the churches, but shhhhhh";
 					break;
 				case autoclick10:
-					text = "Get a cat to lure unsuspecting Alecs!";
+					text = "Works like a charm. Just remember not to take mine...";
 					break;
 				case autoclick11:
-					text = "i like filets";
+					text = "You'll get a bunch of flannels, but the best part is that they're from ZE MOOOOOOON!!!";
 					break;
 				case autoclick12:
-					text = "Get the ultimate diety to summon Alecs for you";
+					text = "Well, actually, you 'buy' an expidition to a treasure room...";
 					break;
 				case autoclick13:
-					text = "Get some 2010's tunes or unknown smells to make the Alecs cry";
+					text = "I'm sure It's legit!";
 					break;
 				case autoclick14:
-					text = "Get Alecs to vibe to the same twenty songs for eternity!";
+					text = "It's a really nice place to vacation";
 					break;
 				case autoclick15:
-					text = "A repeating command block set to '/summon Alec'";
+					text = "No, this is not slavery. These lumberjacks are paid... in... uh... weed";
+					break;
+				case autoclick16:
+					text = "Ah, the classic vintage flannels! The modern day flannels! The futuristic flannels with jetpacks!";
+					break;
+				case soonupg:
+					text = "Waiting for the day that fine shyt finally relizes she's in love with me";
 					break;
 				case skinbutton:
 					text = "Make your Alecs look different!";
@@ -683,10 +738,10 @@ function Game() {
 					text = "View the changelog";
 					break;
 				case aps:
-					text = "Alecs per Second";
+					text = commifyNumber(Math.floor(cps));
 					break;
 				case totalnum:
-					text = "The amount of Alecs you've uh... 'created' during this playthrough (counts from v0.4.1 onwards)";
+					text = commifyNumber(Math.floor(totalAlecAmount));
 					break;
 			}
 			handleMouseOver(event, text);
@@ -694,7 +749,7 @@ function Game() {
 		button.addEventListener('mouseout', handleMouseOut);
 	});
 
-	if (boughtwyattmode === 1) {
+	/*if (boughtwyattmode === 1) {
 		wyattmodebutton.innerText = 'TOGGLE WYATT MODE';
 	}
 
@@ -721,7 +776,7 @@ function Game() {
 			wyattmode = 0;
 			updateDisplay();
 		}
-	});
+	});*/
 
 	change.addEventListener('click', () => {
 		clickSFX.cloneNode().play();
@@ -768,10 +823,10 @@ function Game() {
 		alecAmount += cps * secondsElapsed;
 		totalAlecAmount += cps * secondsElapsed;
 		document.getElementById('num').innerText = 'Alecs: ' + '$' + abbreviateNumber(Math.floor(alecAmount));
-		document.getElementById('totalnum').innerText = 'Total Alecs: ' + abbreviateNumber(Math.floor(totalAlecAmount));
+		document.getElementById('totalnum').innerText = abbreviateNumber(Math.floor(totalAlecAmount));
 		lastFrameTime = currentTime;
 		requestAnimationFrame(updateAlecAmount);
-		function slide(element, cost, cpsMultiplier, index) {
+		/*function slide(element, cost, cpsMultiplier, index) {
 			if (Math.floor(Math.random() * 1000) === 1) {
 				const container = document.querySelector(".container");
 				const newImage = document.createElement("img");
@@ -782,12 +837,12 @@ function Game() {
 				newImage.addEventListener("animationend", () => newImage.remove());
 			}
 		}
-		slide(autoclickUpgrades.element, autoclickUpgrades.cost, autoclickUpgrades.cpsMultiplier, autoclickUpgrades.index);
+		slide(autoclickUpgrades.element, autoclickUpgrades.cost, autoclickUpgrades.cpsMultiplier, autoclickUpgrades.index);*/
 	}
 
-	document.getElementById("pform").addEventListener('click', () => {
+	/*document.getElementById("pform").addEventListener('click', () => {
 		window.open("https://forms.gle/SFhY9UY3p1LoqJbeA");
-	});
+	});*/
 
 	requestAnimationFrame(updateAlecAmount);
 	startTimer();

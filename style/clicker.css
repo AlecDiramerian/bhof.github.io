@@ -27,16 +27,20 @@ header {
 
 #change, #station {
     position: fixed;
-    z-index: 10000;
-    margin: auto;
+    display: block;
+    text-align: center;
+    right: 50%;
+    top: 20wh;
+    transform: translateX(50%);
+    margin: 0;
 }
 
 #station {
-    right: 1%;
+    
 }
 
 #change {
-    left: 1%;
+    
 }
 
 header button:hover, #change:hover {
@@ -125,13 +129,27 @@ b {
 #upgradesdiv {
     position: fixed;
     top: 0;
-    right: -340px;
-    width: 325px;
+    right: -460px;
+    width: 450px;
     height: 100vh;
     background-color: lightskyblue;
     overflow-y: auto;
     padding: 5px;
     transition: right 0.5s;
+    border-radius: 15px;
+    z-index: 10001;
+}
+
+#statsdiv {
+    position: fixed;
+    top: 0;
+    left: -340px;
+    width: 325px;
+    height: 100vh;
+    background-color: lightskyblue;
+    overflow-y: auto;
+    padding: 5px;
+    transition: left 0.5s;
     border-radius: 15px;
     z-index: 10001;
 }
@@ -151,6 +169,7 @@ b {
 #autoclick13, #autoclick13cost,
 #autoclick14, #autoclick14cost,
 #autoclick15, #autoclick15cost,
+#autoclick16, #autoclick16cost,
 #soonupg, #soonupg2 {
     display: inline-block;
     padding: 5px;
@@ -161,6 +180,10 @@ b {
 
 #soonupg, #soonupg2 {
     background-color: slategray;
+}
+
+#statname {
+    text-align: left;
 }
 
 #descbox {
@@ -228,10 +251,9 @@ b {
 .shape {
     position: absolute;
     width: auto;
-    height: 100px;
-    bottom: 50%;
-    animation: moveimg 2s linear;
-    opacity: 0;
+    bottom: 0%;
+    /*animation: moveimg 2s linear;*/
+    opacity: 1;
     z-index: -1;
 }
 
@@ -274,6 +296,11 @@ button:hover {
     animation: colorChange 5s infinite;
 }
 
+#statname {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
 /*animation*/
 @keyframes slideUpgrades {
     0% {
@@ -283,6 +310,16 @@ button:hover {
         left: 100%;
     }
 }
+
+@keyframes slideStats {
+    0% {
+        right: -10%;
+    }
+    100% {
+        right: 100%;
+    }
+}
+
 @keyframes colorChange {
     0% {
         background-color: slategray;
@@ -394,11 +431,11 @@ button:hover {
         opacity: 0;
     }
 
-    #upgradesdiv button {
+    #upgradesdiv button, #statsdiv button {
         font-size: 10px;
     }
 
-    #upgradesdiv {
+    #upgradesdiv, #statsdiv{
         width: auto;
         height: auto;
     }
