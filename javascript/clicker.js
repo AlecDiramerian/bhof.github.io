@@ -20,6 +20,7 @@ function Game() {
 	let statsonscreen = 0;
 	let navbarornews = 0;
 	let radioornews = 0;
+	let hoverInterval = null;
 	let previousNewsIndex = -1;
 	let autoclick1cost = 15;
 	let autoclick2cost = 100;
@@ -37,9 +38,17 @@ function Game() {
 	let autoclick14cost = 2100000000000000;
 	let autoclick15cost = 26000000000000000;
 	let autoclick16cost = 310000000000000000;
+	let timeplayed = {
+		weeks: 0,
+		days: 0,
+		hours: 0,
+		minutes: 0,
+		seconds: 0
+	};
 	const clickSFX = new Audio('audio/mcclick.mp3');
 	const errorSFX = new Audio('audio/error.mp3');
-	const autoclickSFX = new Audio('audio/autoclick.mp3');
+	const purchaseSFX = new Audio('audio/purchase.mp3');
+	/*const autoclickSFX = new Audio('audio/autoclick.mp3');
 	const factorySFX = new Audio('audio/factory.mp3');
 	const scotlandSFX = new Audio('audio/scotland.mp3');
 	const flannelSFX = new Audio('audio/flannel.mp3');
@@ -53,12 +62,13 @@ function Game() {
 	const summonSFX = new Audio('audio/summon.mp3');
 	const birdSFX = new Audio('audio/bird.mp3');
 	const whooshSFX = new Audio('audio/whoosh.mp3');
-	const buttonclickSFX = new Audio('audio/command.mp3');
+	const buttonclickSFX = new Audio('audio/command.mp3');*/
 	const news = document.getElementById('news');
 	const alec = document.getElementById('alec');
 	const change = document.getElementById('change');
 	const station = document.getElementById('station');
 	const descbox = document.getElementById('descbox');
+	const timeplayedstat = document.getElementById('timeplayed');
 	const skinbutton = document.getElementById('skin');
 	const resetbutton = document.getElementById('reset');
 	const upgradesbutton = document.getElementById('upgrades');
@@ -67,6 +77,49 @@ function Game() {
 	const changelogbutton = document.getElementById('changelogb');
 	const soonupg = document.getElementById('soonupg');
 	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, skinbutton, resetbutton, upgradesbutton, statsbutton, changelogbutton, aps, totalnum];
+	
+	const formatTime = (time) => {
+		return `${time.weeks}:${time.days}:${time.hours}:${time.minutes}:${time.seconds}`;
+	};
+
+	const parseTime = (timeString) => {
+    if (!timeString || timeString === "0") { 
+        return { weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }; 
+    }
+
+    const parts = timeString.split(':').map(num => isNaN(parseInt(num)) ? 0 : parseInt(num));
+
+    return {
+        weeks: parts[0] ?? 0,
+        days: parts[1] ?? 0,
+        hours: parts[2] ?? 0,
+        minutes: parts[3] ?? 0,
+        seconds: parts[4] ?? 0
+    };
+}
+
+	const updateTimePlayed = () => {
+		timeplayed.seconds += 1;
+		if (timeplayed.seconds >= 60) {
+			timeplayed.seconds = 0;
+			timeplayed.minutes++;
+		}
+		if (timeplayed.minutes >= 60) {
+			timeplayed.minutes = 0;
+			timeplayed.hours++;
+		}
+		if (timeplayed.hours >= 24) {
+			timeplayed.hours = 0;
+			timeplayed.days++;
+		}
+		if (timeplayed.days >= 7) {
+			timeplayed.days = 0;
+			timeplayed.weeks++;
+		}
+		console.log(timeplayed);
+		updateDisplay();
+	}
+	setInterval(updateTimePlayed, 1000);
 
 	function abbreviateNumber(number) {
 		const abbreviations = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ"];
@@ -77,6 +130,7 @@ function Game() {
 		const scaled = number / scale;
 		return scaled.toFixed(1) + suffix;
 	}
+
 	function commifyNumber(number) {
 		number = number.toString();
 		var pattern = /(-?\d+)(\d{3})/;
@@ -84,7 +138,6 @@ function Game() {
 			number = number.replace(pattern, "$1,$2");
 		return number;
 	}
-
 
 	//news
 	const startTimer = () => timer = setInterval(newsichooseyou, 7500);
@@ -130,6 +183,7 @@ function Game() {
 		if (localStorage.getItem('alectype')) alectype = parseInt(localStorage.getItem('alectype'));
 		if (localStorage.getItem('cps')) cps = parseInt(localStorage.getItem('cps'));
 		if (localStorage.getItem('skin')) skin = parseInt(localStorage.getItem('skin'));
+		if (localStorage.getItem('timeplayed')) timeplayed = parseTime(localStorage.getItem('timeplayed'));
 		if (localStorage.getItem('autoclick1cost')) autoclick1cost = parseInt(localStorage.getItem('autoclick1cost'));
 		if (localStorage.getItem('autoclick2cost')) autoclick2cost = parseInt(localStorage.getItem('autoclick2cost'));
 		if (localStorage.getItem('autoclick3cost')) autoclick3cost = parseInt(localStorage.getItem('autoclick3cost'));
@@ -157,6 +211,7 @@ function Game() {
 		localStorage.setItem('alectype', alectype);
 		localStorage.setItem('cps', cps);
 		localStorage.setItem('skin', skin);
+		localStorage.setItem('timeplayed', formatTime(timeplayed));
 		localStorage.setItem('autoclick1cost', autoclick1cost);
 		localStorage.setItem('autoclick2cost', autoclick2cost);
 		localStorage.setItem('autoclick3cost', autoclick3cost);
@@ -241,13 +296,14 @@ function Game() {
 		document.getElementById(`autoclick16cost`).innerText = `$${abbreviateNumber(autoclick16cost)}`;
 	}
 
-	setInterval(saveProgress, 60000);
+	setInterval(saveProgress, 1000);
 
 	//skins
 	const updateDisplay = () => {
 		document.getElementById('num').innerText = 'Alecs: ' + abbreviateNumber(alecAmount);
 		document.getElementById('aps').innerText = abbreviateNumber(cps);
 		document.getElementById('totalnum').innerText = abbreviateNumber(totalAlecAmount);
+		document.getElementById('timeplayed').innerText = timeplayed.weeks + ':' + timeplayed.days + ':' + timeplayed.hours + ':' + timeplayed.minutes + ':' + timeplayed.seconds;
 		document.getElementById('autoclick1cost').innerText = '$' + abbreviateNumber(autoclick1cost);
 		document.getElementById('autoclick2cost').innerText = '$' + abbreviateNumber(autoclick2cost);
 		document.getElementById('autoclick3cost').innerText = '$' + abbreviateNumber(autoclick3cost);
@@ -340,7 +396,12 @@ function Game() {
 	//buying upgrades
 	function addAutoclickListener(element, cost, cpsMultiplier, index) {
 		element.addEventListener('click', () => {
+
 			if (cost <= alecAmount) {
+				purchaseSFX.cloneNode().play();
+				/*
+				LEGACY: upgrade sfx
+
 				const soundEffects = {
 					0: autoclickSFX,
 					1: factorySFX,
@@ -362,6 +423,7 @@ function Game() {
 				const excludedIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 				(index !== 0 && !excludedIndices.includes(index)) ? clickSFX.cloneNode().play(): (soundEffects[index] && soundEffects[index].cloneNode().play());
 
+				UNFINISHED: old stat screen
 				const container = document.querySelector(".container");
 				const newImage = document.createElement("img");
 				const upgradeAmount = document.createElement("p");
@@ -380,7 +442,7 @@ function Game() {
 
 				newImage.addEventListener("animationend", () => {
 					newImage.remove();
-				});
+				});*/
 
 				cps += cpsMultiplier;
 				alecAmount -= cost;
@@ -421,6 +483,12 @@ function Game() {
 					autoclick15cost = cost;
 				} else if (element === autoclick16) {
 					autoclick16cost = cost;
+				}
+				const elementId = element.id + 'total';
+				const targetElement = document.getElementById(elementId);
+
+				if (targetElement) {
+					targetElement.innerText = (parseInt(targetElement.innerText) || 0) + 1;
 				}
 				saveProgress();
 			} else {
@@ -536,6 +604,7 @@ function Game() {
 			totalAlecAmount = 0;
 			alectype = 0;
 			cps = 0;
+			timeplayed = 0;
 			boughtwyattmode = 0;
 			autoclick1cost = 15;
 			autoclick2cost = 100;
@@ -673,82 +742,96 @@ function Game() {
 	buttons.forEach((button) => {
 		button.addEventListener('mouseover', (event) => {
 			let text = '';
-			switch (button) {
-				case autoclick1:
-					text = "Not sure how this works, but hey, free Alecs!";
-					break;
-				case autoclick2:
-					text = "Like a baby factory, but better";
-					break;
-				case autoclick3:
-					text = "Grandma would be proud";
-					break;
-				case autoclick4:
-					text = "Local Stardew Valley players HATE this ONE TRICK";
-					break;
-				case autoclick5:
-					text = "Pump out flannels like I pumped... gas";
-					break;
-				case autoclick6:
-					text = "Command Blocks are real! Don't you know?";
-					break;
-				case autoclick7:
-					text = "Hey, anything is possible, right?";
-					break;
-				case autoclick8:
-					text = "Love this guy. Met him at a party and we clicked instantly";
-					break;
-				case autoclick9:
-					text = "Technically, this money is just a bribe to the churches, but shhhhhh";
-					break;
-				case autoclick10:
-					text = "Works like a charm. Just remember not to take mine...";
-					break;
-				case autoclick11:
-					text = "You'll get a bunch of flannels, but the best part is that they're from ZE MOOOOOOON!!!";
-					break;
-				case autoclick12:
-					text = "Well, actually, you 'buy' an expidition to a treasure room...";
-					break;
-				case autoclick13:
-					text = "I'm sure It's legit!";
-					break;
-				case autoclick14:
-					text = "It's a really nice place to vacation";
-					break;
-				case autoclick15:
-					text = "No, this is not slavery. These lumberjacks are paid... in... uh... weed";
-					break;
-				case autoclick16:
-					text = "Ah, the classic vintage flannels! The modern day flannels! The futuristic flannels with jetpacks!";
-					break;
-				case soonupg:
-					text = "Waiting for the day that fine shyt finally relizes she's in love with me";
-					break;
-				case skinbutton:
-					text = "Make your Alecs look different!";
-					break;
-				case resetbutton:
-					text = "BE CAREFUL WITH THIS!";
-					break;
-				case upgradesbutton:
-					text = "Get others to make Alecs so you don't have to!";
-					break;
-				case changelogbutton:
-					text = "View the changelog";
-					break;
-				case aps:
-					text = commifyNumber(Math.floor(cps));
-					break;
-				case totalnum:
-					text = commifyNumber(Math.floor(totalAlecAmount));
-					break;
-			}
-			handleMouseOver(event, text);
-		});
-		button.addEventListener('mouseout', handleMouseOut);
-	});
+			const updateText = () => {
+				switch (button) {
+					case aps:
+						text = commifyNumber(Math.floor(cps));
+						break;
+					case totalnum:
+						text = commifyNumber(Math.floor(totalAlecAmount));
+						break;
+					case autoclick1:
+						text = "Not sure how this works, but hey, free Alecs!";
+						break;
+					case autoclick2:
+						text = "Like a baby factory, but better";
+						break;
+					case autoclick3:
+						text = "Grandma would be proud";
+						break;
+					case autoclick4:
+						text = "Local Stardew Valley players HATE this ONE TRICK";
+						break;
+					case autoclick5:
+						text = "Pump out flannels like I pumped... gas";
+						break;
+					case autoclick6:
+						text = "Command Blocks are real! Don't you know?";
+						break;
+					case autoclick7:
+						text = "Hey, anything is possible, right?";
+						break;
+					case autoclick8:
+						text = "Love this guy. Met him at a party and we clicked instantly";
+						break;
+					case autoclick9:
+						text = "Technically, this money is just a bribe to the churches, but shhhhhh";
+						break;
+					case autoclick10:
+						text = "Works like a charm. Just remember not to take mine...";
+						break;
+					case autoclick11:
+						text = "You'll get a bunch of flannels, but the best part is that they're from ZE MOOOOOOON!!!";
+						break;
+					case autoclick12:
+						text = "Well, actually, you 'buy' an expidition to a treasure room...";
+						break;
+					case autoclick13:
+						text = "I'm sure It's legit!";
+						break;
+					case autoclick14:
+						text = "It's a really nice place to vacation";
+						break;
+					case autoclick15:
+						text = "No, this is not slavery. These lumberjacks are paid... in... uh... weed";
+						break;
+					case autoclick16:
+						text = "Ah, the classic vintage flannels! The modern day flannels! The futuristic flannels with jetpacks!";
+						break;
+					case soonupg:
+						text = "Waiting for the day that fine shyt finally relizes she's in love with me";
+						break;
+					case skinbutton:
+						text = "Make your Alecs look different!";
+						break;
+					case resetbutton:
+						text = "BE CAREFUL WITH THIS!";
+						break;
+					case upgradesbutton:
+						text = "Get others to make Alecs so you don't have to!";
+						break;
+					case changelogbutton:
+						text = "View the changelog";
+						break;
+					default:
+						return "There's nothing here.";
+				}
+				handleMouseOver(event, text);
+			};
 
+			updateText();
+
+			if (button === aps || button === totalnum) {
+				hoverInterval = setInterval(updateText, 100);
+			}
+		});
+
+		button.addEventListener('mouseout', () => {
+			clearInterval(hoverInterval);
+			handleMouseOut();
+		});
+	});
+	
 	/*if (boughtwyattmode === 1) {
 		wyattmodebutton.innerText = 'TOGGLE WYATT MODE';
 	}
