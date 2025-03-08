@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Image selection button remover -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script>
+			$("#fileInput").change(function() {
+				filename = this.files[0].name;
+				console.log(filename);
+			});
+		</script>
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BRY21G04WJ"></script>
 		<script>
@@ -42,10 +50,10 @@
 			<div id="maindiv">
 				<div>
 					<button id="change">
-						Show navbar
+						Show Navbar
 					</button>
 					<button id="station" style="display: none">
-						Change station
+						Change Station
 					</button>
 					<b id="news" class="topslide">
 						Welcome to Alec Clicker!
@@ -53,24 +61,30 @@
 					<br>
 					<br>
 					<br>
-					<span style="text-align: center; display: none;">
-						<button id="pform" class="txt bslide bslidea">
+					<span style="text-align: center;">
+						<div>
+							<label for="files" id="fileSelectButton">Upload Custom Skin</label>
+							<input id="files" style="display:none;" type="file">
+						</div>						
+						<!--<button id="pform" class="txt bslide bslidea">
 							Want your pet to be featured? Click here!
-						</button>
+						</button>-->
 					</span>
 					<br>
 					<br>
-					<img src="images/skins/alec.png" id="alec" alt="alec" title="alec">
+					<div id="aleccontainer">
+						<img src="images/skins/alec.png" id="alec" alt="alec" title="alec">
+					</div>
 					<br>
 					<b id="num">
 						Alecs: 0
 					</b>
-					<b id="">
+					<!--<b id="">
 						APS: 0
 					</b>
 					<b id="">
 						0
-					</b>
+					</b>-->
 					<br>
 					<br>
 					<button id="changelogb" class="bslide bslidea">
@@ -167,7 +181,7 @@
 				</button>
 				<br>
 				<button id="autoclick14" class="bslide bslidea">
-					Buy A Flannel Inhabited Univese
+					Buy A Flannel Inhabited Universe
 					<b id="autoclick14cost">$2100000000000000</b>
 				</button>
 				<br>
@@ -273,7 +287,11 @@
 		<b id="changelog">
 			Update v2.0 - The Reboot
 			<br>
-			- Added a new upgrade and renamed most of them. All that's left is the final upgrade
+			- Added a new upgrade
+			<br>
+			- Renamed almost all upgrades, also adding new descriptions
+			<br>
+			- All that's left is the final upgrade
 			<br>
 			- The music radio station went bankrupt
 			<br>
@@ -283,9 +301,13 @@
 			<br>
 			- Removed i
 			<br>
-			- Removed skins, and Wyatt Mode, they were too stupid
+			- Removed skins and Wyatt Mode, they were too stupid. However...
 			<br>
-			- Currently, the only skin is my face from <i>The Alibis</i>
+			- You can now upload your own images to use as skins!
+			<br>
+			- Added a stats menu! Hover over the induvidual stats to find out more! There is a catch, though...
+			<br>
+			- Previous upgrades and time played will not be counted. Sorry.
 			<br>
 			<br>
 			Update v1.1.3

@@ -35,21 +35,20 @@ header {
     margin: 0;
 }
 
-#station {
-    
-}
-
-#change {
-    
+#fileSelectButton {
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
 }
 
 header button:hover, #change:hover {
     background-color: floralwhite;
 }
 
-.navbarlink, #change, #station {
+.navbarlink, #change, #station, #fileSelectButton {
     border-radius: 15px;
-    border-color: dodgerblue;
+    border-color: dodgerblue !important;
     font-family: "Karla", sans-serif;
     font-size: 20px;
     background-color: white;
@@ -89,6 +88,19 @@ b {
     margin: 0 auto;
     animation: rotate 5s infinite linear;
     z-index: 3;
+    
+}
+
+#aleccontainer {
+    transition: all 0.1s ease-in-out;
+}
+
+.expanded {
+    transform: scale(0.9);
+}
+
+.pop {
+    transform: scale(1.05);
 }
 
 #reset {
@@ -143,8 +155,8 @@ b {
 #statsdiv {
     position: fixed;
     top: 0;
-    left: -340px;
-    width: 325px;
+    left: -410px;
+    width: 400px;
     height: 100vh;
     background-color: lightskyblue;
     overflow-y: auto;
@@ -274,7 +286,7 @@ b {
 }
 
 /*hover*/
-#newalecb:hover, #alec:hover, button:hover {
+#newalecb:hover, #alec:hover, button:hover, #fileSelectButton:hover {
     cursor: pointer;
 }
 

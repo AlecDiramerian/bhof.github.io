@@ -11,6 +11,7 @@ function Game() {
 	let totalAlecAmount = 0;
 	let alectype = 0;
 	let skin = 0;
+	let uploadedSkin = "none";
 	let cps = 0;
 	let timer;
 	let wyattmode = 0;
@@ -38,6 +39,24 @@ function Game() {
 	let autoclick14cost = 2100000000000000;
 	let autoclick15cost = 26000000000000000;
 	let autoclick16cost = 310000000000000000;
+	let autoclickamounts = {
+		ac1: 0,
+		ac2: 0,
+		ac3: 0,
+		ac4: 0,
+		ac5: 0,
+		ac6: 0,
+		ac7: 0,
+		ac8: 0,
+		ac9: 0,
+		ac10: 0,
+		ac11: 0,
+		ac12: 0,
+		ac13: 0,
+		ac14: 0,
+		ac15: 0,
+		ac16: 0
+	};
 	let timeplayed = {
 		weeks: 0,
 		days: 0,
@@ -76,27 +95,27 @@ function Game() {
 	const wyattmodebutton = document.getElementById('wyattmode');
 	const changelogbutton = document.getElementById('changelogb');
 	const soonupg = document.getElementById('soonupg');
-	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, skinbutton, resetbutton, upgradesbutton, statsbutton, changelogbutton, aps, totalnum];
+	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, skinbutton, resetbutton, upgradesbutton, statsbutton, changelogbutton, aps, totalnum, timeplayedstat];
 	
 	const formatTime = (time) => {
-		return `${time.weeks}:${time.days}:${time.hours}:${time.minutes}:${time.seconds}`;
+		const addZero = (num) => (num < 10 ? `0${num}` : `${num}`);
+		return `${addZero(time.weeks)}:${addZero(time.days)}:${addZero(time.hours)}:${addZero(time.minutes)}:${addZero(time.seconds)}`;
 	};
 
+
 	const parseTime = (timeString) => {
-    if (!timeString || timeString === "0") { 
-        return { weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }; 
-    }
+		if (!timeString || timeString === "0") { return { weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }; }
 
-    const parts = timeString.split(':').map(num => isNaN(parseInt(num)) ? 0 : parseInt(num));
+		const parts = timeString.split(':').map(num => isNaN(parseInt(num)) ? 0 : parseInt(num));
 
-    return {
-        weeks: parts[0] ?? 0,
-        days: parts[1] ?? 0,
-        hours: parts[2] ?? 0,
-        minutes: parts[3] ?? 0,
-        seconds: parts[4] ?? 0
-    };
-}
+		return {
+			weeks: parts[0] ?? 0,
+			days: parts[1] ?? 0,
+			hours: parts[2] ?? 0,
+			minutes: parts[3] ?? 0,
+			seconds: parts[4] ?? 0
+		};
+	}
 
 	const updateTimePlayed = () => {
 		timeplayed.seconds += 1;
@@ -113,10 +132,10 @@ function Game() {
 			timeplayed.days++;
 		}
 		if (timeplayed.days >= 7) {
-			timeplayed.days = 0;
-			timeplayed.weeks++;
+			timeplayed.weeks += Math.floor(timeplayed.days / 7);
+			timeplayed.days %= 7;
 		}
-		console.log(timeplayed);
+		//console.log(timeplayed);
 		updateDisplay();
 	}
 	setInterval(updateTimePlayed, 1000);
@@ -135,7 +154,7 @@ function Game() {
 		number = number.toString();
 		var pattern = /(-?\d+)(\d{3})/;
 		while (pattern.test(number))
-			number = number.replace(pattern, "$1,$2");
+		number = number.replace(pattern, "$1,$2");
 		return number;
 	}
 
@@ -145,16 +164,12 @@ function Game() {
 	const newsSelect = () => {
 		let randomIndex;
 		if (radioornews === 0) {
-			do {
-				randomIndex = Math.floor(Math.random() * newslist.length);
-			} while (randomIndex === previousNewsIndex);
+			do {randomIndex = Math.floor(Math.random() * newslist.length);} while (randomIndex === previousNewsIndex);
 			previousNewsIndex = randomIndex;
 			const randomNewsItem = newslist[randomIndex];
 			return randomNewsItem;
 		} else {
-			do {
-				randomIndex = Math.floor(Math.random() * radiolist.length);
-			} while (randomIndex === previousNewsIndex);
+			do {randomIndex = Math.floor(Math.random() * radiolist.length);} while (randomIndex === previousNewsIndex);
 			previousNewsIndex = randomIndex;
 			const randomNewsItem = radiolist[randomIndex];
 			return randomNewsItem;
@@ -163,11 +178,7 @@ function Game() {
 
 	const newsichooseyou = () => {
 		const finalnews = newsSelect();
-		if (radioornews === 0) {
-			news.innerText = 'News: ' + finalnews;
-		} else {
-			news.innerText = 'Radio: ' + finalnews;
-		}
+		if (radioornews === 0) {news.innerText = 'News: ' + finalnews} else {news.innerText = 'Radio: ' + finalnews}
 	};
 
 	news.addEventListener('click', () =>{
@@ -184,6 +195,7 @@ function Game() {
 		if (localStorage.getItem('cps')) cps = parseInt(localStorage.getItem('cps'));
 		if (localStorage.getItem('skin')) skin = parseInt(localStorage.getItem('skin'));
 		if (localStorage.getItem('timeplayed')) timeplayed = parseTime(localStorage.getItem('timeplayed'));
+		if (localStorage.getItem('autoclickamounts')) autoclickamounts = JSON.parse(localStorage.getItem('autoclickamounts'));
 		if (localStorage.getItem('autoclick1cost')) autoclick1cost = parseInt(localStorage.getItem('autoclick1cost'));
 		if (localStorage.getItem('autoclick2cost')) autoclick2cost = parseInt(localStorage.getItem('autoclick2cost'));
 		if (localStorage.getItem('autoclick3cost')) autoclick3cost = parseInt(localStorage.getItem('autoclick3cost'));
@@ -206,12 +218,15 @@ function Game() {
 	loadProgress();
 
 	const saveProgress = () => {
+		const sanitizedAutoclickAmounts = {};
+		for (const key in autoclickamounts) sanitizedAutoclickAmounts[key] = isNaN(autoclickamounts[key]) ? 0 : autoclickamounts[key];
 		localStorage.setItem('alecAmount', alecAmount);
 		localStorage.setItem('totalAlecAmount', totalAlecAmount);
 		localStorage.setItem('alectype', alectype);
 		localStorage.setItem('cps', cps);
 		localStorage.setItem('skin', skin);
 		localStorage.setItem('timeplayed', formatTime(timeplayed));
+		localStorage.setItem('autoclickamounts', JSON.stringify(sanitizedAutoclickAmounts));
 		localStorage.setItem('autoclick1cost', autoclick1cost);
 		localStorage.setItem('autoclick2cost', autoclick2cost);
 		localStorage.setItem('autoclick3cost', autoclick3cost);
@@ -299,11 +314,22 @@ function Game() {
 	setInterval(saveProgress, 1000);
 
 	//skins
+	document.getElementById("files").addEventListener("change", function() {changeImage(this);});
+
+	function changeImage(input) {
+		var reader;
+
+		if (input.files && input.files[0]) {
+			reader = new FileReader();
+			reader.onload = function(e) {uploadedSkin = e.target.result}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 	const updateDisplay = () => {
 		document.getElementById('num').innerText = 'Alecs: ' + abbreviateNumber(alecAmount);
 		document.getElementById('aps').innerText = abbreviateNumber(cps);
 		document.getElementById('totalnum').innerText = abbreviateNumber(totalAlecAmount);
-		document.getElementById('timeplayed').innerText = timeplayed.weeks + ':' + timeplayed.days + ':' + timeplayed.hours + ':' + timeplayed.minutes + ':' + timeplayed.seconds;
+		document.getElementById('timeplayed').innerText = formatTime(timeplayed);
 		document.getElementById('autoclick1cost').innerText = '$' + abbreviateNumber(autoclick1cost);
 		document.getElementById('autoclick2cost').innerText = '$' + abbreviateNumber(autoclick2cost);
 		document.getElementById('autoclick3cost').innerText = '$' + abbreviateNumber(autoclick3cost);
@@ -340,7 +366,11 @@ function Game() {
 			} else if (skin === 8) {
 				alec.src = alectype === 0 ? 'images/skins/henry.png' : (alectype === 1 ? 'images/skins/henry2.png' : 'images/skins/henry3.png');
 			} else {
-				alec.src = alectype === 0 ? 'images/skins/alec.png' : (alectype === 1 ? 'images/skins/alec.png' : 'images/skins/alec.png');
+				if (uploadedSkin === "none") {
+					alec.src = 'images/skins/alec.png'; //alectype === 0 ? 'images/skins/alec.png' : (alectype === 1 ? 'images/skins/alec.png' : 'images/skins/alec.png');
+				} else {
+					alec.src = uploadedSkin;
+				}
 			}
 		}
 	};
@@ -389,61 +419,15 @@ function Game() {
 			document.getElementById('statsdiv').style.left = "0%";
 		} else {
 			statsonscreen = 0;
-			document.getElementById('statsdiv').style.left = "-340px";
+			document.getElementById('statsdiv').style.left = "-410px";
 		}
 	});
 
 	//buying upgrades
 	function addAutoclickListener(element, cost, cpsMultiplier, index) {
 		element.addEventListener('click', () => {
-
 			if (cost <= alecAmount) {
 				purchaseSFX.cloneNode().play();
-				/*
-				LEGACY: upgrade sfx
-
-				const soundEffects = {
-					0: autoclickSFX,
-					1: factorySFX,
-					2: scotlandSFX,
-					3: flannelSFX,
-					4: chairSFX,
-					5: duoSFX,
-					6: trainSFX,
-					7: milkSFX,
-					8: cloneSFX,
-					9: meowSFX,
-					10: chompSFX,
-					11: summonSFX,
-					12: birdSFX,
-					13: whooshSFX,
-					14: buttonclickSFX,
-				};
-
-				const excludedIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-				(index !== 0 && !excludedIndices.includes(index)) ? clickSFX.cloneNode().play(): (soundEffects[index] && soundEffects[index].cloneNode().play());
-
-				UNFINISHED: old stat screen
-				const container = document.querySelector(".container");
-				const newImage = document.createElement("img");
-				const upgradeAmount = document.createElement("p");
-				let posImgIndex = index * 10
-				let posTxtIndex = index + 1 * 11
-				newImage.style.height = "100px"
-				upgradeAmount.innerText = '1'
-				newImage.className = "shape";
-				upgradeAmount.className = "shape";
-				newImage.style.left = posImgIndex += '%'
-				upgradeAmount.style.left = posTxtIndex += '%'
-				newImage.src = index + 1 === 10 ? (Math.round(Math.random()) === 0 ? 'images/autoclickimgs/storm.png' : 'images/autoclickimgs/star.png') : `images/autoclickimgs/autoclick${index + 1}.png`;
-				container.appendChild(newImage);
-				container.appendChild(upgradeAmount);
-
-
-				newImage.addEventListener("animationend", () => {
-					newImage.remove();
-				});*/
-
 				cps += cpsMultiplier;
 				alecAmount -= cost;
 				cost += Math.ceil(cost * 0.15);
@@ -484,12 +468,13 @@ function Game() {
 				} else if (element === autoclick16) {
 					autoclick16cost = cost;
 				}
-				const elementId = element.id + 'total';
-				const targetElement = document.getElementById(elementId);
 
-				if (targetElement) {
-					targetElement.innerText = (parseInt(targetElement.innerText) || 0) + 1;
-				}
+				const targetElement = document.getElementById(element.id + 'total');
+
+				if (targetElement) {targetElement.innerText = (parseInt(targetElement.innerText) || 0) + 1}
+				autoclickamounts["ac" + (index + 1)] = (autoclickamounts["ac" + (index + 1)] || 0) + 1;
+				//console.log(`Updated ${"ac" + (index + 1)}:`, autoclickamounts["ac" + (index + 1)]);
+
 				saveProgress();
 			} else {
 				errorSFX.cloneNode().play();
@@ -508,91 +493,25 @@ function Game() {
 	}
 
 	const autoclickUpgrades = [
-		{
-			element: autoclick1,
-			cost: autoclick1cost,
-			cpsMultiplier: 1
-		},
-		{
-			element: autoclick2,
-			cost: autoclick2cost,
-			cpsMultiplier: 5
-		},
-		{
-			element: autoclick3,
-			cost: autoclick3cost,
-			cpsMultiplier: 15
-		},
-		{
-			element: autoclick4,
-			cost: autoclick4cost,
-			cpsMultiplier: 47
-		},
-		{
-			element: autoclick5,
-			cost: autoclick5cost,
-			cpsMultiplier: 260
-		},
-		{
-			element: autoclick6,
-			cost: autoclick6cost,
-			cpsMultiplier: 1400
-		},
-		{
-			element: autoclick7,
-			cost: autoclick7cost,
-			cpsMultiplier: 7800
-		},
-		{
-			element: autoclick8,
-			cost: autoclick8cost,
-			cpsMultiplier: 44000
-		},
-		{
-			element: autoclick9,
-			cost: autoclick9cost,
-			cpsMultiplier: 260000
-		},
-		{
-			element: autoclick10,
-			cost: autoclick10cost,
-			cpsMultiplier: 1600000
-		},
-		{
-			element: autoclick11,
-			cost: autoclick11cost,
-			cpsMultiplier: 10000000
-		},
-		{
-			element: autoclick12,
-			cost: autoclick12cost,
-			cpsMultiplier: 65000000
-		},
-		{
-			element: autoclick13,
-			cost: autoclick13cost,
-			cpsMultiplier: 430000000
-		},
-		{
-			element: autoclick14,
-			cost: autoclick14cost,
-			cpsMultiplier: 2900000000
-		},
-		{
-			element: autoclick15,
-			cost: autoclick15cost,
-			cpsMultiplier: 21000000000
-		},
-		{
-			element: autoclick16,
-			cost: autoclick16cost,
-			cpsMultiplier: 150000000000
-		},
+		{element: autoclick1, cost: autoclick1cost, cpsMultiplier: 1, statname: "Autoclickers"},
+		{element: autoclick2, cost: autoclick2cost, cpsMultiplier: 5, statname: "Alec Factories"},
+		{element: autoclick3, cost: autoclick3cost, cpsMultiplier: 15, statname: "Sewing Kits"},
+		{element: autoclick4, cost: autoclick4cost, cpsMultiplier: 50, statname: "Farms"},
+		{element: autoclick5, cost: autoclick5cost, cpsMultiplier: 260, statname: "Flannel Factories"},
+		{element: autoclick6, cost: autoclick6cost, cpsMultiplier: 1400, statname: "Summoners"},
+		{element: autoclick7, cost: autoclick7cost, cpsMultiplier: 7800, statname: "Duplicators"},
+		{element: autoclick8, cost: autoclick8cost, cpsMultiplier: 44000, statname: "Wizards"},
+		{element: autoclick9, cost: autoclick9cost, cpsMultiplier: 260000, statname: "Blessings"},
+		{element: autoclick10, cost: autoclick10cost, cpsMultiplier: 1600000, statname: "Stealing Machines"},
+		{element: autoclick11, cost: autoclick11cost, cpsMultiplier: 10000000, statname: "Shipments"},
+		{element: autoclick12, cost: autoclick12cost, cpsMultiplier: 65000000, statname: "Treasure Rooms"},
+		{element: autoclick13, cost: autoclick13cost, cpsMultiplier: 430000000, statname: "Bought Fiverr Offers"},
+		{element: autoclick14, cost: autoclick14cost, cpsMultiplier: 2900000000, statname: "Universes"},
+		{element: autoclick15, cost: autoclick15cost, cpsMultiplier: 21000000000, statname: "Trillion Lumberjacks"},
+		{element: autoclick16, cost: autoclick16cost, cpsMultiplier: 150000000000, statname: "Time Flannels"},
 	];
 
-	autoclickUpgrades.forEach((upgrade, index) => {
-		addAutoclickListener(upgrade.element, upgrade.cost, upgrade.cpsMultiplier, index);
-	});
+	autoclickUpgrades.forEach((upgrade, index) => {addAutoclickListener(upgrade.element, upgrade.cost, upgrade.cpsMultiplier, index)});
 
 
 	//reset
@@ -622,19 +541,33 @@ function Game() {
 			autoclick14cost = 2100000000000000;
 			autoclick15cost = 26000000000000000;
 			autoclick16cost = 310000000000000000;
+			autoclickamounts = {
+				ac1: 0,
+				ac2: 0,
+				ac3: 0,
+				ac4: 0,
+				ac5: 0,
+				ac6: 0,
+				ac7: 0,
+				ac8: 0,
+				ac9: 0,
+				ac10: 0,
+				ac11: 0,
+				ac12: 0,
+				ac13: 0,
+				ac14: 0,
+				ac15: 0,
+				ac16: 0
+			};
 			saveProgress();
 			document.location.reload();
 		}
 	});
 
 	//changelog
-	changelog.addEventListener('click', () => {
-		changelog.style.bottom = (changelog.style.bottom === "40%") ? "-100%" : changelog.style.bottom;
-	});
+	changelog.addEventListener('click', () => {changelog.style.bottom = (changelog.style.bottom === "40%") ? "-100%" : changelog.style.bottom});
 
-	changelogbutton.addEventListener('click', () => {
-		changelog.style.bottom = (changelog.style.bottom === "40%") ? "-100%" : "40%";
-	});
+	changelogbutton.addEventListener('click', () => {changelog.style.bottom = (changelog.style.bottom === "40%") ? "-100%" : "40%"});
 
 	//clicks
 	alec.addEventListener('click', () => {
@@ -664,9 +597,7 @@ function Game() {
 		add.style.left = x + 'px';
 		add.style.top = (y - 20) + 'px';
 
-		setTimeout(() => {
-			add.remove();
-		}, 500);
+		setTimeout(() => {add.remove()}, 500);
 		saveProgress();
 	});
 
@@ -691,7 +622,8 @@ function Game() {
 			} else if (skin === 8) {
 				alec.src = alectype === 0 ? 'images/skins/henrymush.png' : (alectype === 1 ? 'images/skins/henry2mush.png' : 'images/skins/henry3mush.png');
 			} else {
-				alec.src = alectype === 0 ? 'images/skins/alecmush.png' : (alectype === 1 ? 'images/skins/alecmush.png' : 'images/skins/alecmush.png');
+				document.getElementById("aleccontainer").classList.add("expanded");
+				//alec.src = alectype === 0 ? 'images/skins/alecmush.png' : (alectype === 1 ? 'images/skins/alecmush.png' : 'images/skins/alecmush.png');
 			}
 		}
 	});
@@ -717,7 +649,9 @@ function Game() {
 			} else if (skin === 8) {
 				alec.src = alectype === 0 ? 'images/skins/henry.png' : (alectype === 1 ? 'images/skins/henry2.png' : 'images/skins/henry3.png');
 			} else {
-				alec.src = alectype === 0 ? 'images/skins/alec.png' : (alectype === 1 ? 'images/skins/alec.png' : 'images/skins/alec.png');
+				document.getElementById("aleccontainer").classList.remove("expanded");
+				setTimeout(function() {document.getElementById("aleccontainer").classList.add("pop")}, 50);
+				setTimeout(function() {document.getElementById("aleccontainer").classList.remove("pop")}, 150);
 			}
 		}
 	});
@@ -742,13 +676,74 @@ function Game() {
 	buttons.forEach((button) => {
 		button.addEventListener('mouseover', (event) => {
 			let text = '';
+
 			const updateText = () => {
 				switch (button) {
 					case aps:
-						text = commifyNumber(Math.floor(cps));
+						const upgradeTextElement = document.getElementById(button.id);
+
+						text = commifyNumber(Math.floor(cps)) + "\n";
+
+						autoclickUpgrades.forEach((upgrade, index) => {
+							let amount = autoclickamounts[`ac${index + 1}`] || 0;
+							
+							if (amount > 0) {
+								let alecsPerSecond = amount * upgrade.cpsMultiplier;
+								let percentage = ((alecsPerSecond / cps) * 100).toFixed(2); 
+								
+								text += `${amount} ${upgrade.statname} making ${commifyNumber(alecsPerSecond)} Alecs per second (${percentage}%)\n`;
+							}
+						});
 						break;
 					case totalnum:
 						text = commifyNumber(Math.floor(totalAlecAmount));
+						break;
+					case timeplayedstat:
+						let timemessage;
+						const totalSeconds = 
+							(timeplayed.weeks * 7 * 24 * 60 * 60) +
+							(timeplayed.days * 24 * 60 * 60) +
+							(timeplayed.hours * 60 * 60) +
+							(timeplayed.minutes * 60) +
+							timeplayed.seconds;
+						if (totalSeconds < 5 * 60) {
+							timemessage = "You've just started your adventure.";
+						} else if (totalSeconds < 30 * 60) {
+							timemessage = "You're getting the hang of this.";
+						} else if (totalSeconds < 2 * 60 * 60) {
+							timemessage = "You've been working for a little while now.";
+						} else if (totalSeconds < 8 * 60 * 60) {
+							timemessage = "You've started to think about flannels.";
+						} else if (totalSeconds < 24 * 60 * 60) {
+							timemessage = "You've worked a 9-5, but you still want to keep going.";
+						} else if (totalSeconds < 3 * 24 * 60 * 60) {
+							timemessage = "You've worked for a day. No side effects yet.";
+						} else if (totalSeconds < 7 * 24 * 60 * 60) {
+							timemessage = "You've started to see flannels that aren't there.";
+						} else if (totalSeconds < 11 * 24 * 60 * 60) {
+							timemessage = "You feel your brain changing.";
+						} else if (totalSeconds < 3 * 7 * 24 * 60 * 60) {
+							timemessage = "You broke a Guinness World Record for staying up for over 11 days.";
+						} else if (totalSeconds < 4 * 7 * 24 * 60 * 60) {
+							timemessage = "Your family is worried about you.";
+						} else if (totalSeconds < 5 * 7 * 24 * 60 * 60) {
+							timemessage = "Your sleepless weeks are in the news.";
+						} else if (totalSeconds < 6 * 7 * 24 * 60 * 60) {
+							timemessage = "Your mind is breaking.";
+						} else if (totalSeconds < 7 * 7 * 24 * 60 * 60) {
+							timemessage = "You're transcending reality.";
+						} else if (totalSeconds < 8 * 7 * 24 * 60 * 60) {
+							timemessage = "God is getting worried.";
+						} else if (totalSeconds < 9 * 7 * 24 * 60 * 60) {
+							timemessage = "The world military can no longer stop you.";
+						} else if (totalSeconds < 10 * 7 * 24 * 60 * 60) {
+							timemessage = "Even Christopher Laurence can't stop you.";
+						} else if (totalSeconds < 54 * 7 * 24 * 60 * 60) {
+							timemessage = "You are the world. You are everything. You need to go outside. Now.";
+						} else {
+							timemessage = "You have played Alec Clicker for over a year. Stop.";
+						}
+						text = timemessage;
 						break;
 					case autoclick1:
 						text = "Not sure how this works, but hey, free Alecs!";
@@ -818,7 +813,6 @@ function Game() {
 				}
 				handleMouseOver(event, text);
 			};
-
 			updateText();
 
 			if (button === aps || button === totalnum) {
@@ -831,35 +825,6 @@ function Game() {
 			handleMouseOut();
 		});
 	});
-	
-	/*if (boughtwyattmode === 1) {
-		wyattmodebutton.innerText = 'TOGGLE WYATT MODE';
-	}
-
-	wyattmodebutton.addEventListener('click', () => {
-		clickSFX.cloneNode().play();
-		if (boughtwyattmode === 0 && alecAmount >= 100000000) {
-			boughtwyattmode = 1;
-			wyattmodebutton.innerText = 'TOGGLE WYATT MODE';
-		} else if (wyattmode === 0 && boughtwyattmode === 1) {
-			document.body.style.backgroundImage = 'url("images/skins/why.jpeg")';
-			document.body.style.backgroundSize = 'cover';
-			news.innerText = 'WYATT MODE ACTIVATED';
-			skinbutton.innerText = 'WYCHANGE WYSKIN';
-			resetbutton.innerText = 'WYRESET';
-			upgradesbutton.innerText = 'WYUPGRADES';
-			wyattmode = 1;
-			updateDisplay();
-		} else if (wyattmode === 1 && boughtwyattmode === 1) {
-			document.body.style.backgroundImage = 'none';
-			news.innerText = 'WYATT MODE deactivated';
-			skinbutton.innerText = 'Change Skin';
-			resetbutton.innerText = 'Reset';
-			upgradesbutton.innerText = 'Upgrades';
-			wyattmode = 0;
-			updateDisplay();
-		}
-	});*/
 
 	change.addEventListener('click', () => {
 		clickSFX.cloneNode().play();
@@ -909,23 +874,7 @@ function Game() {
 		document.getElementById('totalnum').innerText = abbreviateNumber(Math.floor(totalAlecAmount));
 		lastFrameTime = currentTime;
 		requestAnimationFrame(updateAlecAmount);
-		/*function slide(element, cost, cpsMultiplier, index) {
-			if (Math.floor(Math.random() * 1000) === 1) {
-				const container = document.querySelector(".container");
-				const newImage = document.createElement("img");
-				let b = 1 + Math.round(Math.random() * 12);
-				newImage.className = "slider";
-				newImage.src = b !== 10 ? `images/autoclickimgs/autoclick${b}.png` : (Math.round(Math.random()) === 0 ? `images/autoclickimgs/storm.png` : `images/autoclickimgs/star.png`);
-				container.appendChild(newImage);
-				newImage.addEventListener("animationend", () => newImage.remove());
-			}
-		}
-		slide(autoclickUpgrades.element, autoclickUpgrades.cost, autoclickUpgrades.cpsMultiplier, autoclickUpgrades.index);*/
 	}
-
-	/*document.getElementById("pform").addEventListener('click', () => {
-		window.open("https://forms.gle/SFhY9UY3p1LoqJbeA");
-	});*/
 
 	requestAnimationFrame(updateAlecAmount);
 	startTimer();

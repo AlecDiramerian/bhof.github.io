@@ -27,7 +27,7 @@
 						READ ME!
 					</h1>
 					<p style="font-weight: revert !important;">
-						This is sort of a mini disclaimer.<br><b>We are not run or endorsed by the Bridges Education Group.</b> This is a <b>student-run</b> website. Do NOT contact Bridges Education Group for any issues you have here.<br>I'm here for fun. This website isn't to harm anyone. If you want a quote or candid removed, ask me about it. Everything added requires consent before being posted. If the consent was given virtually through a Google Form or iMessage or such, and that person did not actually consent, don't go after me, I'm always assuming that person gave the consent. Parents, teachers, and students, <b>I will never take down this website because it "harasses" or "bullies" others or anything like that.</b> In fact, the only way this website will ever be taken down is if I get bored or go broke or forget. I take money out of my own allowance to keep this up. You can rant about how I shouldn't have added something or consent or blah blah blah, whatever, but blame the person who sent it, okay? You may only request to take down a quote / picture of yourself. Parents, you may request to take down your children's quotes or pictures. However, I suggest just leaving the website if you are a parent, because this is not for you.<br>If you've just ignored all of that and want this website to be taken down, long story short, womp womp, cry about it.
+						This is sort of a mini disclaimer.<br><b>We are not run or endorsed by the Bridges Education Group.</b> This is a <b>student-run</b> website. Do NOT contact Bridges Education Group for any issues you have here.<br>I'm here for fun. This website isn't to harm anyone. If you want a quote or candid removed, ask me about it. Everything added requires consent before being posted. If the consent was given virtually through a Google Form or iMessage or such, and that person did not actually consent, don't go after me, I'm always assuming that person gave the consent. Parents, teachers, and students, <b>I will never take down this website because it "harasses" or "bullies" others or anything like that.</b> In fact, the only way this website will ever be taken down is if I get bored or go broke or forget. I take money out of my own allowance to keep this up. You can rant about how I shouldn't have added something or consent or blah blah blah, whatever, but blame the person who sent it, okay? You may only request to take down a quote / picture of yourself. Parents, you may request to take down your children's quotes or pictures. However, I suggest just leaving the website if you are a parent, because this is not for you.<br>TL;DR, if you want this website to be taken down, no..
 				</p>
 				</div>
 				<div class="button-container" id="proceedContainer">
@@ -166,20 +166,6 @@
 					</h1>
 				
 					<div class="sfcontainer">
-						<div class="grid-item">
-							<iframe class="sf1" id="video" width="560" height="315" src="https://www.youtube-nocookie.com/embed/eXCmwyOSVRY?si=uksNHRWjqzFuyX0W" SameSite="None" Secure Partitioned frameborder="0" allowfullscreen="" style="display: block;">
-							</iframe>
-							<span id="title">
-								Lights Out
-							</span>
-							<br>
-							<span id="desc">
-								Power - out. Doors - unlocked. Song - banger.
-							</span>
-							<p>
-								Released on October 31st, 2024
-							</p>
-						</div>
 						<div class="grid-item">
 							<iframe class="sf1" id="video" width="560" height="315" src="https://www.youtube-nocookie.com/embed/AQrrOe_BFZ8" SameSite="None" Secure Partitioned frameborder="0" allowfullscreen="" style="display: block;">
 							</iframe>
@@ -772,88 +758,28 @@
 					YouTube
 				</a>
 				<hr class="line">
-				Copyright CC-BY-SA, but I don't care. Legal issues and shutdown requests will be ignored.
+				Copyright CC-BY-SA (i think) idk how this works but legal issues and shutdown requests will be ignored.
 			</div>
 		</footer>
 		<script src="javascript/pageswitch.js"></script>
 		<script src="javascript/quotepages.js"></script>
 		<script src="javascript/candidpages.js"></script>
-		<script src="javascript/videodates.js"></script>
 		<script src="javascript/motd.js"></script>
 		<script>
-			const termsBox = document.getElementById('termsBox');
-			const confirmButton = document.getElementById('confirmButton');
-			const proceedContainer = document.getElementById('proceedContainer');
-			const overlay = document.getElementById('overlay');
-
-			/*termsBox.addEventListener('scroll', () => {
-			if (termsBox.scrollTop + termsBox.clientHeight >= termsBox.scrollHeight) {
-				confirmButton.classList.remove('disabled');
-				confirmButton.disabled = false;
-			}
-			});*/
-
-			confirmButton.addEventListener('click', () => {
-				proceedContainer.style.display = 'block';
-				confirmButton.style.display = 'none';
+			document.getElementById('confirmButton').addEventListener('click', () => {
+				document.getElementById('proceedContainer').style.display = 'block';
+				document.getElementById('confirmButton').style.display = 'none';
 			});
-			document.addEventListener('DOMContentLoaded', () => {
-				const overlay = document.getElementById('overlay');
-				const proceedButton = document.getElementById('proceedButton');
-				const buttonClicked = localStorage.getItem('buttonClicked');
-				
-				if (!buttonClicked) {
-					overlay.style.display = 'flex';
+			document.addEventListener('DOMContentLoaded', () => {				
+				if (!localStorage.getItem('buttonClicked')) {
+					document.getElementById('overlay').style.display = 'flex';
 				}
 				
-				proceedButton.addEventListener('click', () => {
-					overlay.style.display = 'none';
+				document.getElementById('proceedButton').addEventListener('click', () => {
+					document.getElementById('overlay').style.display = 'none';
 					localStorage.setItem('buttonClicked', true);
 				});
 			});
 		</script>
-		<!--<script src="javascript/shortfilmspages.js"></script>-->
-		<!--<script>
-			function shuffleArray(array) {
-				for (let i = array.length - 1; i > 0; i--) {
-					const j = Math.floor(Math.random() * (i + 1));
-					[array[i], array[j]] = [array[j], array[i]];
-				}
-				return array;
-			}
-
-			function randomizeTextContent() {
-				const textElements = document.querySelectorAll('span, p, h1, h2, h3, h4, h5, h6, div');
-				const texts = [];
-				textElements.forEach(element => {
-					texts.push(element.textContent.trim());
-				});
-
-				const shuffledTexts = shuffleArray(texts);
-				textElements.forEach((element, index) => {
-					element.textContent = shuffledTexts[index];
-				});
-			}
-
-			function randomizeImageSources() {
-				const images = document.querySelectorAll('img');
-				const imageSources = [];
-				images.forEach(image => {
-					imageSources.push(image.src);
-				});
-
-				const shuffledImages = shuffleArray(imageSources);
-				images.forEach((image, index) => {
-					image.src = shuffledImages[index];
-				});
-			}
-
-			function randomizeContent() {
-				randomizeTextContent();
-				randomizeImageSources();
-			}
-
-			window.onload = randomizeContent;
-		</script>-->
 	</body>
 </html>
