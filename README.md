@@ -5,9 +5,9 @@ Candids - Random images from Bridges that didn't make it into the yearbooks<br>
 Quotes - The Official Unofficial Bridges Academy Quotebook, in the form of a webpage<br>
 
 There's also some things I code for practice. The public ones available are<br>
-Alec Clicker - An Alecified Coo<br>
-Snake - It's snake, but stupider!<br>
-Get Hit By a Train Simulator - A Roblox game about getting hit by a train (very stupid)<br>
+Alec Clicker - An Alecified Cookie Clicker<br>
+Snake - It's Snake, but with a few twists<br>
+Get Hit By a Train Simulator - A Roblox game about getting hit by a train<br>
 
 
 # Requests
