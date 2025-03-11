@@ -39,49 +39,11 @@ function Game() {
 	let autoclick14cost = 2100000000000000;
 	let autoclick15cost = 26000000000000000;
 	let autoclick16cost = 310000000000000000;
-	let autoclickamounts = {
-		ac1: 0,
-		ac2: 0,
-		ac3: 0,
-		ac4: 0,
-		ac5: 0,
-		ac6: 0,
-		ac7: 0,
-		ac8: 0,
-		ac9: 0,
-		ac10: 0,
-		ac11: 0,
-		ac12: 0,
-		ac13: 0,
-		ac14: 0,
-		ac15: 0,
-		ac16: 0
-	};
-	let timeplayed = {
-		weeks: 0,
-		days: 0,
-		hours: 0,
-		minutes: 0,
-		seconds: 0
-	};
+	let autoclickamounts = {ac1: 0, ac2: 0, ac3: 0, ac4: 0, ac5: 0, ac6: 0, ac7: 0, ac8: 0, ac9: 0, ac10: 0, ac11: 0, ac12: 0, ac13: 0, ac14: 0, ac15: 0, ac16: 0};
+	let timeplayed = {weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0};
 	const clickSFX = new Audio('audio/mcclick.mp3');
 	const errorSFX = new Audio('audio/error.mp3');
 	const purchaseSFX = new Audio('audio/purchase.mp3');
-	/*const autoclickSFX = new Audio('audio/autoclick.mp3');
-	const factorySFX = new Audio('audio/factory.mp3');
-	const scotlandSFX = new Audio('audio/scotland.mp3');
-	const flannelSFX = new Audio('audio/flannel.mp3');
-	const chairSFX = new Audio('audio/chair.mp3');
-	const duoSFX = new Audio('audio/spanish.mp3');
-	const trainSFX = new Audio('audio/train.mp3');
-	const milkSFX = new Audio('audio/milk.mp3');
-	const cloneSFX = new Audio('audio/clone.mp3');
-	const meowSFX = new Audio('audio/meow.mp3');
-	const chompSFX = new Audio('audio/chomp.mp3');
-	const summonSFX = new Audio('audio/summon.mp3');
-	const birdSFX = new Audio('audio/bird.mp3');
-	const whooshSFX = new Audio('audio/whoosh.mp3');
-	const buttonclickSFX = new Audio('audio/command.mp3');*/
 	const news = document.getElementById('news');
 	const alec = document.getElementById('alec');
 	const change = document.getElementById('change');
@@ -95,7 +57,7 @@ function Game() {
 	const wyattmodebutton = document.getElementById('wyattmode');
 	const changelogbutton = document.getElementById('changelogb');
 	const soonupg = document.getElementById('soonupg');
-	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, skinbutton, resetbutton, upgradesbutton, statsbutton, changelogbutton, aps, totalnum, timeplayedstat];
+	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, resetbutton, upgradesbutton, statsbutton, changelogbutton, num, aps, totalnum, timeplayedstat];
 	
 	const formatTime = (time) => {
 		const addZero = (num) => (num < 10 ? `0${num}` : `${num}`);
@@ -104,17 +66,11 @@ function Game() {
 
 
 	const parseTime = (timeString) => {
-		if (!timeString || timeString === "0") { return { weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }; }
+		if (!timeString || timeString === "0") {return{weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0}}
 
 		const parts = timeString.split(':').map(num => isNaN(parseInt(num)) ? 0 : parseInt(num));
 
-		return {
-			weeks: parts[0] ?? 0,
-			days: parts[1] ?? 0,
-			hours: parts[2] ?? 0,
-			minutes: parts[3] ?? 0,
-			seconds: parts[4] ?? 0
-		};
+		return {weeks: parts[0] ?? 0, days: parts[1] ?? 0, hours: parts[2] ?? 0, minutes: parts[3] ?? 0, seconds: parts[4] ?? 0};
 	}
 
 	const updateTimePlayed = () => {
@@ -311,10 +267,10 @@ function Game() {
 		document.getElementById(`autoclick16cost`).innerText = `$${abbreviateNumber(autoclick16cost)}`;
 	}
 
-	setInterval(saveProgress, 1000);
+	setInterval(saveProgress, 10000);
 
 	//skins
-	document.getElementById("files").addEventListener("change", function() {changeImage(this);});
+	document.getElementById("files").addEventListener("change", function() {changeImage(this)});
 
 	function changeImage(input) {
 		var reader;
@@ -346,57 +302,13 @@ function Game() {
 		document.getElementById('autoclick14cost').innerText = '$' + abbreviateNumber(autoclick14cost);
 		document.getElementById('autoclick15cost').innerText = '$' + abbreviateNumber(autoclick15cost);
 		document.getElementById('autoclick16cost').innerText = '$' + abbreviateNumber(autoclick16cost);
-		if (wyattmode === 1) {
-			alec.src = 'images/skins/why.jpeg';
+
+		if (uploadedSkin === "none") {
+			alec.src = 'images/skins/alec.png';
 		} else {
-			if (skin === 1) {
-				alec.src = alectype === 0 ? 'images/skins/abby.png' : (alectype === 1 ? 'images/skins/abby2.png' : 'images/skins/abby3.png');
-			} else if (skin === 2) {
-				alec.src = alectype === 0 ? 'images/skins/nate.png' : (alectype === 1 ? 'images/skins/nate2.png' : 'images/skins/nate3.png');
-			} else if (skin === 3) {
-				alec.src = alectype === 0 ? 'images/skins/dash.png' : (alectype === 1 ? 'images/skins/dash2.png' : 'images/skins/dash3.png');
-			} else if (skin === 4) {
-				alec.src = alectype === 0 ? 'images/skins/chris.png' : (alectype === 1 ? 'images/skins/chris2.png' : 'images/skins/chris3.png');
-			} else if (skin === 5) {
-				alec.src = alectype === 0 ? 'images/skins/ava.png' : (alectype === 1 ? 'images/skins/ava2.png' : 'images/skins/ava3.png');
-			} else if (skin === 6) {
-				alec.src = alectype === 0 ? 'images/skins/rence.png' : (alectype === 1 ? 'images/skins/rence2.png' : 'images/skins/rence3.png');
-			} else if (skin === 7) {
-				alec.src = alectype === 0 ? 'images/skins/riley.png' : (alectype === 1 ? 'images/skins/riley2.png' : 'images/skins/riley3.png');
-			} else if (skin === 8) {
-				alec.src = alectype === 0 ? 'images/skins/henry.png' : (alectype === 1 ? 'images/skins/henry2.png' : 'images/skins/henry3.png');
-			} else {
-				if (uploadedSkin === "none") {
-					alec.src = 'images/skins/alec.png'; //alectype === 0 ? 'images/skins/alec.png' : (alectype === 1 ? 'images/skins/alec.png' : 'images/skins/alec.png');
-				} else {
-					alec.src = uploadedSkin;
-				}
-			}
+			alec.src = uploadedSkin;
 		}
 	};
-
-	skinbutton.addEventListener('click', () => {
-		clickSFX.cloneNode().play();
-
-		const skinImages = {
-			alec: ['alec.png', 'alec.png', 'alec.png'],
-			abby: ['abby.png', 'abby2.png', 'abby3.png'],
-			nate: ['nate.png', 'nate2.png', 'nate3.png'],
-			dash: ['dash.png', 'dash2.png', 'dash3.png'],
-			chris: ['chris.png', 'chris2.png', 'chris3.png'],
-			ava: ['ava.png', 'ava2.png', 'ava3.png'],
-			rence: ['rence.png', 'rence2.png', 'rence3.png'],
-			riley: ['riley.png', 'riley2.png', 'riley3.png'],
-			henry: ['henry.png', 'henry2.png', 'henry3.png'],
-		};
-
-		const skinchange = prompt("Which skin do you want to use? (Alec, Abby, Nate, Dash, Chris, Ava, Rence, Riley, or Henry?)", "").toLowerCase();
-
-		if (skinImages.hasOwnProperty(skinchange)) {
-			skin = Object.keys(skinImages).indexOf(skinchange);
-			alec.src = `images/skins/${skinImages[skinchange][alectype]}`;
-		}
-	});
 
 	//menus
 	upgradesbutton.addEventListener('click', () => {
@@ -473,7 +385,6 @@ function Game() {
 
 				if (targetElement) {targetElement.innerText = (parseInt(targetElement.innerText) || 0) + 1}
 				autoclickamounts["ac" + (index + 1)] = (autoclickamounts["ac" + (index + 1)] || 0) + 1;
-				//console.log(`Updated ${"ac" + (index + 1)}:`, autoclickamounts["ac" + (index + 1)]);
 
 				saveProgress();
 			} else {
@@ -513,147 +424,52 @@ function Game() {
 
 	autoclickUpgrades.forEach((upgrade, index) => {addAutoclickListener(upgrade.element, upgrade.cost, upgrade.cpsMultiplier, index)});
 
-
 	//reset
 	resetbutton.addEventListener('click', () => {
-		clickSFX.cloneNode().play();
-		const yn = prompt("Do you want to reset? THERE IS NO UNDOING THIS!", "").toLowerCase();
-		if (["yes", "si", "yeah", "sure"].includes(yn)) {
-			alecAmount = 0;
-			totalAlecAmount = 0;
-			alectype = 0;
-			cps = 0;
-			timeplayed = 0;
-			boughtwyattmode = 0;
-			autoclick1cost = 15;
-			autoclick2cost = 100;
-			autoclick3cost = 1100;
-			autoclick4cost = 12000;
-			autoclick5cost = 130000;
-			autoclick6cost = 1400000;
-			autoclick7cost = 20000000;
-			autoclick8cost = 330000000;
-			autoclick9cost = 5100000000;
-			autoclick10cost = 75000000000;
-			autoclick11cost = 1000000000000;
-			autoclick12cost = 14000000000000;
-			autoclick13cost = 170000000000000;
-			autoclick14cost = 2100000000000000;
-			autoclick15cost = 26000000000000000;
-			autoclick16cost = 310000000000000000;
-			autoclickamounts = {
-				ac1: 0,
-				ac2: 0,
-				ac3: 0,
-				ac4: 0,
-				ac5: 0,
-				ac6: 0,
-				ac7: 0,
-				ac8: 0,
-				ac9: 0,
-				ac10: 0,
-				ac11: 0,
-				ac12: 0,
-				ac13: 0,
-				ac14: 0,
-				ac15: 0,
-				ac16: 0
-			};
-			saveProgress();
-			document.location.reload();
+		if (confirm("Do you want to erase your progress? There is no getting it back!") == true) {
+			if (confirm("Are you certain?") == true) {
+				localStorage.clear();
+				location.reload();
+			}
 		}
 	});
 
 	//changelog
 	changelog.addEventListener('click', () => {changelog.style.bottom = (changelog.style.bottom === "40%") ? "-100%" : changelog.style.bottom});
-
 	changelogbutton.addEventListener('click', () => {changelog.style.bottom = (changelog.style.bottom === "40%") ? "-100%" : "40%"});
 
 	//clicks
 	alec.addEventListener('click', () => {
-		const a = Math.ceil(cps * 0.6 + totalAlecAmount * 0.0006);
+		let clickAmount = Math.ceil(cps * 0.6 + totalAlecAmount * 0.0006);
+		if (clickAmount <= 0) clickAmount = 1;
 		clickSFX.cloneNode().play();
-		alecAmount += (a < 1) ? 1 : a;
-		totalAlecAmount += (a < 1) ? 1 : a;
+		alecAmount += (clickAmount < 1) ? 1 : clickAmount;
+		totalAlecAmount += (clickAmount < 1) ? 1 : clickAmount;
 		document.getElementById('totalnum').innerText = totalAlecAmount;
 		document.getElementById('num').innerText = 'Alecs: ' + alecAmount;
-		/*if (totalAlecAmount >= 50 && alectype === 0) {
-			alectype = 1;
-			const evolve = document.createElement('div');
-			evolve.textContent = "Your big Alec has evolved";
-			evolve.classList.add('add');
-			document.body.appendChild(evolve);
-		} else if (totalAlecAmount >= 500 && alectype === 1) {
-			alectype = 2;
-		}*/
+		const number = document.createElement('div');
+		number.textContent = "+" + abbreviateNumber(clickAmount);
+		number.classList.add('numberUp');
+		document.body.appendChild(number);
+		number.addEventListener("animationend", () => {
+			number.classList.remove('numberUp');
+			number.classList.add('numberDown');
+		})
+		number.style.left = event.clientX + 'px';
+		number.style.top = (event.clientY - 20) + 'px';
 
-		const add = document.createElement('div');
-		add.textContent = "+" + abbreviateNumber(a);
-		add.classList.add('add');
-		document.body.appendChild(add);
-
-		const x = event.clientX;
-		const y = event.clientY;
-		add.style.left = x + 'px';
-		add.style.top = (y - 20) + 'px';
-
-		setTimeout(() => {add.remove()}, 500);
+		setTimeout(() => {number.remove()}, 1500);
 		saveProgress();
 	});
 
 	alec.addEventListener('mousedown', () => {
-		if (wyattmode === 1) {
-			alec.src = 'images/skins/why.jpeg';
-		} else {
-			if (skin === 1) {
-				alec.src = alectype === 0 ? 'images/skins/abbymush.png' : (alectype === 1 ? 'images/skins/abby2mush.png' : 'images/skins/abby3mush.png');
-			} else if (skin === 2) {
-				alec.src = alectype === 0 ? 'images/skins/natemush.png' : (alectype === 1 ? 'images/skins/nate2mush.png' : 'images/skins/nate3mush.png');
-			} else if (skin === 3) {
-				alec.src = alectype === 0 ? 'images/skins/dashmush.png' : (alectype === 1 ? 'images/skins/dash2mush.png' : 'images/skins/dash3mush.png');
-			} else if (skin === 4) {
-				alec.src = alectype === 0 ? 'images/skins/chrismush.png' : (alectype === 1 ? 'images/skins/chris2mush.png' : 'images/skins/chris3mush.png');
-			} else if (skin === 5) {
-				alec.src = alectype === 0 ? 'images/skins/avamush.png' : (alectype === 1 ? 'images/skins/ava2mush.png' : 'images/skins/ava3mush.png');
-			} else if (skin === 6) {
-				alec.src = alectype === 0 ? 'images/skins/rencemush.png' : (alectype === 1 ? 'images/skins/rence2mush.png' : 'images/skins/rence3mush.png');
-			} else if (skin === 7) {
-				alec.src = alectype === 0 ? 'images/skins/rileymush.png' : (alectype === 1 ? 'images/skins/riley2mush.png' : 'images/skins/riley3mush.png');
-			} else if (skin === 8) {
-				alec.src = alectype === 0 ? 'images/skins/henrymush.png' : (alectype === 1 ? 'images/skins/henry2mush.png' : 'images/skins/henry3mush.png');
-			} else {
-				document.getElementById("aleccontainer").classList.add("expanded");
-				//alec.src = alectype === 0 ? 'images/skins/alecmush.png' : (alectype === 1 ? 'images/skins/alecmush.png' : 'images/skins/alecmush.png');
-			}
-		}
+		document.getElementById("aleccontainer").classList.add("expanded");
 	});
 
 	alec.addEventListener('mouseup', () => {
-		if (wyattmode === 1) {
-			alec.src = 'images/skins/why.jpeg';
-		} else {
-			if (skin === 1) {
-				alec.src = alectype === 0 ? 'images/skins/abby.png' : (alectype === 1 ? 'images/skins/abby2.png' : 'images/skins/abby3.png');
-			} else if (skin === 2) {
-				alec.src = alectype === 0 ? 'images/skins/nate.png' : (alectype === 1 ? 'images/skins/nate2.png' : 'images/skins/nate3.png');
-			} else if (skin === 3) {
-				alec.src = alectype === 0 ? 'images/skins/dash.png' : (alectype === 1 ? 'images/skins/dash2.png' : 'images/skins/dash3.png');
-			} else if (skin === 4) {
-				alec.src = alectype === 0 ? 'images/skins/chris.png' : (alectype === 1 ? 'images/skins/chris2.png' : 'images/skins/chris3.png');
-			} else if (skin === 5) {
-				alec.src = alectype === 0 ? 'images/skins/ava.png' : (alectype === 1 ? 'images/skins/ava2.png' : 'images/skins/ava3.png');
-			} else if (skin === 6) {
-				alec.src = alectype === 0 ? 'images/skins/rence.png' : (alectype === 1 ? 'images/skins/rence2.png' : 'images/skins/rence3.png');
-			} else if (skin === 7) {
-				alec.src = alectype === 0 ? 'images/skins/riley.png' : (alectype === 1 ? 'images/skins/riley2.png' : 'images/skins/riley3.png');
-			} else if (skin === 8) {
-				alec.src = alectype === 0 ? 'images/skins/henry.png' : (alectype === 1 ? 'images/skins/henry2.png' : 'images/skins/henry3.png');
-			} else {
-				document.getElementById("aleccontainer").classList.remove("expanded");
-				setTimeout(function() {document.getElementById("aleccontainer").classList.add("pop")}, 50);
-				setTimeout(function() {document.getElementById("aleccontainer").classList.remove("pop")}, 150);
-			}
-		}
+		document.getElementById("aleccontainer").classList.remove("expanded");
+		setTimeout(function() {document.getElementById("aleccontainer").classList.add("pop")}, 50);
+		setTimeout(function() {document.getElementById("aleccontainer").classList.remove("pop")}, 150);
 	});
 
 	//more
@@ -688,12 +504,13 @@ function Game() {
 							let amount = autoclickamounts[`ac${index + 1}`] || 0;
 							
 							if (amount > 0) {
-								let alecsPerSecond = amount * upgrade.cpsMultiplier;
-								let percentage = ((alecsPerSecond / cps) * 100).toFixed(2); 
-								
-								text += `${amount} ${upgrade.statname} making ${commifyNumber(alecsPerSecond)} Alecs per second (${percentage}%)\n`;
+								let alecsPerSecond = amount * upgrade.cpsMultiplier;								
+								text += `${amount} ${upgrade.statname} making ${commifyNumber(alecsPerSecond)} Alecs per second (${((alecsPerSecond / cps) * 100).toFixed(2)}%)\n`;
 							}
 						});
+						break;
+					case num:
+						text = commifyNumber(Math.floor(alecAmount));
 						break;
 					case totalnum:
 						text = commifyNumber(Math.floor(totalAlecAmount));
@@ -796,17 +613,26 @@ function Game() {
 					case soonupg:
 						text = "Waiting for the day that fine shyt finally relizes she's in love with me";
 						break;
-					case skinbutton:
-						text = "Make your Alecs look different!";
+					case statsbutton:
+						text = "View some statistics recorded from your adventure.";
 						break;
 					case resetbutton:
-						text = "BE CAREFUL WITH THIS!";
+						text = "Be careful with this!";
 						break;
 					case upgradesbutton:
 						text = "Get others to make Alecs so you don't have to!";
 						break;
 					case changelogbutton:
-						text = "View the changelog";
+						text = "View the changelog.";
+						break;
+					case changelogbutton:
+						text = "View the changelog.";
+						break;
+					case changelogbutton:
+						text = "View the changelog.";
+						break;
+					case changelogbutton:
+						text = "View the changelog.";
 						break;
 					default:
 						return "There's nothing here.";
@@ -815,9 +641,8 @@ function Game() {
 			};
 			updateText();
 
-			if (button === aps || button === totalnum) {
-				hoverInterval = setInterval(updateText, 100);
-			}
+			if (button === aps || button === totalnum) {hoverInterval = setInterval(updateText, 100)}
+			if (button === num) {hoverInterval = setInterval(updateText, 100)}
 		});
 
 		button.addEventListener('mouseout', () => {
@@ -875,7 +700,6 @@ function Game() {
 		lastFrameTime = currentTime;
 		requestAnimationFrame(updateAlecAmount);
 	}
-
 	requestAnimationFrame(updateAlecAmount);
 	startTimer();
 	updateDisplay();
