@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Image selection button remover -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script>
+			$("#fileInput").change(function() {
+				filename = this.files[0].name;
+				console.log(filename);
+			});
+		</script>
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BRY21G04WJ"></script>
 		<script>
@@ -42,44 +50,38 @@
 			<div id="maindiv">
 				<div>
 					<button id="change">
-						Show navbar
-					</button>
-					<button id="station">
-						Change station
+						Show Navbar
 					</button>
 					<b id="news" class="topslide">
-						3/7/24 has arrived
+						Welcome to Alec Clicker!
 					</b>
 					<br>
 					<br>
 					<br>
 					<span style="text-align: center;">
-						<button id="pform" class="txt bslide bslidea">
-							Want your pet to be featured? Click here!
-						</button>
+						<div>
+							<label for="files" id="fileSelectButton">Upload Custom Skin</label>
+							<input id="files" style="display:none;" type="file">
+						</div>						
 					</span>
 					<br>
 					<br>
-					<img src="images/skins/alec.png" id="alec" alt="alec" title="alec">
+					<div id="aleccontainer">
+						<img src="images/skins/alec.png" id="alec" alt="alec" title="alec">
+					</div>
 					<br>
 					<b id="num">
 						Alecs: 0
 					</b>
-					<b id="aps">
-						APS: 0
-					</b>
-					<b id="totalnum">
-						0
-					</b>
 					<br>
 					<br>
 					<button id="changelogb" class="bslide bslidea">
-						Click me for changelog!
+						Changelog
 					</button>
 					<br>
 					<br>
-					<button id="skin" class="bslide bslidea">
-						Skins
+					<button id="stats" class="bslide bslidea">
+						Stats
 					</button>
 					<button id="reset" class="bslide bslidea">
 						Reset
@@ -89,15 +91,18 @@
 					</button>
 					<br>
 					<br>
-					<button id="wyattmode" class="bslide bslidea">
-						BUY WYATT MODE FOR 100M
-					</button>
 					<div id="descbox">
 						youre not supposed to see this
 					</div>
 				</div>
 			</div>
 			<div id="upgradesdiv">
+				<h1 style="padding: 0; margin: 0;">
+					<div class="column">
+						Upgrades
+					</div>
+				</h1>
+				<br>
 				<button id="autoclick1" class="bslide bslidea">
 					Buy Autoclicker
 					<b id="autoclick1cost">$15</b>
@@ -109,86 +114,136 @@
 				</button>
 				<br>
 				<button id="autoclick3" class="bslide bslidea">
-					Buy Scotland
+					Buy Flannel Sewing Kit
 					<b id="autoclick3cost">$1100</b>
 				</button>
 				<br>
 				<button id="autoclick4" class="bslide bslidea">
-					Buy Flannel
+					Buy Flannel Farm
 					<b id="autoclick4cost">$12000</b>
 				</button>
 				<br>
 				<button id="autoclick5" class="bslide bslidea">
-					Buy Orange Chair
+					Buy Flannel Factory
 					<b id="autoclick5cost">$130000</b>
 				</button>
 				<br>
 				<button id="autoclick6" class="bslide bslidea">
-					Buy Duo the Owl
+					Buy Flannel Summoner
 					<b id="autoclick6cost">$1400000</b>
 				</button>
 				<br>
 				<button id="autoclick7" class="bslide bslidea">
-					Buy Train
+					Buy Flannel Duplicator
 					<b id="autoclick7cost">$20000000</b>
 				</button>
 				<br>
 				<button id="autoclick8" class="bslide bslidea">
-					Buy Milkshake
+					Buy Flannel Creating Wizard
 					<b id="autoclick8cost">$330000000</b>
 				</button>
 				<br>
 				<button id="autoclick9" class="bslide bslidea">
-					Buy Clone Machine
+					Buy A Flannel God Blessing
 					<b id="autoclick9cost">$5100000000</b>
 				</button>
 				<br>
 				<button id="autoclick10" class="bslide bslidea">
-					Buy Cat
+					Buy A Flannel Stealing Machine
 					<b id="autoclick10cost">$75000000000</b>
 				</button>
 				<br>
 				<button id="autoclick11" class="bslide bslidea">
-					Buy Filet 
+					Buy A Flannel Shipment From The Moon
 					<b id="autoclick11cost">$1000000000000</b>
 				</button>
 				<br>
 				<button id="autoclick12" class="bslide bslidea">
-					Buy Tape God
+					Buy A Treasure Room Full Of Flannels
 					<b id="autoclick12cost">$14000000000000</b>
 				</button>
 				<br>
 				<button id="autoclick13" class="bslide bslidea">
-					Buy Nostalgia
+					Buy A Flannelmaking Fiverr Offer
 					<b id="autoclick13cost">$170000000000000</b>
 				</button>
 				<br>
 				<button id="autoclick14" class="bslide bslidea">
-					Buy Spotify Playlist
+					Buy A Flannel Inhabited Universe
 					<b id="autoclick14cost">$2100000000000000</b>
 				</button>
 				<br>
 				<button id="autoclick15" class="bslide bslidea">
-					Buy Command Block
+					Buy One Trillion Lumberjacks
 					<b id="autoclick15cost">$26000000000000000</b>
 				</button>
 				<br>
-				<button id="soonupg2" class="bslide bsldiea cc">
-					...coming soon?
-					<b id="soonupg2" class="cc">$?</b>
+				<button id="autoclick16" class="bslide bslidea">
+					Buy Flannels In Time
+					<b id="autoclick16cost">$310000000000000000</b>
 				</button>
 				<br>
 				<button id="soonupg" class="bslide bslidea">
-					Coming when I get a gf <!--this may take a while-->
+					Coming when I get a girlfriend <!--this may take a while-->
 					<b id="soonupg">$?</b>
 				</button>
 			</div>
+			<div id="statsdiv">
+				<h1 style="padding: 0; margin: 0;">
+					<div class="column">
+						Stats
+					</div>
+				</h1>
+				<br>
+				<p id="statname" class="bslide bslidea">
+					Total Alecs:
+					<b id="totalnum" style="background: dodgerblue;">0</b>
+				</p>
+				<p id="statname" class="bslide bslidea">
+					Total Alecs Per Second:
+					<b id="aps" style="background: dodgerblue;">0</b>
+				</p>
+				<p id="statname" class="bslide bslidea">
+					Total Time Played:
+					<b id="timeplayed" style="background: dodgerblue;">0</b>
+				</p>
+				<p id="statname" class="bslide bslidea">
+					Total Clicks:
+					<b id="totalclicks" style="background: dodgerblue;">0</b>
+				</p>
+			</div>
 		</div>
-		<!--<div id="newalec">
-			<b id="newalecb" onclick="nbclick()">Click me to buy a new Alec!</b>
-		</div>-->
 		<div class="container"></div>
 		<b id="changelog">
+			Update v2.0 - The Reboot
+			<br>
+			- Added a new upgrade
+			<br>
+			- Renamed almost all upgrades, also adding new descriptions
+			<br>
+			- All that's left is the final upgrade. Someone get fine shyt in love with me
+			<br>
+			- The music radio station went bankrupt
+			<br>
+			- In addition, the news radio station had a budget cut
+			<br>
+			- To translate, no more music radio, and a lot of the unfunny news is gone
+			<br>
+			- Removed skins and Wyatt Mode, they were too stupid. However...
+			<br>
+			- You can now upload your own images to use as skins!
+			<br>
+			- Added a stats menu! Hover over the induvidual stats to find out more! There is a catch, though...
+			<br>
+			- Previous upgrades, time played, and clicks will not be counted, as they weren't tracked before. Sorry!!!
+			<br>
+			- Fixed a few bugs
+			<br>
+			- Some backend changes
+			<br>
+			- Much more
+			<br>
+			<br>
 			Update v1.1.3
 			<br>
 			- It's... coming soon? Oh my goodness, what's happening to the button?

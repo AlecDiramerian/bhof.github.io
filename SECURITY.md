@@ -1,11 +1,6 @@
 # Security Policy
-i don't really know what to put here sooooo
+dont hack it
 ## Supported Versions
-
-all
-
+a lot of browsers probably
 ## Reporting a Vulnerability
-
-email me at alecdiramerian@gmail.com
-or dm me on discord @alecdiramerian
-if you dont have gmail or discord just use the issues tab
+i'm gonna be honest i don't really now how a vulnerability would come up on this website since everything server based is third party, but if there is then use the issues tab
