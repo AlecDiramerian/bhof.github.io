@@ -9,9 +9,6 @@ function Game() {
 	//variables
 	let alecAmount = 0;
 	let totalAlecAmount = 0;
-	let alectype = 0;
-	let skin = 0;
-	let uploadedSkin = "none";
 	let cps = 0;
 	let timer;
 	let wyattmode = 0;
@@ -20,8 +17,7 @@ function Game() {
 	let upgradesonscreen = 0;
 	let statsonscreen = 0;
 	let navbarornews = 0;
-	let radioornews = 0;
-	let hoverInterval = null;
+	let totalClicks = 0;
 	let previousNewsIndex = -1;
 	let autoclick1cost = 15;
 	let autoclick2cost = 100;
@@ -41,6 +37,8 @@ function Game() {
 	let autoclick16cost = 310000000000000000;
 	let autoclickamounts = {ac1: 0, ac2: 0, ac3: 0, ac4: 0, ac5: 0, ac6: 0, ac7: 0, ac8: 0, ac9: 0, ac10: 0, ac11: 0, ac12: 0, ac13: 0, ac14: 0, ac15: 0, ac16: 0};
 	let timeplayed = {weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0};
+	let uploadedSkin = "none";
+	let hoverInterval = null;
 	const clickSFX = new Audio('audio/mcclick.mp3');
 	const errorSFX = new Audio('audio/error.mp3');
 	const purchaseSFX = new Audio('audio/purchase.mp3');
@@ -57,7 +55,8 @@ function Game() {
 	const wyattmodebutton = document.getElementById('wyattmode');
 	const changelogbutton = document.getElementById('changelogb');
 	const soonupg = document.getElementById('soonupg');
-	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, resetbutton, upgradesbutton, statsbutton, changelogbutton, num, aps, totalnum, timeplayedstat];
+	const header = document.getElementById('header');
+	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, resetbutton, upgradesbutton, statsbutton, changelogbutton, num, aps, totalnum, timeplayedstat, totalclicks];
 	
 	const formatTime = (time) => {
 		const addZero = (num) => (num < 10 ? `0${num}` : `${num}`);
@@ -91,7 +90,6 @@ function Game() {
 			timeplayed.weeks += Math.floor(timeplayed.days / 7);
 			timeplayed.days %= 7;
 		}
-		//console.log(timeplayed);
 		updateDisplay();
 	}
 	setInterval(updateTimePlayed, 1000);
@@ -119,22 +117,14 @@ function Game() {
 
 	const newsSelect = () => {
 		let randomIndex;
-		if (radioornews === 0) {
-			do {randomIndex = Math.floor(Math.random() * newslist.length);} while (randomIndex === previousNewsIndex);
-			previousNewsIndex = randomIndex;
-			const randomNewsItem = newslist[randomIndex];
-			return randomNewsItem;
-		} else {
-			do {randomIndex = Math.floor(Math.random() * radiolist.length);} while (randomIndex === previousNewsIndex);
-			previousNewsIndex = randomIndex;
-			const randomNewsItem = radiolist[randomIndex];
-			return randomNewsItem;
-		}
+		do {randomIndex = Math.floor(Math.random() * newslist.length)} while (randomIndex === previousNewsIndex);
+		previousNewsIndex = randomIndex;
+		const randomNewsItem = newslist[randomIndex];
+		return randomNewsItem;
 	};
 
 	const newsichooseyou = () => {
-		const finalnews = newsSelect();
-		if (radioornews === 0) {news.innerText = 'News: ' + finalnews} else {news.innerText = 'Radio: ' + finalnews}
+		news.innerText = 'News: ' + newsSelect();
 	};
 
 	news.addEventListener('click', () =>{
@@ -147,9 +137,8 @@ function Game() {
 	const loadProgress = () => {
 		if (localStorage.getItem('alecAmount')) alecAmount = parseInt(localStorage.getItem('alecAmount'));
 		if (localStorage.getItem('totalAlecAmount')) totalAlecAmount = parseInt(localStorage.getItem('totalAlecAmount'));
-		if (localStorage.getItem('alectype')) alectype = parseInt(localStorage.getItem('alectype'));
+		if (localStorage.getItem('totalClicks')) totalClicks = parseInt(localStorage.getItem('totalClicks'));
 		if (localStorage.getItem('cps')) cps = parseInt(localStorage.getItem('cps'));
-		if (localStorage.getItem('skin')) skin = parseInt(localStorage.getItem('skin'));
 		if (localStorage.getItem('timeplayed')) timeplayed = parseTime(localStorage.getItem('timeplayed'));
 		if (localStorage.getItem('autoclickamounts')) autoclickamounts = JSON.parse(localStorage.getItem('autoclickamounts'));
 		if (localStorage.getItem('autoclick1cost')) autoclick1cost = parseInt(localStorage.getItem('autoclick1cost'));
@@ -178,9 +167,8 @@ function Game() {
 		for (const key in autoclickamounts) sanitizedAutoclickAmounts[key] = isNaN(autoclickamounts[key]) ? 0 : autoclickamounts[key];
 		localStorage.setItem('alecAmount', alecAmount);
 		localStorage.setItem('totalAlecAmount', totalAlecAmount);
-		localStorage.setItem('alectype', alectype);
+		localStorage.setItem('totalClicks', totalClicks);
 		localStorage.setItem('cps', cps);
-		localStorage.setItem('skin', skin);
 		localStorage.setItem('timeplayed', formatTime(timeplayed));
 		localStorage.setItem('autoclickamounts', JSON.stringify(sanitizedAutoclickAmounts));
 		localStorage.setItem('autoclick1cost', autoclick1cost);
@@ -286,6 +274,7 @@ function Game() {
 		document.getElementById('aps').innerText = abbreviateNumber(cps);
 		document.getElementById('totalnum').innerText = abbreviateNumber(totalAlecAmount);
 		document.getElementById('timeplayed').innerText = formatTime(timeplayed);
+		document.getElementById('totalclicks').innerText = abbreviateNumber(totalClicks);
 		document.getElementById('autoclick1cost').innerText = '$' + abbreviateNumber(autoclick1cost);
 		document.getElementById('autoclick2cost').innerText = '$' + abbreviateNumber(autoclick2cost);
 		document.getElementById('autoclick3cost').innerText = '$' + abbreviateNumber(autoclick3cost);
@@ -380,12 +369,9 @@ function Game() {
 				} else if (element === autoclick16) {
 					autoclick16cost = cost;
 				}
-
 				const targetElement = document.getElementById(element.id + 'total');
-
 				if (targetElement) {targetElement.innerText = (parseInt(targetElement.innerText) || 0) + 1}
 				autoclickamounts["ac" + (index + 1)] = (autoclickamounts["ac" + (index + 1)] || 0) + 1;
-
 				saveProgress();
 			} else {
 				errorSFX.cloneNode().play();
@@ -443,10 +429,12 @@ function Game() {
 		let clickAmount = Math.ceil(cps * 0.6 + totalAlecAmount * 0.0006);
 		if (clickAmount <= 0) clickAmount = 1;
 		clickSFX.cloneNode().play();
+		totalClicks += 1;
 		alecAmount += (clickAmount < 1) ? 1 : clickAmount;
 		totalAlecAmount += (clickAmount < 1) ? 1 : clickAmount;
 		document.getElementById('totalnum').innerText = totalAlecAmount;
 		document.getElementById('num').innerText = 'Alecs: ' + alecAmount;
+		updateDisplay();
 		const number = document.createElement('div');
 		number.textContent = "+" + abbreviateNumber(clickAmount);
 		number.classList.add('numberUp');
@@ -457,12 +445,12 @@ function Game() {
 		})
 		number.style.left = event.clientX + 'px';
 		number.style.top = (event.clientY - 20) + 'px';
-
-		setTimeout(() => {number.remove()}, 1500);
 		saveProgress();
+		setTimeout(() => {number.remove()}, 1500);
 	});
 
 	alec.addEventListener('mousedown', () => {
+
 		document.getElementById("aleccontainer").classList.add("expanded");
 	});
 
@@ -497,12 +485,9 @@ function Game() {
 				switch (button) {
 					case aps:
 						const upgradeTextElement = document.getElementById(button.id);
-
-						text = commifyNumber(Math.floor(cps)) + "\n";
-
+						text = commifyNumber(Math.floor(cps)) + `\n`;
 						autoclickUpgrades.forEach((upgrade, index) => {
 							let amount = autoclickamounts[`ac${index + 1}`] || 0;
-							
 							if (amount > 0) {
 								let alecsPerSecond = amount * upgrade.cpsMultiplier;								
 								text += `${amount} ${upgrade.statname} making ${commifyNumber(alecsPerSecond)} Alecs per second (${((alecsPerSecond / cps) * 100).toFixed(2)}%)\n`;
@@ -515,6 +500,9 @@ function Game() {
 					case totalnum:
 						text = commifyNumber(Math.floor(totalAlecAmount));
 						break;
+					case totalclicks:
+						text = commifyNumber(Math.floor(totalClicks));
+						break;
 					case timeplayedstat:
 						let timemessage;
 						const totalSeconds = 
@@ -524,125 +512,115 @@ function Game() {
 							(timeplayed.minutes * 60) +
 							timeplayed.seconds;
 						if (totalSeconds < 5 * 60) {
-							timemessage = "You've just started your adventure.";
+							timemessage = `You've just started your adventure.`;
 						} else if (totalSeconds < 30 * 60) {
-							timemessage = "You're getting the hang of this.";
+							timemessage = `You're getting the hang of this.`;
 						} else if (totalSeconds < 2 * 60 * 60) {
-							timemessage = "You've been working for a little while now.";
+							timemessage = `You've been working for a little while now.`;
 						} else if (totalSeconds < 8 * 60 * 60) {
-							timemessage = "You've started to think about flannels.";
+							timemessage = `You've started to think about flannels.`;
 						} else if (totalSeconds < 24 * 60 * 60) {
-							timemessage = "You've worked a 9-5, but you still want to keep going.";
+							timemessage = `You've worked a 9-5, but you still want to keep going.`;
 						} else if (totalSeconds < 3 * 24 * 60 * 60) {
-							timemessage = "You've worked for a day. No side effects yet.";
+							timemessage = `You've worked for a day. No side effects yet.`;
 						} else if (totalSeconds < 7 * 24 * 60 * 60) {
-							timemessage = "You've started to see flannels that aren't there.";
+							timemessage = `You've started to see flannels that aren't there.`;
 						} else if (totalSeconds < 11 * 24 * 60 * 60) {
-							timemessage = "You feel your brain changing.";
+							timemessage = `You feel your brain changing.`;
 						} else if (totalSeconds < 3 * 7 * 24 * 60 * 60) {
-							timemessage = "You broke a Guinness World Record for staying up for over 11 days.";
+							timemessage = `You broke a Guinness World Record for staying up for over 11 days.`;
 						} else if (totalSeconds < 4 * 7 * 24 * 60 * 60) {
-							timemessage = "Your family is worried about you.";
+							timemessage = `Your family is worried about you.`;
 						} else if (totalSeconds < 5 * 7 * 24 * 60 * 60) {
-							timemessage = "Your sleepless weeks are in the news.";
+							timemessage = `Your sleepless weeks are in the news.`;
 						} else if (totalSeconds < 6 * 7 * 24 * 60 * 60) {
-							timemessage = "Your mind is breaking.";
+							timemessage = `Your mind is breaking.`;
 						} else if (totalSeconds < 7 * 7 * 24 * 60 * 60) {
-							timemessage = "You're transcending reality.";
+							timemessage = `You're transcending reality.`;
 						} else if (totalSeconds < 8 * 7 * 24 * 60 * 60) {
-							timemessage = "God is getting worried.";
+							timemessage = `God is getting worried.`;
 						} else if (totalSeconds < 9 * 7 * 24 * 60 * 60) {
-							timemessage = "The world military can no longer stop you.";
+							timemessage = `The world military can no longer stop you.`;
 						} else if (totalSeconds < 10 * 7 * 24 * 60 * 60) {
-							timemessage = "Even Christopher Laurence can't stop you.";
+							timemessage = `Even Christopher Laurence can't stop you.`;
 						} else if (totalSeconds < 54 * 7 * 24 * 60 * 60) {
-							timemessage = "You are the world. You are everything. You need to go outside. Now.";
+							timemessage = `You are the world. You are everything. You need to go outside. Now.`;
 						} else {
-							timemessage = "You have played Alec Clicker for over a year. Stop.";
+							timemessage = `You have played Alec Clicker for over a year. Stop.`;
 						}
 						text = timemessage;
 						break;
 					case autoclick1:
-						text = "Not sure how this works, but hey, free Alecs!";
+						text = `Not sure how this works, but it's free Alecs, so...`;
 						break;
 					case autoclick2:
-						text = "Like a baby factory, but better";
+						text = `A refurbished baby factory. What? Yes, that's where babies come from. Duh.`;
 						break;
 					case autoclick3:
-						text = "Grandma would be proud";
+						text = `Grandma would be proud. Keyword WOULD. She's dead.`;
 						break;
 					case autoclick4:
-						text = "Local Stardew Valley players HATE this ONE TRICK";
+						text = `Local Stardew Valley players HATE this ONE TRICK.`;
 						break;
 					case autoclick5:
-						text = "Pump out flannels like I pumped... gas";
+						text = `Pump out flannels like I pumped... gas.`;
 						break;
 					case autoclick6:
-						text = "Command Blocks are real! Don't you know?";
+						text = `Command Blocks are real! Don't you know?`;
 						break;
 					case autoclick7:
-						text = "Hey, anything is possible, right?";
+						text = `Hey, anything is possible, right?`;
 						break;
 					case autoclick8:
-						text = "Love this guy. Met him at a party and we clicked instantly";
+						text = `Love this guy. Met him at a party and we clicked instantly. Really great dude.`;
 						break;
 					case autoclick9:
-						text = "Technically, this money is just a bribe to the churches, but shhhhhh";
+						text = `Technically, this money is actually just a bribe to the churches. This is a reference to the fact that Bridges is miserly and won't fix thier campus or students (not naming names but NINTH GRADE)`;
 						break;
 					case autoclick10:
-						text = "Works like a charm. Just remember not to take mine...";
+						text = `Works like a charm. Just remember not to take mine...`;
 						break;
 					case autoclick11:
-						text = "You'll get a bunch of flannels, but the best part is that they're from ZE MOOOOOOON!!!";
+						text = `You'll get a bunch of flannels, but the best part is that they're from ZE MOOOOOOON!!!`;
 						break;
 					case autoclick12:
-						text = "Well, actually, you 'buy' an expidition to a treasure room...";
+						text = `Well, actually, you fund an expedition to a treasure room...`;
 						break;
 					case autoclick13:
-						text = "I'm sure It's legit!";
+						text = `I'm sure it's legit!`;
 						break;
 					case autoclick14:
-						text = "It's a really nice place to vacation";
+						text = `It's a really nice place to vacation. The locals are super friendly.`;
 						break;
 					case autoclick15:
-						text = "No, this is not slavery. These lumberjacks are paid... in... uh... weed";
+						text = `The money used for this upgrade doesn't go to the Lumberjacks, it goes to charaties and orphanages and childrens hospitals- nah I'm kidding it goes to terrorist groups.`;
 						break;
 					case autoclick16:
-						text = "Ah, the classic vintage flannels! The modern day flannels! The futuristic flannels with jetpacks!";
+						text = `Ah, the classic vintage flannels! The modern day flannels! The futuristic flannels with jetpacks!`;
 						break;
 					case soonupg:
-						text = "Waiting for the day that fine shyt finally relizes she's in love with me";
+						text = `Waiting for the day that fine shyt finally relizes she's in love with me. "Live & learn, hanging on the edge of tomorrow."`;
 						break;
 					case statsbutton:
-						text = "View some statistics recorded from your adventure.";
+						text = `View some statistics recorded from your adventure.`;
 						break;
 					case resetbutton:
-						text = "Be careful with this!";
+						text = `Be careful with this!`;
 						break;
 					case upgradesbutton:
-						text = "Get others to make Alecs so you don't have to!";
+						text = `Get others to make Alecs so you don't have to!`;
 						break;
 					case changelogbutton:
-						text = "View the changelog.";
-						break;
-					case changelogbutton:
-						text = "View the changelog.";
-						break;
-					case changelogbutton:
-						text = "View the changelog.";
-						break;
-					case changelogbutton:
-						text = "View the changelog.";
+						text = `View the changelog.`;
 						break;
 					default:
-						return "There's nothing here.";
+						return `There's nothing here. How the hell did you even get this message?`;
 				}
 				handleMouseOver(event, text);
 			};
 			updateText();
 
-			if (button === aps || button === totalnum) {hoverInterval = setInterval(updateText, 100)}
-			if (button === num) {hoverInterval = setInterval(updateText, 100)}
+			if (button === aps || button === totalnum || button === num || button === totalclicks) {hoverInterval = setInterval(updateText, 100)}
 		});
 
 		button.addEventListener('mouseout', () => {
@@ -653,8 +631,6 @@ function Game() {
 
 	change.addEventListener('click', () => {
 		clickSFX.cloneNode().play();
-
-		const header = document.getElementById('header');
 
 		if (navbarornews === 0) {
 			navbarornews = 1;
@@ -674,18 +650,6 @@ function Game() {
 			header.style.display = "block";
 			news.style.display = "block";
 			change.innerText = "Show navbar";
-		}
-	});
-
-	station.addEventListener('click', () => {
-		if (navbarornews === 0) {
-			clickSFX.cloneNode().play();
-
-			if (radioornews === 0) {
-				radioornews = 1;
-			} else {
-				radioornews = 0;
-			}
 		}
 	});
 
