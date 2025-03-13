@@ -103,6 +103,7 @@
 		</style>
 	</head>
 	<body>
+    
 		<header>
 			<img onclick="showHome()" src="images/smallogo.png" class="logo hover bhoflogo">
 			<img onclick="openRepo()" src="images/ghlogowhite.png" class="logo g hover">
@@ -117,7 +118,13 @@
 			</nav>
 		</header>
 		<div class="error">
-			<img src="images/alecsleep.png" style="width: 25vw;">
+            <audio src="audio/tf2crit.mp3" id=tf2crit type=mpeg></audio>
+            <input type="image" src="images/alecsleep.png" name="deadAlec" class="btTxt submit" id="deadAlec" onClick="playMyAudio()">
+                <script>
+                    function playMyAudio(){
+                        document.getElementById("tf2crit").play();
+                    }
+                </script>
 			<br>
 			Looks like something went wrong. Try going to a different page, checking your spelling, refreshing the page, clearing your cookies, or checking your internet. This error is in comic sans because I'm sad :( 
 		</div>
