@@ -79,6 +79,10 @@ b {
     animation: buttonSlideIn 1s forwards;
 }
 
+.stayinplace {
+    position: sticky !important;
+}
+
 #alec {
     background-color: white;
     padding: 10px;
