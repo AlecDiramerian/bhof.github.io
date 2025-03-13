@@ -1,21 +1,4 @@
 /*main stuff*/
-
-.tutorial {
-    pointer-events: none;
-    filter: brightness(50%);
-}
-
-.notutorial {
-    pointer-events: all;
-    filter: brightness(100%);
-    z-index: 1231241;
-}
-.highlight {
-    outline: 3px solid yellow;
-    border-radius: 5px;
-    z-index: 1002;
-    position: relative;
-}
 html, #bg {
     height: 100%;
     width: 100%;
