@@ -46,13 +46,142 @@
 			<br>
 			<b>Loading...</b>
 		</div>
-		<div id="content">
-			<div id="maindiv">
-				<div>
+		<div id="ldiv">left</div>
+		<div id="rdiv">
+			<h1 style="padding: 5px 0; margin: 0;">
+				<button id="upgrades" class="column rswitch">
+					Upgrades
+				</button>
+				<button id="stats" class="column rswitch">
+					Stats
+				</button>
+			</h1>
+			<hr>
+			<div id="ucontainer">
+				<button id="autoclick1" class="bslide buttoncontainer">
+					Autoclicker
+					<b id="autoclick1cost">$15</b>
+				</button>
+				<br>
+				<button id="autoclick2" class="bslide buttoncontainer">
+					Factory
+					<b id="autoclick2cost">$100</b>
+				</button>
+				<br>
+				<button id="autoclick3" class="bslide buttoncontainer">
+					Sewing Kit
+					<b id="autoclick3cost">$1100</b>
+				</button>
+				<br>
+				<button id="autoclick4" class="bslide buttoncontainer">
+					Farm
+					<b id="autoclick4cost">$12000</b>
+				</button>
+				<br>
+				<button id="autoclick5" class="bslide buttoncontainer">
+					Factory II
+					<b id="autoclick5cost">$130000</b>
+				</button>
+				<br>
+				<button id="autoclick6" class="bslide buttoncontainer">
+					Summoner
+					<b id="autoclick6cost">$1400000</b>
+				</button>
+				<br>
+				<button id="autoclick7" class="bslide buttoncontainer">
+					Duplicator
+					<b id="autoclick7cost">$20000000</b>
+				</button>
+				<br>
+				<button id="autoclick8" class="bslide buttoncontainer">
+					Wizard
+					<b id="autoclick8cost">$330000000</b>
+				</button>
+				<br>
+				<button id="autoclick9" class="bslide buttoncontainer">
+					Blessing
+					<b id="autoclick9cost">$5100000000</b>
+				</button>
+				<br>
+				<button id="autoclick10" class="bslide buttoncontainer">
+					Stealing Machine
+					<b id="autoclick10cost">$75000000000</b>
+				</button>
+				<br>
+				<button id="autoclick11" class="bslide buttoncontainer">
+					Moon Flannels
+					<b id="autoclick11cost">$1000000000000</b>
+				</button>
+				<br>
+				<button id="autoclick12" class="bslide buttoncontainer">
+					Treasure Room
+					<b id="autoclick12cost">$14000000000000</b>
+				</button>
+				<br>
+				<button id="autoclick13" class="bslide buttoncontainer">
+					Fiverr Offer
+					<b id="autoclick13cost">$170000000000000</b>
+				</button>
+				<br>
+				<button id="autoclick14" class="bslide buttoncontainer">
+					Flannelverse
+					<b id="autoclick14cost">$2100000000000000</b>
+				</button>
+				<br>
+				<button id="autoclick15" class="bslide buttoncontainer">
+					1T Lumberjacks
+					<b id="autoclick15cost">$26000000000000000</b>
+				</button>
+				<br>
+				<button id="autoclick16" class="bslide buttoncontainer">
+					Flannels In Time
+					<b id="autoclick16cost">$310000000000000000</b>
+				</button>
+				<br>
+				<button id="soonupg" class="bslide buttoncontainer">
+					Coming when I get a girlfriend <!--I CAN FEEL IT IM SO CLOSE-->
+					<b id="soonupg">$?</b>
+				</button>
+				<button id="soonupg" class="bslide buttoncontainer">
+					Coming before v3.0
+					<b id="soonupg">$?</b>
+				</button>
+				<button id="soonupg" class="bslide buttoncontainer">
+					Coming in v3.0
+					<b id="soonupg">$?</b>
+				</button>
+				<button id="soonupg" class="bslide buttoncontainer">
+					Coming on BAHS '27 graduation
+					<b id="soonupg">$?</b>
+				</button>
+			</div>
+			<div id="scontainer" style="display: none;">
+				<p id="statname" class="bslide bslidea">
+					Total Alecs:
+					<b id="totalnum" style="background: dodgerblue;">0</b>
+				</p>
+				<p id="statname" class="bslide bslidea">
+					Total Alecs Per Second:
+					<b id="aps" style="background: dodgerblue;">0</b>
+				</p>
+				<p id="statname" class="bslide bslidea">
+					Total Time Played:
+					<b id="timeplayed" style="background: dodgerblue;">0</b>
+				</p>
+				<p id="statname" class="bslide bslidea">
+					Total Clicks:
+					<b id="totalclicks" style="background: dodgerblue;">0</b>
+				</p>
+			</div>
+		</div>
+		<div id="mdiv">middle</div>
+		<div id="content" style="display: none !important;">
+			<div id="maindiv" class="mcontainer">
+				<div id="clickerdiv">
 					<button id="change">
 						Show Navbar
 					</button>
-					<b id="news" class="topslide">
+					<b id="news" class="topslide" style="display:none">
 						Welcome to Alec Clicker!
 					</b>
 					<br>
@@ -73,151 +202,19 @@
 					<b id="num">
 						Alecs: 0
 					</b>
-					<br>
-					<br>
+
 					<button id="changelogb" class="bslide bslidea stayinplace">
 						Changelog
 					</button>
-					<br>
-					<br>
-					<button id="stats" class="bslide bslidea stayinplace">
-						Stats
-					</button>
-					<br>
-					<br>
-					<button id="reset" class="bslide bslidea stayinplace">
+					<button id="reset" class="bslide buttonlock rstbl">
 						Reset
 					</button>
-					<br>
-					<br>
-					<button id="upgrades" class="bslide bslidea stayinplace">
-						Upgrades
-					</button>
-					<br>
-					<br>
 					<div id="descbox">
 						youre not supposed to see this
 					</div>
 				</div>
 			</div>
-			<div id="upgradesdiv">
-				<h1 style="padding: 0; margin: 0;">
-					<div class="column">
-						Upgrades
-					</div>
-				</h1>
-				<br>
-				<button id="autoclick1" class="bslide bslidea">
-					Buy Autoclicker
-					<b id="autoclick1cost">$15</b>
-				</button>
-				<br>
-				<button id="autoclick2" class="bslide bslidea">
-					Buy Alec Factory
-					<b id="autoclick2cost">$100</b>
-				</button>
-				<br>
-				<button id="autoclick3" class="bslide bslidea">
-					Buy Flannel Sewing Kit
-					<b id="autoclick3cost">$1100</b>
-				</button>
-				<br>
-				<button id="autoclick4" class="bslide bslidea">
-					Buy Flannel Farm
-					<b id="autoclick4cost">$12000</b>
-				</button>
-				<br>
-				<button id="autoclick5" class="bslide bslidea">
-					Buy Flannel Factory
-					<b id="autoclick5cost">$130000</b>
-				</button>
-				<br>
-				<button id="autoclick6" class="bslide bslidea">
-					Buy Flannel Summoner
-					<b id="autoclick6cost">$1400000</b>
-				</button>
-				<br>
-				<button id="autoclick7" class="bslide bslidea">
-					Buy Flannel Duplicator
-					<b id="autoclick7cost">$20000000</b>
-				</button>
-				<br>
-				<button id="autoclick8" class="bslide bslidea">
-					Buy Flannel Creating Wizard
-					<b id="autoclick8cost">$330000000</b>
-				</button>
-				<br>
-				<button id="autoclick9" class="bslide bslidea">
-					Buy A Flannel God Blessing
-					<b id="autoclick9cost">$5100000000</b>
-				</button>
-				<br>
-				<button id="autoclick10" class="bslide bslidea">
-					Buy A Flannel Stealing Machine
-					<b id="autoclick10cost">$75000000000</b>
-				</button>
-				<br>
-				<button id="autoclick11" class="bslide bslidea">
-					Buy A Flannel Shipment From The Moon
-					<b id="autoclick11cost">$1000000000000</b>
-				</button>
-				<br>
-				<button id="autoclick12" class="bslide bslidea">
-					Buy A Treasure Room Full Of Flannels
-					<b id="autoclick12cost">$14000000000000</b>
-				</button>
-				<br>
-				<button id="autoclick13" class="bslide bslidea">
-					Buy A Flannelmaking Fiverr Offer
-					<b id="autoclick13cost">$170000000000000</b>
-				</button>
-				<br>
-				<button id="autoclick14" class="bslide bslidea">
-					Buy A Flannel Inhabited Universe
-					<b id="autoclick14cost">$2100000000000000</b>
-				</button>
-				<br>
-				<button id="autoclick15" class="bslide bslidea">
-					Buy One Trillion Lumberjacks
-					<b id="autoclick15cost">$26000000000000000</b>
-				</button>
-				<br>
-				<button id="autoclick16" class="bslide bslidea">
-					Buy Flannels In Time
-					<b id="autoclick16cost">$310000000000000000</b>
-				</button>
-				<br>
-				<button id="soonupg" class="bslide bslidea">
-					Locked - Coming when I get a girlfriend <!--this may take a while-->
-					<b id="soonupg">$?</b>
-				</button>
-			</div>
-			<div id="statsdiv">
-				<h1 style="padding: 0; margin: 0;">
-					<div class="column">
-						Stats
-					</div>
-				</h1>
-				<br>
-				<p id="statname" class="bslide bslidea">
-					Total Alecs:
-					<b id="totalnum" style="background: dodgerblue;">0</b>
-				</p>
-				<p id="statname" class="bslide bslidea">
-					Total Alecs Per Second:
-					<b id="aps" style="background: dodgerblue;">0</b>
-				</p>
-				<p id="statname" class="bslide bslidea">
-					Total Time Played:
-					<b id="timeplayed" style="background: dodgerblue;">0</b>
-				</p>
-				<p id="statname" class="bslide bslidea">
-					Total Clicks:
-					<b id="totalclicks" style="background: dodgerblue;">0</b>
-				</p>
-			</div>
 		</div>
-		<div class="container"></div>
 		<b id="changelog">
 			Update v2.0 - The Reboot
 			<br>
