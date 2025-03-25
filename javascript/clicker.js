@@ -58,7 +58,7 @@ function Game() {
 	const changelogbutton = document.getElementById('changelogb');
 	const soonupg = document.getElementById('soonupg');
 	const header = document.getElementById('header');
-	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, resetbutton, upgradesbutton, statsbutton, changelogbutton, num, aps, totalnum, timeplayedstat, totalclicks];
+	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, resetbutton, upgradesbutton, statsbutton, changelogbutton, num, aps, totalnum, timeplayedstat, totalclicks, fileSelectButton];
 	
 	const formatTime = (time) => {
 		const addZero = (num) => (num < 10 ? `0${num}` : `${num}`);
@@ -129,7 +129,7 @@ function Game() {
 		news.innerText = 'News: ' + newsSelect();
 	};
 
-	news.addEventListener('click', () =>{
+	news.addEventListener('click', () => {
 		newsichooseyou();
 		clearInterval(timer);
 		startTimer();
@@ -324,7 +324,7 @@ function Game() {
 		}
 		else {
 			upgradesbutton.innerText = 'Upgrades';
-			changelogbutton.innerText = 'changelog';
+			changelogbutton.innerText = 'Changelog';
 		}
 	};
 	//mdiv
@@ -633,6 +633,9 @@ function Game() {
 						text = `Get others to make Alecs so you don't have to!`;
 						break;
 					case changelogbutton:
+						text = `View the changelog.`;
+						break;
+					case fileSelectButton:
 						text = `View the changelog.`;
 						break;
 					default:

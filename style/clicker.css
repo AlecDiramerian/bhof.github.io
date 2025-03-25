@@ -10,8 +10,9 @@ html, #bg {
     align-items: center;
     text-align: center;
     z-index: 0;
-    overflow: auto !important;
+    overflow: hidden !important;
     touch-action: manipulation;
+    user-select: none;
 }
 
 header {
@@ -34,6 +35,7 @@ footer {
     height: 50%;
     position: sticky !important;
     padding: 0.5% 0 2% 0;
+    margin-top: 0.5%;
 }
 
 #num {
@@ -47,7 +49,7 @@ footer {
     height: 100vh;
     background-color: lightskyblue;
     padding: 0 0.5%;
-    display: flex;
+    display: inline;
     position: relative;
     border-radius: 0 15px 15px 0;
 }
@@ -156,22 +158,24 @@ footer {
     font-size: 20px;
 }
 
-#fileSelectButton {
+#fileSelectButton, #changelogb, #reset {
     border-width: 2px;
     border-style: outset;
     border-color: buttonborder;
     border-image: initial;
+    display: inline-block;
 }
 
 header button:hover, #change:hover {
     background-color: floralwhite;
 }
 
-.navbarlink, #change, #station, #fileSelectButton {
+.navbarlink, #change, #station, #fileSelectButton, #changelogb, #reset  {
     border-radius: 15px;
     border-color: dodgerblue !important;
     font-family: "Karla", sans-serif;
     font-size: 20px;
+    color: black;
     background-color: white;
     padding: 5px;
     border-radius: 15px;
@@ -218,7 +222,8 @@ b {
     padding: 1%;
     border-radius: 50%;
     width: 25%;
-    height: revert;    animation: rotate 5s infinite linear;
+    height: revert;
+    animation: rotate 5s infinite linear;
     pointer-events: all;
 }
 
@@ -312,19 +317,23 @@ b {
 }
 
 #changelog {
-    all:revert;
     position: fixed;
-    bottom: -100%;
+    right: 50%;
+    width: 50%;
+    transform: translateX(50%);
     max-height: 50%;
     overflow-y: auto;
+    bottom: -100%;
     transition: bottom 0.5s;
     opacity: 0.9;
+    z-index: 100;
 }
 
 #loading img {
     width: 500px;
     height: 500px;
     border-radius: 15px;
+    z-index: 100;
 }
 
 .slider {
@@ -349,6 +358,7 @@ b {
     opacity: 1;
     animation: numberUp 0.5s ease-out forwards;
     pointer-events: none;
+    z-index: 2;
 }
 
 .numberDown {
@@ -360,6 +370,8 @@ b {
     opacity: 1;
     animation: numberDown 1s ease-in forwards;
     pointer-events: none;
+        z-index: 2;
+
 }
 
 .fall {
