@@ -18,7 +18,6 @@ export const newslist = [
 	`I AM AN OPTIMUS PRIME EARTHER. THE EARTH IS SHAPED LIKE OPTIMUS PRIME, AND IT IS TRUE. YOU CANNOT DENY IT.`,
 	`the Scottius Swickius of The Bridgium Acadimium has been notified about your Alec buisness`,
 	`Researchers provide evidence that Christopher Laurence is more powerful than God, Jod, Thor, Zeus, Allah, and Buddha, all combined`,
-	`PERRY THE SCHLOGGINATOR IS AT MY HOUSE! HE'S COMING FOR ME!!!`,
 	`Rooms? I was rooms once. They crazied me in a lock. A rats lock. A rats locked full of crazy, and crazy makes me rooms.`,
 	`im running out of things to put here`,
 	`Mr. Long I don't feel so good`,
@@ -26,4 +25,19 @@ export const newslist = [
 	`tal got a LOWWWWW TAPEERRRR FADEEE`,
 	`"bro Gru is so mean. i married the moon and then THE MFER STOLE IT! DIABOLICAL!" says Fester in an interview`,
 	`Alec Clicker receives a long awaited update`,
+	`People come from distant planets to try your Alecs`,
+];
+
+export const tiplist = [
+	`Click the big picture of Alec to start gaining Alecs!`,
+	`Buy upgrades to automatically create Alecs!`,
+	`Hover your cursor over everything, It might have something to say!`,
+	`The game saves every time the Alec is clicked, every time an upgrade is bought, and every 10 seconds!`,
+	`Follow @bridges_hof on Instagram for Alec Clicker and Bridges Hall of Fame related news!`,
+	`Find a bug or have a suggestion? Create an issue or pull request on GitHub!`,
+	`Need to leave for a while? You can keep the tab open and do something on another window, your upgrades still work!`,
+	`Everything saves! Some values from before v2.0 them won't be listed on the stats tab due to them not being tracked.`,
+	`Want to play on the go? Alec Clicker (kinda) works on mobile! Unfortunately, your stats will differ.`,
+	`You can click the newsbar to advance it!`,
+	`More content and tips will come in the future!`,
 ];

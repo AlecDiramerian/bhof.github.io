@@ -1,9 +1,11 @@
 /*jshint esversion: 6 */
-import {newslist} from './news.js'
+import {newslist, tiplist} from './news.js'
 window.addEventListener('load', function() {
 	document.getElementById('loading').style.display = 'none';
-	document.getElementById('content').style.display = 'block';
+	document.getElementById('bg').style.display = 'block';
 	if (window.innerWidth < 768) document.getElementById('upgrades').innerText = 'Upgs.';
+	if (window.innerWidth < 413) document.getElementById('changelogb').innerText = 'C.Logs';
+
 	Game();
 });
 function Game() {
@@ -16,10 +18,9 @@ function Game() {
 	let lastFrameTime = performance.now();
 	let boughtwyattmode = 0;
 	let rightdivtab = 0;
-	let statsonscreen = 0;
-	let navbarornews = 0;
 	let totalClicks = 0;
 	let previousNewsIndex = -1;
+	let tipIndex = -1;
 	let autoclick1cost = 15;
 	let autoclick2cost = 100;
 	let autoclick3cost = 1100;
@@ -317,14 +318,26 @@ function Game() {
 	window.onresize = function() {
 		if (window.innerWidth < 768) {
 		    upgradesbutton.innerText = 'Upgs.';
+		    if (window.innerWidth < 413) {
+		    	changelogbutton.innerText = 'C.Logs';
+		    }
 		}
 		else {
 			upgradesbutton.innerText = 'Upgrades';
+			changelogbutton.innerText = 'changelog';
 		}
 	};
-	
+	//mdiv
+	document.getElementById('nexttip').addEventListener('click', () => {
+		if (tipIndex >= tiplist.length - 1) {
+			tipIndex = 0;
+		} else {
+			tipIndex++;
+		}
+		document.getElementById('tip').innerText = tiplist[tipIndex];
+	});
 
-	//buying upgrades
+	//upgrades
 	function addAutoclickListener(element, cost, cpsMultiplier, index) {
 		element.addEventListener('click', () => {
 			if (cost <= alecAmount) {
@@ -467,17 +480,6 @@ function Game() {
 		number.style.top = (event.clientY - 20) + 'px';
 		saveProgress();
 		setTimeout(() => {number.remove()}, 1500);
-	});
-
-	alec.addEventListener('mousedown', () => {
-
-		document.getElementById("aleccontainer").classList.add("expanded");
-	});
-
-	alec.addEventListener('mouseup', () => {
-		document.getElementById("aleccontainer").classList.remove("expanded");
-		setTimeout(function() {document.getElementById("aleccontainer").classList.add("pop")}, 50);
-		setTimeout(function() {document.getElementById("aleccontainer").classList.remove("pop")}, 150);
 	});
 
 	//more
@@ -647,30 +649,6 @@ function Game() {
 			clearInterval(hoverInterval);
 			handleMouseOut();
 		});
-	});
-
-	change.addEventListener('click', () => {
-		clickSFX.cloneNode().play();
-
-		if (navbarornews === 0) {
-			navbarornews = 1;
-			news.classList.remove("topslide");
-			header.classList.remove("bottomslide2");
-			news.classList.add("bottomslide");
-			header.classList.add("topslide2");
-			news.style.display = "block";
-			header.style.display = "block";
-			change.innerText = "Show news";
-		} else {
-			navbarornews = 0;
-			header.classList.remove("topslide2");
-			news.classList.remove("bottomslide");
-			header.classList.add("bottomslide2");
-			news.classList.add("topslide");
-			header.style.display = "block";
-			news.style.display = "block";
-			change.innerText = "Show navbar";
-		}
 	});
 
 	//(gasp) MATH?!?!?!??!? but the math is BAD, is very very BAD!

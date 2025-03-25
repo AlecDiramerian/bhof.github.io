@@ -19,7 +19,7 @@
 			gtag('config', 'G-BRY21G04WJ');
 		</script>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<title>
 			Alec Clicker v2.0
 		</title>
@@ -27,26 +27,42 @@
 		<link rel="stylesheet" type="text/css" href="style/clicker.css">
 	</head>
 	<body id="bg">
-		<header id="header">
-			<a href="index.html">
-			<img src="images/smallogo.png" class="logo hover bhoflogo"></a>
-			<nav>
-				<a href="index.html">
-					<button href="index.html" class="navbarlink">
-						Back to HOF
-					</button>
-				</a>
-				<button onclick="showSnake()" class="navbarlink">
-					Snake
-				</button>
-			</nav>
-		</header>
 		<div id="loading">
 			<img src="images/loading.gif" alt="Loading..."/>
 			<br>
 			<b>Loading...</b>
 		</div>
-		<div id="ldiv">left</div>
+		<div id="ldiv">
+			<h1 style="padding: 5px 0; margin: 0;">
+			<header id="header">
+				<a href="index.html">
+				<img src="images/smallogo.png" class="logo hover bhoflogo"></a>
+				<nav>
+					<a href="index.html">
+						<button href="index.html" class="navbarlink">
+							Back
+						</button>
+					</a>
+				</nav>
+			</header>
+			<b id="num">Alecs: 0</b>
+			<span style="text-align: center;">
+				<div>
+					<label for="files" id="fileSelectButton" style="display: inline-block;">Upload Custom Skin</label>
+					<input id="files" style="display: none;" type="file">
+				</div>						
+			</span>
+			<button id="changelogb" style="display:inline;" class="bslide bslidea stayinplace">
+				Changelog
+			</button>
+			<button id="reset" class="bslide">
+				Reset
+			</button>
+			<footer id="footer">
+				Coming soon...?
+			</footer>
+		</h1>
+		</div>
 		<div id="rdiv">
 			<h1 style="padding: 5px 0; margin: 0;">
 				<button id="upgrades" class="column rswitch">
@@ -161,12 +177,12 @@
 					<b id="totalnum" style="background: dodgerblue;">0</b>
 				</p>
 				<p id="statname" class="bslide bslidea">
-					Total Alecs Per Second:
+					Total APS:
 					<b id="aps" style="background: dodgerblue;">0</b>
 				</p>
 				<p id="statname" class="bslide bslidea">
-					Total Time Played:
-					<b id="timeplayed" style="background: dodgerblue;">0</b>
+					Time Played:
+					<b id="timeplayed" style="background: none;">0</b>
 				</p>
 				<p id="statname" class="bslide bslidea">
 					Total Clicks:
@@ -174,46 +190,59 @@
 				</p>
 			</div>
 		</div>
-		<div id="mdiv">middle</div>
+		<div id="mdiv">
+			<b id="news">
+				Welcome to Alec Clicker!
+			</b>
+			<div id="aleccontainer">
+				<img src="images/skins/alec.png" id="alec" alt="alec" title="alec">
+			</div>
+			<div id="bottomcontainer">
+				<div id="tipcontainer">
+					<div id="tiplabel" class="column">
+						Tips
+					</div>
+					<div id="tip">
+						Welcome to Alec Clicker!
+					</div>
+					<button id="nexttip" class="column">
+						Next tip
+					</button>
+				</div>
+			</div>
+		</div>
 		<div id="content" style="display: none !important;">
 			<div id="maindiv" class="mcontainer">
 				<div id="clickerdiv">
 					<button id="change">
 						Show Navbar
 					</button>
-					<b id="news" class="topslide" style="display:none">
-						Welcome to Alec Clicker!
-					</b>
 					<br>
 					<br>
 					<br>
 					<span style="text-align: center;">
 						<div>
 							<label for="files" id="fileSelectButton">Upload Custom Skin</label>
-							<input id="files" style="display:none;" type="file">
+							<input id="files" style="display: none;" type="file">
 						</div>						
 					</span>
 					<br>
 					<br>
-					<div id="aleccontainer">
-						<img src="images/skins/alec.png" id="alec" alt="alec" title="alec">
-					</div>
+					
 					<br>
-					<b id="num">
-						Alecs: 0
-					</b>
-
+					
 					<button id="changelogb" class="bslide bslidea stayinplace">
 						Changelog
 					</button>
 					<button id="reset" class="bslide buttonlock rstbl">
 						Reset
 					</button>
-					<div id="descbox">
-						youre not supposed to see this
-					</div>
+					
 				</div>
 			</div>
+		</div>
+		<div id="descbox">
+			youre not supposed to see this
 		</div>
 		<b id="changelog">
 			Update v2.0 - The Reboot
