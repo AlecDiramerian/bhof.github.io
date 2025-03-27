@@ -158,7 +158,7 @@ footer {
     font-size: 20px;
 }
 
-#fileSelectButton, #changelogb, #reset {
+#fileSelectButton, #changelogb, #reset, #defaultskin {
     border-width: 2px;
     border-style: outset;
     border-color: buttonborder;
@@ -170,7 +170,7 @@ header button:hover, #change:hover {
     background-color: floralwhite;
 }
 
-.navbarlink, #change, #station, #fileSelectButton, #changelogb, #reset  {
+.navbarlink, #change, #station, #fileSelectButton, #changelogb, #reset, #defaultskin  {
     border-radius: 15px;
     border-color: dodgerblue !important;
     font-family: "Karla", sans-serif;
@@ -229,25 +229,6 @@ b {
 
 #content, #descbox {
     display: none;
-}
-
-#skin {
-    bottom: 16.5%;
-}
-
-#newalec {
-    position: fixed;
-    font-size: 50px;
-    top: -100%;
-    transition: top 0.5s;
-}
-
-#maindiv {
-     display: flex;
-}
-
-.news {
-    animation: topslide 1.2s forwards;
 }
 
 .column {
@@ -336,19 +317,6 @@ b {
     z-index: 100;
 }
 
-.slider {
-    font-family: "Karla", sans-serif;
-    position: fixed;
-    width: auto;
-    height: 100px;
-    top: 5%;
-    font-size: 24px;
-    color: white;
-    text-shadow: 1px 1px 2px black;
-    animation: slideUpgrades 5s linear forwards;
-    z-index: -1;
-}
-
 .numberUp {
     font-family: "Karla", sans-serif;
     position: absolute;
@@ -374,25 +342,8 @@ b {
 
 }
 
-.fall {
-    position: absolute;
-    width: auto;
-    height: 100px;
-    bottom: 50%;
-    animation: fall 2s linear;
-    z-index: -1;
-}
-
-.shape {
-    position: absolute;
-    width: auto;
-    bottom: 0%;
-    opacity: 1;
-    z-index: -1;
-}
-
 /*hover*/
-#newalecb:hover, #alec:hover, button:hover, #fileSelectButton:hover {
+#alec:hover, button:hover, #fileSelectButton:hover {
     cursor: pointer;
 }
 
@@ -407,11 +358,6 @@ button:hover {
 
 .bhoflogo {
     width: 100px;
-}
-
-.cc {
-    bottom: 0 !important;
-    animation: colorChange 5s infinite;
 }
 
 #statname {
