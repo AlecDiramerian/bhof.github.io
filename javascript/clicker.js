@@ -1,5 +1,6 @@
 /*jshint esversion: 6 */
 import {newslist, tiplist} from './news.js'
+//import {achievementscode} from './achievements.js'
 window.addEventListener('load', function() {
 	document.getElementById('loading').style.display = 'none';
 	document.getElementById('bg').style.display = 'block';
@@ -58,7 +59,7 @@ function Game() {
 	const changelogbutton = document.getElementById('changelogb');
 	const soonupg = document.getElementById('soonupg');
 	const header = document.getElementById('header');
-	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, resetbutton, upgradesbutton, statsbutton, changelogbutton, num, aps, totalnum, timeplayedstat, totalclicks, fileSelectButton];
+	const elements = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, resetbutton, upgradesbutton, statsbutton, changelogbutton, num, aps, totalnum, timeplayedstat, totalclicks, fileSelectButton];
 	
 	const formatTime = (time) => {
 		const addZero = (num) => (num < 10 ? `0${num}` : `${num}`);
@@ -137,59 +138,67 @@ function Game() {
 
 	//saving
 	const loadProgress = () => {
-		if (localStorage.getItem('alecAmount')) alecAmount = parseInt(localStorage.getItem('alecAmount'));
-		if (localStorage.getItem('totalAlecAmount')) totalAlecAmount = parseInt(localStorage.getItem('totalAlecAmount'));
-		if (localStorage.getItem('totalClicks')) totalClicks = parseInt(localStorage.getItem('totalClicks'));
-		if (localStorage.getItem('cps')) cps = parseInt(localStorage.getItem('cps'));
-		if (localStorage.getItem('timeplayed')) timeplayed = parseTime(localStorage.getItem('timeplayed'));
-		if (localStorage.getItem('autoclickamounts')) autoclickamounts = JSON.parse(localStorage.getItem('autoclickamounts'));
-		if (localStorage.getItem('autoclick1cost')) autoclick1cost = parseInt(localStorage.getItem('autoclick1cost'));
-		if (localStorage.getItem('autoclick2cost')) autoclick2cost = parseInt(localStorage.getItem('autoclick2cost'));
-		if (localStorage.getItem('autoclick3cost')) autoclick3cost = parseInt(localStorage.getItem('autoclick3cost'));
-		if (localStorage.getItem('autoclick4cost')) autoclick4cost = parseInt(localStorage.getItem('autoclick4cost'));
-		if (localStorage.getItem('autoclick5cost')) autoclick5cost = parseInt(localStorage.getItem('autoclick5cost'));
-		if (localStorage.getItem('autoclick6cost')) autoclick6cost = parseInt(localStorage.getItem('autoclick6cost'));
-		if (localStorage.getItem('autoclick7cost')) autoclick7cost = parseInt(localStorage.getItem('autoclick7cost'));
-		if (localStorage.getItem('autoclick8cost')) autoclick8cost = parseInt(localStorage.getItem('autoclick8cost'));
-		if (localStorage.getItem('autoclick9cost')) autoclick9cost = parseInt(localStorage.getItem('autoclick9cost'));
-		if (localStorage.getItem('autoclick10cost')) autoclick10cost = parseInt(localStorage.getItem('autoclick10cost'));
-		if (localStorage.getItem('autoclick11cost')) autoclick11cost = parseInt(localStorage.getItem('autoclick11cost'));
-		if (localStorage.getItem('autoclick12cost')) autoclick12cost = parseInt(localStorage.getItem('autoclick12cost'));
-		if (localStorage.getItem('autoclick13cost')) autoclick13cost = parseInt(localStorage.getItem('autoclick13cost'));
-		if (localStorage.getItem('autoclick14cost')) autoclick14cost = parseInt(localStorage.getItem('autoclick14cost'));
-		if (localStorage.getItem('autoclick15cost')) autoclick15cost = parseInt(localStorage.getItem('autoclick15cost'));
-		if (localStorage.getItem('autoclick16cost')) autoclick16cost = parseInt(localStorage.getItem('autoclick16cost'));
-		if (localStorage.getItem('boughtwyattmode')) boughtwyattmode = parseInt(localStorage.getItem('boughtwyattmode'));
+	    const migrationFlag = localStorage.getItem(btoa('b64migrated'));
+	    if (!migrationFlag) {
+	        const items = ['alecAmount', 'totalAlecAmount', 'totalClicks', 'cps', 'timeplayed', 'autoclickamounts', 'boughtwyattmode'];
+	        for (const item of items) {
+	            const value = localStorage.getItem(item);
+	            if (value && !isBase64(value)) {
+	                localStorage.setItem(item, btoa(value));
+	            }
+	        }
+	        for (let i = 1; i <= 16; i++) {
+	            const key = `autoclick${i}cost`;
+	            const value = localStorage.getItem(key);
+	            if (value && !isBase64(value)) {
+	                localStorage.setItem(key, btoa(value));
+	            }
+	        }
+	        localStorage.setItem(btoa('b64migrated'), btoa('true'));
+	    }
+
+	    if (localStorage.getItem(btoa('alecAmount'))) alecAmount = Number(atob(localStorage.getItem(btoa('alecAmount'))));
+	    if (localStorage.getItem(btoa('totalAlecAmount'))) totalAlecAmount = Number(atob(localStorage.getItem(btoa('totalAlecAmount'))));
+	    if (localStorage.getItem(btoa('totalClicks'))) totalClicks = Number(atob(localStorage.getItem(btoa('totalClicks'))));
+	    if (localStorage.getItem(btoa('cps'))) cps = Number(atob(localStorage.getItem(btoa('cps'))));
+	    if (localStorage.getItem(btoa('timeplayed'))) timeplayed = parseTime(atob(localStorage.getItem(btoa('timeplayed'))));
+	    if (localStorage.getItem(btoa('autoclickamounts'))) autoclickamounts = JSON.parse(atob(localStorage.getItem(btoa('autoclickamounts'))));
+	    for (let i = 1; i <= 16; i++) {
+	        if (localStorage.getItem(`autoclick${i}cost`)) {
+	            const value = atob(localStorage.getItem(`autoclick${i}cost`));
+	            eval(`autoclick${i}cost = Number(value)`);
+	        }
+	    }
+
+	    if (localStorage.getItem(btoa('boughtwyattmode'))) boughtwyattmode = Number(atob(localStorage.getItem(btoa('boughtwyattmode'))));
 	};
+
+	function isBase64(str) {
+	    try {
+	        return btoa(atob(str)) === str;
+	    } catch (e) {
+	        return false;
+	    }
+	}
 
 	loadProgress();
 
 	const saveProgress = () => {
-		const sanitizedAutoclickAmounts = {};
-		for (const key in autoclickamounts) sanitizedAutoclickAmounts[key] = isNaN(autoclickamounts[key]) ? 0 : autoclickamounts[key];
-		localStorage.setItem('alecAmount', alecAmount);
-		localStorage.setItem('totalAlecAmount', totalAlecAmount);
-		localStorage.setItem('totalClicks', totalClicks);
-		localStorage.setItem('cps', cps);
-		localStorage.setItem('timeplayed', formatTime(timeplayed));
-		localStorage.setItem('autoclickamounts', JSON.stringify(sanitizedAutoclickAmounts));
-		localStorage.setItem('autoclick1cost', autoclick1cost);
-		localStorage.setItem('autoclick2cost', autoclick2cost);
-		localStorage.setItem('autoclick3cost', autoclick3cost);
-		localStorage.setItem('autoclick4cost', autoclick4cost);
-		localStorage.setItem('autoclick5cost', autoclick5cost);
-		localStorage.setItem('autoclick6cost', autoclick6cost);
-		localStorage.setItem('autoclick7cost', autoclick7cost);
-		localStorage.setItem('autoclick8cost', autoclick8cost);
-		localStorage.setItem('autoclick9cost', autoclick9cost);
-		localStorage.setItem('autoclick10cost', autoclick10cost);
-		localStorage.setItem('autoclick11cost', autoclick11cost);
-		localStorage.setItem('autoclick12cost', autoclick12cost);
-		localStorage.setItem('autoclick13cost', autoclick13cost);
-		localStorage.setItem('autoclick14cost', autoclick14cost);
-		localStorage.setItem('autoclick15cost', autoclick15cost);
-		localStorage.setItem('autoclick16cost', autoclick16cost);
-		localStorage.setItem('boughtwyattmode', boughtwyattmode);
+	    const sanitizedAutoclickAmounts = {};
+	    for (const key in autoclickamounts) sanitizedAutoclickAmounts[key] = isNaN(autoclickamounts[key]) ? 0 : autoclickamounts[key];
+
+	    localStorage.setItem('alecAmount', btoa(alecAmount.toString()));
+	    localStorage.setItem('totalAlecAmount', btoa(totalAlecAmount.toString()));
+	    localStorage.setItem('totalClicks', btoa(totalClicks.toString()));
+	    localStorage.setItem('cps', btoa(cps.toString()));
+	    localStorage.setItem('timeplayed', btoa(formatTime(timeplayed)));
+	    localStorage.setItem('autoclickamounts', btoa(JSON.stringify(sanitizedAutoclickAmounts)));
+
+	    for (let i = 1; i <= 16; i++) {
+	        localStorage.setItem(`autoclick${i}cost`, btoa(eval(`autoclick${i}cost`).toString()));
+	    }
+
+	    localStorage.setItem('boughtwyattmode', btoa(boughtwyattmode.toString()));
 	};
 
 	if (autoclick1cost < 15) {
@@ -317,10 +326,10 @@ function Game() {
 	});
 	window.onresize = function() {
 		if (window.innerWidth < 768) {
-		    upgradesbutton.innerText = 'Upgs.';
-		    if (window.innerWidth < 413) {
-		    	changelogbutton.innerText = 'C.Logs';
-		    }
+			upgradesbutton.innerText = 'Upgs.';
+			if (window.innerWidth < 413) {
+				changelogbutton.innerText = 'C.Logs';
+			}
 		}
 		else {
 			upgradesbutton.innerText = 'Upgrades';
@@ -401,6 +410,7 @@ function Game() {
 			}
 		});
 	}
+
 	let autoclickUpgrades = [
 		{element: autoclick1, cost: autoclick1cost, cpsMultiplier: 1, statname: "Autoclickers"},
 		{element: autoclick2, cost: autoclick2cost, cpsMultiplier: 5, statname: "Alec Factories"},
@@ -419,6 +429,7 @@ function Game() {
 		{element: autoclick15, cost: autoclick15cost, cpsMultiplier: 21000000000, statname: "Trillion Lumberjacks"},
 		{element: autoclick16, cost: autoclick16cost, cpsMultiplier: 150000000000, statname: "Time Flannels"},
 	];
+
 	function getAutoClickUpgrades() {
 		autoclickUpgrades = [
 			{element: autoclick1, cost: autoclick1cost, cpsMultiplier: 1, statname: "Autoclickers"},
@@ -439,7 +450,6 @@ function Game() {
 			{element: autoclick16, cost: autoclick16cost, cpsMultiplier: 150000000000, statname: "Time Flannels"},
 		];
 	}
-	
 
 	autoclickUpgrades.forEach((upgrade, index) => {addAutoclickListener(upgrade.element, upgrade.cost, upgrade.cpsMultiplier, index)});
 
@@ -499,7 +509,7 @@ function Game() {
 		document.removeEventListener('mousemove', () => {});
 	}
 
-	buttons.forEach((button) => {
+	elements.forEach((button) => {
 		button.addEventListener('mouseover', (event) => {
 			let text = '';
 
