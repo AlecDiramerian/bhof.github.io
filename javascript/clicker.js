@@ -59,7 +59,7 @@ function Game() {
 	const soonupg = document.getElementById('soonupg');
 	const header = document.getElementById('header');
 	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, resetbutton, upgradesbutton, statsbutton, changelogbutton, num, aps, totalnum, timeplayedstat, totalclicks, fileSelectButton];
-
+	
 	const formatTime = (time) => {
 		const addZero = (num) => (num < 10 ? `0${num}` : `${num}`);
 		return `${addZero(time.weeks)}:${addZero(time.days)}:${addZero(time.hours)}:${addZero(time.minutes)}:${addZero(time.seconds)}`;
@@ -135,132 +135,61 @@ function Game() {
 		startTimer();
 	});
 
-	const encodeData = (data) => btoa(JSON.stringify(data));
-	const decodeData = (data) => JSON.parse(atob(data));
-
+	//saving
 	const loadProgress = () => {
-		const encodedData = localStorage.getItem('saveData');
-		if (encodedData) {
-			const saveData = decodeData(encodedData);
-			alecAmount = saveData.alecAmount || 0;
-			totalAlecAmount = saveData.totalAlecAmount || 0;
-			totalClicks = saveData.totalClicks || 0;
-			cps = saveData.cps || 0;
-			timeplayed = parseTime(saveData.timeplayed || "0");
-			autoclickamounts = saveData.autoclickamounts || {};
-			autoclick1cost = saveData.autoclick1cost || 15;
-			autoclick2cost = saveData.autoclick2cost || 100;
-			autoclick3cost = saveData.autoclick3cost || 1100;
-			autoclick4cost = saveData.autoclick4cost || 12000;
-			autoclick5cost = saveData.autoclick5cost || 130000;
-			autoclick6cost = saveData.autoclick6cost || 1400000;
-			autoclick7cost = saveData.autoclick7cost || 20000000;
-			autoclick8cost = saveData.autoclick8cost || 330000000;
-			autoclick9cost = saveData.autoclick9cost || 5100000000;
-			autoclick10cost = saveData.autoclick10cost || 75000000000;
-			autoclick11cost = saveData.autoclick11cost || 1000000000000;
-			autoclick12cost = saveData.autoclick12cost || 14000000000000;
-			autoclick13cost = saveData.autoclick13cost || 170000000000000;
-			autoclick14cost = saveData.autoclick14cost || 2100000000000000;
-			autoclick15cost = saveData.autoclick15cost || 26000000000000000;
-			autoclick16cost = saveData.autoclick16cost || 310000000000000000;
-			boughtwyattmode = saveData.boughtwyattmode || 0;
-			return saveData.migrated || false;
-		}
-		return false;
+		if (localStorage.getItem('alecAmount')) alecAmount = parseInt(localStorage.getItem('alecAmount'));
+		if (localStorage.getItem('totalAlecAmount')) totalAlecAmount = parseInt(localStorage.getItem('totalAlecAmount'));
+		if (localStorage.getItem('totalClicks')) totalClicks = parseInt(localStorage.getItem('totalClicks'));
+		if (localStorage.getItem('cps')) cps = parseInt(localStorage.getItem('cps'));
+		if (localStorage.getItem('timeplayed')) timeplayed = parseTime(localStorage.getItem('timeplayed'));
+		if (localStorage.getItem('autoclickamounts')) autoclickamounts = JSON.parse(localStorage.getItem('autoclickamounts'));
+		if (localStorage.getItem('autoclick1cost')) autoclick1cost = parseInt(localStorage.getItem('autoclick1cost'));
+		if (localStorage.getItem('autoclick2cost')) autoclick2cost = parseInt(localStorage.getItem('autoclick2cost'));
+		if (localStorage.getItem('autoclick3cost')) autoclick3cost = parseInt(localStorage.getItem('autoclick3cost'));
+		if (localStorage.getItem('autoclick4cost')) autoclick4cost = parseInt(localStorage.getItem('autoclick4cost'));
+		if (localStorage.getItem('autoclick5cost')) autoclick5cost = parseInt(localStorage.getItem('autoclick5cost'));
+		if (localStorage.getItem('autoclick6cost')) autoclick6cost = parseInt(localStorage.getItem('autoclick6cost'));
+		if (localStorage.getItem('autoclick7cost')) autoclick7cost = parseInt(localStorage.getItem('autoclick7cost'));
+		if (localStorage.getItem('autoclick8cost')) autoclick8cost = parseInt(localStorage.getItem('autoclick8cost'));
+		if (localStorage.getItem('autoclick9cost')) autoclick9cost = parseInt(localStorage.getItem('autoclick9cost'));
+		if (localStorage.getItem('autoclick10cost')) autoclick10cost = parseInt(localStorage.getItem('autoclick10cost'));
+		if (localStorage.getItem('autoclick11cost')) autoclick11cost = parseInt(localStorage.getItem('autoclick11cost'));
+		if (localStorage.getItem('autoclick12cost')) autoclick12cost = parseInt(localStorage.getItem('autoclick12cost'));
+		if (localStorage.getItem('autoclick13cost')) autoclick13cost = parseInt(localStorage.getItem('autoclick13cost'));
+		if (localStorage.getItem('autoclick14cost')) autoclick14cost = parseInt(localStorage.getItem('autoclick14cost'));
+		if (localStorage.getItem('autoclick15cost')) autoclick15cost = parseInt(localStorage.getItem('autoclick15cost'));
+		if (localStorage.getItem('autoclick16cost')) autoclick16cost = parseInt(localStorage.getItem('autoclick16cost'));
+		if (localStorage.getItem('boughtwyattmode')) boughtwyattmode = parseInt(localStorage.getItem('boughtwyattmode'));
 	};
 
-	const migrated = loadProgress();
+	loadProgress();
 
-	if (!migrated && localStorage.getItem('alecAmount')) {
-		const oldSaveData = {
-			alecAmount: parseInt(localStorage.getItem('alecAmount')),
-			totalAlecAmount: parseInt(localStorage.getItem('totalAlecAmount')),
-			totalClicks: parseInt(localStorage.getItem('totalClicks')),
-			cps: parseInt(localStorage.getItem('cps')),
-			timeplayed: localStorage.getItem('timeplayed'),
-			autoclickamounts: JSON.parse(localStorage.getItem('autoclickamounts')),
-			autoclick1cost: parseInt(localStorage.getItem('autoclick1cost')),
-			autoclick2cost: parseInt(localStorage.getItem('autoclick2cost')),
-			autoclick3cost: parseInt(localStorage.getItem('autoclick3cost')),
-			autoclick4cost: parseInt(localStorage.getItem('autoclick4cost')),
-			autoclick5cost: parseInt(localStorage.getItem('autoclick5cost')),
-			autoclick6cost: parseInt(localStorage.getItem('autoclick6cost')),
-			autoclick7cost: parseInt(localStorage.getItem('autoclick7cost')),
-			autoclick8cost: parseInt(localStorage.getItem('autoclick8cost')),
-			autoclick9cost: parseInt(localStorage.getItem('autoclick9cost')),
-			autoclick10cost: parseInt(localStorage.getItem('autoclick10cost')),
-			autoclick11cost: parseInt(localStorage.getItem('autoclick11cost')),
-			autoclick12cost: parseInt(localStorage.getItem('autoclick12cost')),
-			autoclick13cost: parseInt(localStorage.getItem('autoclick13cost')),
-			autoclick14cost: parseInt(localStorage.getItem('autoclick14cost')),
-			autoclick15cost: parseInt(localStorage.getItem('autoclick15cost')),
-			autoclick16cost: parseInt(localStorage.getItem('autoclick16cost')),
-			boughtwyattmode: parseInt(localStorage.getItem('boughtwyattmode')),
-			migrated: true
-		};
-		localStorage.setItem('saveData', encodeData(oldSaveData));
-
-		localStorage.removeItem('alecAmount');
-		localStorage.removeItem('totalAlecAmount');
-		localStorage.removeItem('totalClicks');
-		localStorage.removeItem('cps');
-		localStorage.removeItem('timeplayed');
-		localStorage.removeItem('autoclickamounts');
-		localStorage.removeItem('autoclick1cost');
-		localStorage.removeItem('autoclick2cost');
-		localStorage.removeItem('autoclick3cost');
-		localStorage.removeItem('autoclick4cost');
-		localStorage.removeItem('autoclick5cost');
-		localStorage.removeItem('autoclick6cost');
-		localStorage.removeItem('autoclick7cost');
-		localStorage.removeItem('autoclick8cost');
-		localStorage.removeItem('autoclick9cost');
-		localStorage.removeItem('autoclick10cost');
-		localStorage.removeItem('autoclick11cost');
-		localStorage.removeItem('autoclick12cost');
-		localStorage.removeItem('autoclick13cost');
-		localStorage.removeItem('autoclick14cost');
-		localStorage.removeItem('autoclick15cost');
-		localStorage.removeItem('autoclick16cost');
-		localStorage.removeItem('boughtwyattmode');
-	}
 	const saveProgress = () => {
-		try {
-			const sanitizedAutoclickAmounts = {};
-			for (const key in autoclickamounts) {
-				sanitizedAutoclickAmounts[key] = isNaN(autoclickamounts[key]) ? 0 : autoclickamounts[key];
-			}
-			const saveData = {
-				alecAmount,
-				totalAlecAmount,
-				totalClicks,
-				cps,
-				timeplayed: formatTime(timeplayed),
-				autoclickamounts: sanitizedAutoclickAmounts,
-				autoclick1cost,
-				autoclick2cost,
-				autoclick3cost,
-				autoclick4cost,
-				autoclick5cost,
-				autoclick6cost,
-				autoclick7cost,
-				autoclick8cost,
-				autoclick9cost,
-				autoclick10cost,
-				autoclick11cost,
-				autoclick12cost,
-				autoclick13cost,
-				autoclick14cost,
-				autoclick15cost,
-				autoclick16cost,
-				boughtwyattmode,
-				migrated: true
-			};
-			localStorage.setItem('saveData', encodeData(saveData));
-		} catch (error) {
-			console.error('Failed to save game:', error);
-		}
+		const sanitizedAutoclickAmounts = {};
+		for (const key in autoclickamounts) sanitizedAutoclickAmounts[key] = isNaN(autoclickamounts[key]) ? 0 : autoclickamounts[key];
+		localStorage.setItem('alecAmount', alecAmount);
+		localStorage.setItem('totalAlecAmount', totalAlecAmount);
+		localStorage.setItem('totalClicks', totalClicks);
+		localStorage.setItem('cps', cps);
+		localStorage.setItem('timeplayed', formatTime(timeplayed));
+		localStorage.setItem('autoclickamounts', JSON.stringify(sanitizedAutoclickAmounts));
+		localStorage.setItem('autoclick1cost', autoclick1cost);
+		localStorage.setItem('autoclick2cost', autoclick2cost);
+		localStorage.setItem('autoclick3cost', autoclick3cost);
+		localStorage.setItem('autoclick4cost', autoclick4cost);
+		localStorage.setItem('autoclick5cost', autoclick5cost);
+		localStorage.setItem('autoclick6cost', autoclick6cost);
+		localStorage.setItem('autoclick7cost', autoclick7cost);
+		localStorage.setItem('autoclick8cost', autoclick8cost);
+		localStorage.setItem('autoclick9cost', autoclick9cost);
+		localStorage.setItem('autoclick10cost', autoclick10cost);
+		localStorage.setItem('autoclick11cost', autoclick11cost);
+		localStorage.setItem('autoclick12cost', autoclick12cost);
+		localStorage.setItem('autoclick13cost', autoclick13cost);
+		localStorage.setItem('autoclick14cost', autoclick14cost);
+		localStorage.setItem('autoclick15cost', autoclick15cost);
+		localStorage.setItem('autoclick16cost', autoclick16cost);
+		localStorage.setItem('boughtwyattmode', boughtwyattmode);
 	};
 
 	if (autoclick1cost < 15) {
@@ -388,10 +317,10 @@ function Game() {
 	});
 	window.onresize = function() {
 		if (window.innerWidth < 768) {
-			upgradesbutton.innerText = 'Upgs.';
-			if (window.innerWidth < 413) {
-				changelogbutton.innerText = 'C.Logs';
-			}
+		    upgradesbutton.innerText = 'Upgs.';
+		    if (window.innerWidth < 413) {
+		    	changelogbutton.innerText = 'C.Logs';
+		    }
 		}
 		else {
 			upgradesbutton.innerText = 'Upgrades';
@@ -510,9 +439,11 @@ function Game() {
 			{element: autoclick16, cost: autoclick16cost, cpsMultiplier: 150000000000, statname: "Time Flannels"},
 		];
 	}
-
+	
 
 	autoclickUpgrades.forEach((upgrade, index) => {addAutoclickListener(upgrade.element, upgrade.cost, upgrade.cpsMultiplier, index)});
+
+	//reset
 	resetbutton.addEventListener('click', () => {
 		if (confirm("Do you want to erase your progress? There is no getting it back!") == true) {
 			if (confirm("Are you certain?") == true) {
@@ -580,7 +511,7 @@ function Game() {
 						autoclickUpgrades.forEach((upgrade, index) => {
 							let amount = autoclickamounts[`ac${index + 1}`] || 0;
 							if (amount > 0) {
-								let alecsPerSecond = amount * upgrade.cpsMultiplier;
+								let alecsPerSecond = amount * upgrade.cpsMultiplier;								
 								text += `${amount} ${upgrade.statname} making ${commifyNumber(alecsPerSecond)} Alecs per second (${((alecsPerSecond / cps) * 100).toFixed(2)}%)\n`;
 							}
 						});
@@ -596,7 +527,12 @@ function Game() {
 						break;
 					case timeplayedstat:
 						let timemessage;
-						const totalSeconds = (timeplayed.weeks * 7 * 24 * 60 * 60) + (timeplayed.days * 24 * 60 * 60) + (timeplayed.hours * 60 * 60) + (timeplayed.minutes * 60) + timeplayed.seconds;
+						const totalSeconds = 
+							(timeplayed.weeks * 7 * 24 * 60 * 60) +
+							(timeplayed.days * 24 * 60 * 60) +
+							(timeplayed.hours * 60 * 60) +
+							(timeplayed.minutes * 60) +
+							timeplayed.seconds;
 						if (totalSeconds < 5 * 60) {
 							timemessage = `You've just started your adventure.`;
 						} else if (totalSeconds < 30 * 60) {
@@ -685,7 +621,7 @@ function Game() {
 						text = `Ah, the classic vintage flannels! The modern day flannels! The futuristic flannels with jetpacks!`;
 						break;
 					case soonupg:
-						text = `Waiting for the day that fine shyt finally relizes she's in love with me.`;
+						text = `Waiting for the day that fine shyt finally relizes she's in love with me. "Live & learn, hanging on the edge of tomorrow."`;
 						break;
 					case statsbutton:
 						text = `View some statistics recorded from your adventure.`;
@@ -737,7 +673,6 @@ function Game() {
 				document.getElementById(upgrade.element.id + 'cost').style.backgroundColor = `white`;
 			}
 		});
-		saveProgress()
 		getAutoClickUpgrades()
 	}
 	requestAnimationFrame(updateAlecAmount);
