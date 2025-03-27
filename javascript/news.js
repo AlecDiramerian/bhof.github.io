@@ -26,6 +26,8 @@ export const newslist = [
 	`"bro Gru is so mean. i married the moon and then THE MFER STOLE IT! DIABOLICAL!" says Fester in an interview`,
 	`Alec Clicker receives a long awaited update`,
 	`People come from distant planets to try your Alecs`,
+	`olive delights, (lights, lights) olive delights turn up delights in here, baby extra bright, I want y'all to see this turn up delights in here, baby you know what I need, want you to see everything want you to see olive delights`,
+	`YOU'RE TOO LATE, SONIC! I AM NOW ALEC CERTIFIED MUAHHAHHAHAHAH MUAHHAH OH MY GOD ASDHASFYIASUFGHASJBFSAUHK OH MY GOD WHAT THE FUCHAHHHHHH`,
 ];
 
 export const tiplist = [
