@@ -16,6 +16,7 @@ Get Hit By a Train Simulator - A Roblox game about getting hit by a train<br>
 If you want to request a quote/candid to be removed, scroll down to the "Contact" section<br>
 # Credits
 I've lost track of quote and candid credits, so I'm just gonna... not have them... yeah.<br>
+You can just see who said the quote on the page. Anonymous is uhhhh a guy you don't know <br>
 
 Christian S. - Allowing me to yoink quotes off his quote board<br>
 Noah N. - Coding contributer<br>
