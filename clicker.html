@@ -34,44 +34,41 @@
 		</div>
 		<div id="ldiv">
 			<h1 style="padding: 5px 0; margin: 0;">
-			<header id="header">
-				<a href="index.html">
-				<img src="images/smallogo.png" class="logo hover bhoflogo"></a>
-				<nav>
-					<a href="index.html">
-						<button href="index.html" class="navbarlink">
-							Back
-						</button>
-					</a>
-				</nav>
-			</header>
-			<b id="num">Alecs: 0</b>
-			<span style="text-align: center;">
-				<div>
-					<label for="files" id="fileSelectButton">Custom Skin</label>
-					<input id="files" style="display: none;" type="file">
-					<button id="defaultskin">Default Skin</button>
+				<div class="notfooter">
+					<header id="header">
+						<a href="index.html">
+						<img src="images/smallogo.png" class="logo hover bhoflogo"></a>
+						<nav>
+							<a href="index.html">
+								<button href="index.html" class="navbarlink">
+									Back
+								</button>
+							</a>
+						</nav>
+					</header>
+					<b id="num">Alecs: 0</b>
+					<span style="display: flex; flex-direction: column; gap: 5px; align-items: flex-start;">
+						<label id="fileSelectButton" for="files">Custom Skin</label>
+							<input id="files" style="display: none;" type="file">
+							<button id="defaultskin">Default Skin</button>
+						<button id="changelogb" style="display:inline;" class="bslide">Changelog</button>
+						<button id="bugreport" style="display:inline;" class="bslide">Bug Report</button>
+						<button id="reset" class="bslide">Reset</button>
+					</span>
 				</div>
 				
-			</span>
-			<button id="changelogb" style="display:inline;" class="bslide bslidea stayinplace">
-				Changelog
-			</button>
-			<button id="reset" class="bslide">
-				Reset
-			</button>
-			<footer id="footer">
-				More coming soon?
-			</footer>
-		</h1>
+			</h1>
 		</div>
 		<div id="rdiv">
-			<h1 style="padding: 5px 0; margin: 0;">
+			<h1 id="buttons">
 				<button id="upgrades" class="column rswitch">
 					Upgrades
 				</button>
 				<button id="stats" class="column rswitch">
 					Stats
+				</button>
+				<button id="achievements" class="column rswitch">
+					Achievements
 				</button>
 			</h1>
 			<hr>
@@ -127,7 +124,7 @@
 				</button>
 				<br>
 				<button id="autoclick11" class="bslide buttoncontainer">
-					Moon Flannels
+					Moon Shipment
 					<b id="autoclick11cost">$1000000000000</b>
 				</button>
 				<br>
@@ -174,22 +171,31 @@
 				</button>
 			</div>
 			<div id="scontainer" style="display: none;">
-				<p id="statname" class="bslide bslidea">
+				<p id="statname" class="bslide">
 					Total Alecs:
 					<b id="totalnum" style="background: dodgerblue;">0</b>
 				</p>
-				<p id="statname" class="bslide bslidea">
+				<p id="statname" class="bslide">
 					Total APS:
 					<b id="aps" style="background: dodgerblue;">0</b>
 				</p>
-				<p id="statname" class="bslide bslidea">
+				<p id="statname" class="bslide">
 					Time Played:
 					<b id="timeplayed" style="background: none;">0</b>
 				</p>
-				<p id="statname" class="bslide bslidea">
+				<p id="statname" class="bslide">
 					Total Clicks:
 					<b id="totalclicks" style="background: dodgerblue;">0</b>
 				</p>
+			</div>
+			<div id="acontainer" style="display: none">
+				<span id="achievedcounter">
+					Achieved: 0
+				</span>
+				<br>
+				<span id="achcontainer">
+
+				</span>
 			</div>
 		</div>
 		<div id="mdiv">
@@ -217,6 +223,19 @@
 			youre not supposed to see this
 		</div>
 		<b id="changelog">
+			Update v2.2 - Achievements
+			<br>
+			- Added 100 achievements
+			<br>
+			- More will come in the future
+			<br>
+			- Made clicking dependant on achievements
+			<br>
+			- Added a bug report button (also includes balancing problems and suggestions)
+			<br>
+			- Fixed some more UI issues
+			<br>
+			<br>
 			Update v2.1.1 - Saving Revamp
 			<br>
 			- Completely revamped the saving and loading system

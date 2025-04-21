@@ -17,30 +17,10 @@ html, #bg {
 
 header {
     background-color: #333;
-    color: white;
-    border-radius: 15px;
-    width: 100%;
-    padding: 0.5% 0 2% 0;
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    border-radius: 15px;
-    width: 100%;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-end !important;
-    top: 100% !important;
-    height: 50%;
-    position: sticky !important;
-    padding: 0.5% 0 2% 0;
-    margin-top: 0.5%;
-}
-
-#num {
-    display: inline-block;
-    margin: 1% 0 1% 0;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 5px 0;
 }
 
 #ldiv {
@@ -49,10 +29,102 @@ footer {
     height: 100vh;
     background-color: lightskyblue;
     padding: 0 0.5%;
-    display: inline;
     position: relative;
     border-radius: 0 15px 15px 0;
+    overflow: clip;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
+
+.notfooter {
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#footer {
+    color: white;
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    flex-grow: 2;
+    height: 100px;
+    flex-shrink: 0;
+    background-color: #333;
+    overflow: hidden;
+    flex-basis: auto;
+}
+
+#realfooter {
+    display: flex;
+    align-items: flex-end;
+}
+
+#achcontainer, #achievedcounter {
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    padding: 1%;
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 100%;
+    box-sizing: border-box;
+    align-content: center;
+    justify-content: center;
+}
+
+.achbox {
+    background-color: #555;
+    color: white;
+    height: 100px;
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: clamp(0.9rem, 2.4vw, 0.9rem);
+    text-align: center;
+    box-sizing: border-box;
+    white-space: initial;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+h3 {
+    font-size: 1em;
+    overflow-wrap: break-word;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.text {
+    font-size: 12px;
+}
+
+#num {
+    display: inline-flex;
+    text-align: initial !important;
+    margin: 1% 0 1% 0;
+}
+
 
 @media only screen and (max-width: 968px) {
     #ldiv {
@@ -60,6 +132,7 @@ footer {
         display: inline;
     }
 }
+
 #mdiv {
     position: relative;
     margin: 0 35%;
@@ -81,6 +154,11 @@ footer {
     top: 0;
     border-radius: 15px 0 0 15px;
     overflow-y: scroll;
+}
+
+#ucontainer, #scontainer, #acontainer {
+    margin: auto;
+    width: 99%;
 }
 
 #bottomcontainer {
@@ -123,6 +201,7 @@ footer {
     font-size: 100%;
     font-family: "Karla", sans-serif;
 }
+
 #nexttip {
     z-index: 120412;
 }
@@ -145,20 +224,37 @@ footer {
     font-size: 1em !important;
 }
 
+#buttons {
+    display: flex;
+    position: sticky;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin: 0;
+    flex-wrap: nowrap;
+    top: 0.1px;
+    z-index: 10;
+    border-radius: 0 0 15px 15px;
+    background-color: lightskyblue;
+}
+
+
 .rswitch {
-    min-width: 40%;
-    position: relative;
-    display: inline-flex !important;
-    font-size: 40%;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: clamp(12px, 2.5vw, 20px);
     background-color: white !important;
     border: none;
     border-radius: 15px;
     padding: 10px 20px;
     font-family: "Karla", sans-serif;
-    font-size: 20px;
+    text-align: center;
 }
 
-#fileSelectButton, #changelogb, #reset, #defaultskin {
+#fileSelectButton, #changelogb, #reset, #defaultskin, #bugreport {
     border-width: 2px;
     border-style: outset;
     border-color: buttonborder;
@@ -170,7 +266,7 @@ header button:hover, #change:hover {
     background-color: floralwhite;
 }
 
-.navbarlink, #change, #station, #fileSelectButton, #changelogb, #reset, #defaultskin  {
+.navbarlink, #fileSelectButton, #changelogb, #reset, #defaultskin, #bugreport  {
     border-radius: 15px;
     border-color: dodgerblue !important;
     font-family: "Karla", sans-serif;
@@ -180,6 +276,12 @@ header button:hover, #change:hover {
     padding: 5px;
     border-radius: 15px;
     font-weight: bold;
+}
+
+@media only screen and (max-width: 330px) {
+    #num {
+        padding: 0 !important;
+    }
 }
 
 b {
@@ -278,7 +380,6 @@ b {
     overflow-x: auto !important;
 }
 
-
 #soonupg, #soonupg2 {
     background-color: #FFCC00;
 }
@@ -338,8 +439,7 @@ b {
     opacity: 1;
     animation: numberDown 1s ease-in forwards;
     pointer-events: none;
-        z-index: 2;
-
+    z-index: 2;
 }
 
 /*hover*/
@@ -357,7 +457,12 @@ button:hover {
 }
 
 .bhoflogo {
-    width: 100px;
+    width: 100%;
+    max-width: 100px;
+    padding: 0;
+    margin: 0;
+    object-fit: contain !important;
+    
 }
 
 #statname {
@@ -512,24 +617,26 @@ button:hover {
         opacity: 0;
     }
 
-    #ucontainer button, #scontainer button, #upgrades, #stats, #statname, #statname b {
+    #ucontainer button, #scontainer button, #acontainer button, #upgrades, #stats, #achievements, #statname, #statname b {
         font-size: 10px;
     }
     #statname {
         background-color: none !important;
     }
 
-    #ucontainer, #scontainer {
+    #ucontainer, #scontainer, #acontainer {
         width: auto;
         height: auto;
-    }
-
-    #change, #station {
-        bottom: 1%;
-        position: fixed;
     }
 
     #pform {
         display: none;
     }
 }
+@media only screen and (max-width: 511px) {
+    #num, #fileSelectButton, #defaultskin, #changelogb, #reset, #bugreport, .navbarlink {
+        font-size: 4vw !important;
+        margin: 0 !important;
+        position: sticky;
+    }
+} 
