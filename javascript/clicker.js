@@ -1,16 +1,17 @@
-
 /*jshint esversion: 6 */
-import {newslist, tiplist} from './news.js'
+import {news, tips, achievements} from './morevariables.js'
 window.addEventListener('load', function() {
 	document.getElementById('loading').style.display = 'none';
 	document.getElementById('bg').style.display = 'block';
-	if (window.innerWidth < 768) document.getElementById('upgrades').innerText = 'Upgs.';
+	if (window.innerWidth < 921) document.getElementById('upgrades').innerText = 'Upgs.';
+	if (window.innerWidth < 1258) document.getElementById('achievements').innerText = 'Achvmnts.';
+	if (window.innerWidth < 976) document.getElementById('achievements').innerText = 'Achs.';
 	if (window.innerWidth < 413) document.getElementById('changelogb').innerText = 'C.Logs';
 
 	Game();
 });
 function Game() {
-	//variables
+	// variables
 	let alecAmount = 0; // # of currently owned alecs
 	let totalAlecAmount = 0; // # of lifetime owned alecs
 	let cps = 0; // # of alecs gained per second
@@ -20,49 +21,80 @@ function Game() {
 	let totalClicks = 0; // # of lifetime clicks
 	let previousNewsIndex = -1; // news thing
 	let tipIndex = -1; // tips thing
-	let autoclick1cost = 15;
-	let autoclick2cost = 100;
-	let autoclick3cost = 1100;
-	let autoclick4cost = 12000;
-	let autoclick5cost = 130000;
-	let autoclick6cost = 1400000;
-	let autoclick7cost = 20000000;
-	let autoclick8cost = 330000000;
-	let autoclick9cost = 5100000000;
-	let autoclick10cost = 75000000000;
-	let autoclick11cost = 1000000000000;
-	let autoclick12cost = 14000000000000;
-	let autoclick13cost = 170000000000000;
-	let autoclick14cost = 2100000000000000;
-	let autoclick15cost = 26000000000000000;
-	let autoclick16cost = 310000000000000000;
-	let autoclickamounts = {ac1: 0, ac2: 0, ac3: 0, ac4: 0, ac5: 0, ac6: 0, ac7: 0, ac8: 0, ac9: 0, ac10: 0, ac11: 0, ac12: 0, ac13: 0, ac14: 0, ac15: 0, ac16: 0};
-	let timeplayed = {weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0};
-	let uploadedSkin = "none";
-	let hoverInterval = null;
+	let clickAmount = 1; // click amount
+	let clickMultiplier = 1; // click multiplier
+	let achieved = 0; // # of achievements you've earned
+	let autoclick1cost = 15; // base cost
+	let autoclick2cost = 100; // base cost
+	let autoclick3cost = 1100; // base cost
+	let autoclick4cost = 12000; // base cost
+	let autoclick5cost = 130000; // base cost
+	let autoclick6cost = 1400000; // base cost
+	let autoclick7cost = 20000000; // base cost
+	let autoclick8cost = 330000000; // base cost
+	let autoclick9cost = 5100000000; // base cost
+	let autoclick10cost = 75000000000; // base cost
+	let autoclick11cost = 1000000000000; // base cost
+	let autoclick12cost = 14000000000000; // base cost
+	let autoclick13cost = 170000000000000; // base cost
+	let autoclick14cost = 2100000000000000; // base cost
+	let autoclick15cost = 26000000000000000; // base cost
+	let autoclick16cost = 310000000000000000; // base cost
+	let autoclickamounts = {ac1: 0, ac2: 0, ac3: 0, ac4: 0, ac5: 0, ac6: 0, ac7: 0, ac8: 0, ac9: 0, ac10: 0, ac11: 0, ac12: 0, ac13: 0, ac14: 0, ac15: 0, ac16: 0}; // base owned upgs
+	let timeplayed = {weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0}; // # time played
+	let uploadedSkin = "none"; // current skin uploaded
+	let hoverInterval = null; // hover stuff
 	const clickSFX = new Audio('audio/mcclick.mp3');
 	const errorSFX = new Audio('audio/error.mp3');
 	const purchaseSFX = new Audio('audio/purchase.mp3');
-	const news = document.getElementById('news');
+	const newsbar = document.getElementById('news');
 	const alec = document.getElementById('alec');
-	const change = document.getElementById('change');
-	const station = document.getElementById('station');
 	const descbox = document.getElementById('descbox');
 	const timeplayedstat = document.getElementById('timeplayed');
 	const skinbutton = document.getElementById('skin');
 	const resetbutton = document.getElementById('reset');
 	const upgradesbutton = document.getElementById('upgrades');
 	const statsbutton = document.getElementById('stats');
+	const achievementsbutton = document.getElementById('achievements');
 	const changelogbutton = document.getElementById('changelogb');
 	const soonupg = document.getElementById('soonupg');
-	const header = document.getElementById('header');
-	const buttons = [autoclick1, autoclick2, autoclick3, autoclick4, autoclick5, autoclick6, autoclick7, autoclick8, autoclick9, autoclick10, autoclick11, autoclick12, autoclick13, autoclick14, autoclick15, autoclick16, soonupg, resetbutton, upgradesbutton, statsbutton, changelogbutton, num, aps, totalnum, timeplayedstat, totalclicks, fileSelectButton, defaultskin];
+	const buttons = [
+		autoclick1,
+		autoclick2,
+		autoclick3,
+		autoclick4,
+		autoclick5,
+		autoclick6,
+		autoclick7,
+		autoclick8,
+		autoclick9,
+		autoclick10,
+		autoclick11,
+		autoclick12,
+		autoclick13,
+		autoclick14,
+		autoclick15,
+		autoclick16,
+		soonupg,
+		resetbutton,
+		upgradesbutton,
+		statsbutton,
+		changelogbutton,
+		achievementsbutton,
+		num,
+		aps,
+		totalnum,
+		timeplayedstat,
+		totalclicks,
+		fileSelectButton,
+		defaultskin
+	];
 
+	// time
 	const formatTime = (time) => {
 		const addZero = (num) => (num < 10 ? `0${num}` : `${num}`);
 		return `${addZero(time.weeks)}:${addZero(time.days)}:${addZero(time.hours)}:${addZero(time.minutes)}:${addZero(time.seconds)}`;
 	};
-
 
 	const parseTime = (timeString) => {
 		if (!timeString || timeString === "0") {return{weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0}}
@@ -94,6 +126,7 @@ function Game() {
 	}
 	setInterval(updateTimePlayed, 1000);
 
+	// numbers
 	function abbreviateNumber(number) {
 		const abbreviations = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ"];
 		const tier = Math.log10(Math.abs(number)) / 3 | 0;
@@ -112,26 +145,37 @@ function Game() {
 		return number;
 	}
 
-	//news
+	// news
 	const startTimer = () => timer = setInterval(newsichooseyou, 7500);
 
 	const newsSelect = () => {
 		let randomIndex;
-		do {randomIndex = Math.floor(Math.random() * newslist.length)} while (randomIndex === previousNewsIndex);
+		do {randomIndex = Math.floor(Math.random() * news.length)} while (randomIndex === previousNewsIndex);
 		previousNewsIndex = randomIndex;
-		const randomNewsItem = newslist[randomIndex];
+		const randomNewsItem = news[randomIndex];
 		return randomNewsItem;
 	};
 
 	const newsichooseyou = () => {
-		news.innerText = 'News: ' + newsSelect();
+		newsbar.innerHTML = newsSelect();
 	};
 
-	news.addEventListener('click', () => {
+	newsbar.addEventListener('click', () => {
 		newsichooseyou();
 		clearInterval(timer);
 		startTimer();
 	});
+
+	/* save data
+
+	██████╗░░█████╗░  ███╗░░██╗░█████╗░████████╗  ████████╗░█████╗░██╗░░░██╗░█████╗░██╗░░██╗
+	██╔══██╗██╔══██╗  ████╗░██║██╔══██╗╚══██╔══╝  ╚══██╔══╝██╔══██╗██║░░░██║██╔══██╗██║░░██║
+	██║░░██║██║░░██║  ██╔██╗██║██║░░██║░░░██║░░░  ░░░██║░░░██║░░██║██║░░░██║██║░░╚═╝███████║
+	██║░░██║██║░░██║  ██║╚████║██║░░██║░░░██║░░░  ░░░██║░░░██║░░██║██║░░░██║██║░░██╗██╔══██║
+	██████╔╝╚█████╔╝  ██║░╚███║╚█████╔╝░░░██║░░░  ░░░██║░░░╚█████╔╝╚██████╔╝╚█████╔╝██║░░██║
+	╚═════╝░░╚════╝░  ╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░  ░░░╚═╝░░░░╚════╝░░╚═════╝░░╚════╝░╚═╝░░╚═╝
+
+	this data is stored on the BROWSER, however, reloading and clearing cache will NOT reset your data */
 
 	const encodeData = (data) => btoa(JSON.stringify(data));
 	const decodeData = (data) => JSON.parse(atob(data));
@@ -242,6 +286,7 @@ function Game() {
 		localStorage.removeItem('autoclick15cost');
 		localStorage.removeItem('autoclick16cost');
 	}
+
 	const saveProgress = () => {
 		try {
 			const sanitizedAutoclickAmounts = {};
@@ -279,6 +324,86 @@ function Game() {
 		}
 	};
 
+	// achievements || NOTE: achievements don't actually save in localstorage. it's not needed because it already checks if the amount has been fulfilled
+	function updateAchievements() {
+		document.getElementById("achcontainer").innerHTML = "";
+		achieved = 0;
+
+		achievements.forEach((ach) => {
+			const achbox = document.createElement("div");
+			achbox.classList.add("achbox");
+
+			if (ach.achieved) {
+				achieved++;
+				if (ach.clickable) {
+					achbox.innerHTML = `<h3><a href="https://youtu.be/WZa_aZP91wQ?si=HDE1SNvG_aWp-AEe&t=892" style="color: lightblue; cursor: pointer;" target="_blank">${ach.name}</a></h3>`;
+				} else {
+					achbox.innerHTML = `<h3>${ach.name}</h3>`;
+				}
+				
+			} else {
+				achbox.innerHTML = `<h3 style="color:red">Locked</h3>`;
+			}
+
+			achbox.addEventListener("mouseover", (event) => {
+				handleMouseOver(event, ach.description, true);
+			});
+
+			achbox.addEventListener("mouseout", () => {
+				handleMouseOut();
+			});
+
+			document.getElementById("achcontainer").appendChild(achbox);
+		});
+
+		document.getElementById("achievedcounter").innerText = achieved + "/" + achievements.length;
+	}
+
+	function achchecker() {
+		const clickMilestones = [1, 100, 1000, 1000000];
+		const autoClickMilestones = {
+			ac1: [1, 2, 12, 25, 50, 100],
+			ac2: [1, 2, 10, 25, 40, 100],
+			ac3: [1, 5, 10, 25, 50, 100, 150],
+			ac4: [1, 5, 10, 25, 50, 100],
+			ac5: [1, 2, 10, 25, 41, 100, 150],
+			ac6: [1, 5, 10, 25, 50, 100],
+			ac7: [1, 2, 10, 25, 50, 100],
+			ac8: [1, 5, 10, 25, 41, 100, 150],
+			ac9: [1, 5, 10, 25, 50, 100],
+			ac10: [1, 5, 10, 25, 50, 100],
+			ac11: [1, 5, 10, 25, 50, 100],
+			ac12: [1, 3, 10, 25, 50, 100],
+			ac13: [1, 5, 10, 25, 50, 100],
+			ac14: [1, 5, 10, 25, 50, 90],
+			ac15: [1, 5, 10, 25, 50, 100, 150],
+			ac16: [1, 5, 10, 25, 50, 100, 150],
+		};
+		
+		clickMilestones.forEach((milestone, index) => {
+			if (totalClicks >= milestone && !achievements[index].achieved) {
+				achievements[index].achieved = true;
+				updateAchievements();
+				clickMultiplier += 0.1 + (achieved / 100);
+			}
+		});
+		
+		let achievementIndex = 4;
+		Object.entries(autoClickMilestones).forEach(([key, milestones]) => {
+			milestones.forEach(milestone => {
+				if (autoclickamounts[key] >= milestone && !achievements[achievementIndex].achieved) {
+					achievements[achievementIndex].achieved = true;
+					updateAchievements();
+					clickMultiplier *= 1.5;
+				}
+				achievementIndex++;
+			});
+		});
+		
+		document.getElementById("achievedcounter").innerText = achieved + "/" + achievements.length;
+	}
+
+	// upgrade numbers
 	if (autoclick1cost < 15) {
 		autoclick1cost = 15;
 		document.getElementById(`autoclick1cost`).innerText = `$${abbreviateNumber(autoclick1cost)}`;
@@ -344,9 +469,7 @@ function Game() {
 		document.getElementById(`autoclick16cost`).innerText = `$${abbreviateNumber(autoclick16cost)}`;
 	}
 
-	setInterval(saveProgress, 10000);
-
-	//skins
+	// skins
 	document.getElementById("files").addEventListener("change", function() {changeImage(this)});
 
 	function changeImage(input) {
@@ -369,76 +492,61 @@ function Game() {
 
 	uploadedSkin = localStorage.getItem("uploadedSkin") || "none";
 
-	const updateDisplay = () => {
-		document.getElementById('num').innerText = 'Alecs: ' + abbreviateNumber(alecAmount);
-		document.getElementById('aps').innerText = abbreviateNumber(cps);
-		document.getElementById('totalnum').innerText = abbreviateNumber(totalAlecAmount);
-		document.getElementById('timeplayed').innerText = formatTime(timeplayed);
-		document.getElementById('totalclicks').innerText = abbreviateNumber(totalClicks);
-		autoclickUpgrades.forEach((upgrade, index) => {
-			document.getElementById(`autoclick${index + 1}cost`).innerText = `$${abbreviateNumber(upgrade.cost)}`;
-		});
-
-		if (uploadedSkin === "none") {
-			alec.src = 'images/skins/alec.png';
-		} else {
-			alec.src = uploadedSkin;
-		}
-	};
-
-	window.onload = function() {updateDisplay()};
-
-	//rdiv
+	// tabs
 	upgradesbutton.addEventListener('click', () => {
 		clickSFX.cloneNode().play();
-		if (rightdivtab === 0) {
-			rightdivtab = 1;
-			document.getElementById('ucontainer').style.display = "none";
-			document.getElementById('scontainer').style.display = "revert";
-		} else {
-			rightdivtab = 0;
-			document.getElementById('ucontainer').style.display = "revert";
-			document.getElementById('scontainer').style.display = "none";
-
-		}
+		document.getElementById('ucontainer').style.display = "revert";
+		document.getElementById('scontainer').style.display = "none";
+		document.getElementById('acontainer').style.display = "none";
 	});
 
 	statsbutton.addEventListener('click', () => {
 		clickSFX.cloneNode().play();
-		if (rightdivtab === 0) {
-			rightdivtab = 1;
-			document.getElementById('ucontainer').style.display = "none";
-			document.getElementById('scontainer').style.display = "revert";
-		} else {
-			rightdivtab = 0;
-			document.getElementById('ucontainer').style.display = "revert";
-			document.getElementById('scontainer').style.display = "none";
-
-		}
+		document.getElementById('ucontainer').style.display = "none";
+		document.getElementById('scontainer').style.display = "revert";
+		document.getElementById('acontainer').style.display = "none";
 	});
+
+	achievementsbutton.addEventListener('click', () => {
+		clickSFX.cloneNode().play();
+		document.getElementById('ucontainer').style.display = "none";
+		document.getElementById('scontainer').style.display = "none";
+		document.getElementById('acontainer').style.display = "revert";
+	});
+
 	window.onresize = function() {
-		if (window.innerWidth < 768) {
-			upgradesbutton.innerText = 'Upgs.';
+		if (window.innerWidth < 976) {
+				achievementsbutton.innerText = 'Achs.';
+			} else if (window.innerWidth < 1258) {
+				achievementsbutton.innerText = 'Achvmnts.';
+			} else {
+				achievementsbutton.innerText = 'Achievements';
+			}
+
+			if (window.innerWidth < 921) {
+				upgradesbutton.innerText = 'Upgs.';
+			} else {
+				upgradesbutton.innerText = 'Upgrades';
+			}
+
 			if (window.innerWidth < 413) {
 				changelogbutton.innerText = 'C.Logs';
+			} else {
+				changelogbutton.innerText = 'Changelog';
 			}
-		}
-		else {
-			upgradesbutton.innerText = 'Upgrades';
-			changelogbutton.innerText = 'Changelog';
-		}
 	};
-	//mdiv
+
+	// tips
 	document.getElementById('nexttip').addEventListener('click', () => {
-		if (tipIndex >= tiplist.length - 1) {
+		if (tipIndex >= tips.length - 1) {
 			tipIndex = 0;
 		} else {
 			tipIndex++;
 		}
-		document.getElementById('tip').innerText = tiplist[tipIndex];
+		document.getElementById('tip').innerText = tips[tipIndex];
 	});
 
-	//upgrades
+	// upgrade handler
 	function addAutoclickListener(element, cost, cpsMultiplier, index) {
 		element.addEventListener('click', () => {
 			if (cost <= alecAmount) {
@@ -448,8 +556,8 @@ function Game() {
 				cost += Math.ceil(cost * 0.15);
 				element.setAttribute("data-cost", cost);
 				document.getElementById(`autoclick${index + 1}cost`).innerText = `$${abbreviateNumber(cost)}`;
-				document.getElementById('num').innerText = `Alecs: ${abbreviateNumber(alecAmount)}`;
-				document.getElementById('aps').innerText = abbreviateNumber(cps);
+				num.innerText = `Alecs: ${abbreviateNumber(alecAmount)}`;
+				aps.innerText = abbreviateNumber(cps);
 				if (element === autoclick1) {
 					autoclick1cost = cost;
 				} else if (element === autoclick2) {
@@ -502,6 +610,7 @@ function Game() {
 			}
 		});
 	}
+
 	let autoclickUpgrades = [
 		{element: autoclick1, cost: autoclick1cost, cpsMultiplier: 1, statname: "Autoclickers"},
 		{element: autoclick2, cost: autoclick2cost, cpsMultiplier: 5, statname: "Alec Factories"},
@@ -520,52 +629,54 @@ function Game() {
 		{element: autoclick15, cost: autoclick15cost, cpsMultiplier: 21000000000, statname: "Trillion Lumberjacks"},
 		{element: autoclick16, cost: autoclick16cost, cpsMultiplier: 150000000000, statname: "Time Flannels"},
 	];
+
 	function getAutoClickUpgrades() {
 		autoclickUpgrades = [
-			{element: autoclick1, cost: autoclick1cost, cpsMultiplier: 1, statname: "Autoclickers"},
-			{element: autoclick2, cost: autoclick2cost, cpsMultiplier: 5, statname: "Alec Factories"},
-			{element: autoclick3, cost: autoclick3cost, cpsMultiplier: 15, statname: "Sewing Kits"},
-			{element: autoclick4, cost: autoclick4cost, cpsMultiplier: 50, statname: "Farms"},
-			{element: autoclick5, cost: autoclick5cost, cpsMultiplier: 260, statname: "Flannel Factories"},
-			{element: autoclick6, cost: autoclick6cost, cpsMultiplier: 1400, statname: "Summoners"},
-			{element: autoclick7, cost: autoclick7cost, cpsMultiplier: 7800, statname: "Duplicators"},
-			{element: autoclick8, cost: autoclick8cost, cpsMultiplier: 44000, statname: "Wizards"},
-			{element: autoclick9, cost: autoclick9cost, cpsMultiplier: 260000, statname: "Blessings"},
-			{element: autoclick10, cost: autoclick10cost, cpsMultiplier: 1600000, statname: "Stealing Machines"},
-			{element: autoclick11, cost: autoclick11cost, cpsMultiplier: 10000000, statname: "Shipments"},
-			{element: autoclick12, cost: autoclick12cost, cpsMultiplier: 65000000, statname: "Treasure Rooms"},
-			{element: autoclick13, cost: autoclick13cost, cpsMultiplier: 430000000, statname: "Bought Fiverr Offers"},
-			{element: autoclick14, cost: autoclick14cost, cpsMultiplier: 2900000000, statname: "Universes"},
-			{element: autoclick15, cost: autoclick15cost, cpsMultiplier: 21000000000, statname: "Trillion Lumberjacks"},
-			{element: autoclick16, cost: autoclick16cost, cpsMultiplier: 150000000000, statname: "Time Flannels"},
+			{element: autoclick1, cost: autoclick1cost, cpsMultiplier: autoclickUpgrades[0].cpsMultiplier, statname: "Autoclickers"},
+			{element: autoclick2, cost: autoclick2cost, cpsMultiplier: autoclickUpgrades[1].cpsMultiplier, statname: "Alec Factories"},
+			{element: autoclick3, cost: autoclick3cost, cpsMultiplier: autoclickUpgrades[2].cpsMultiplier, statname: "Sewing Kits"},
+			{element: autoclick4, cost: autoclick4cost, cpsMultiplier: autoclickUpgrades[3].cpsMultiplier, statname: "Farms"},
+			{element: autoclick5, cost: autoclick5cost, cpsMultiplier: autoclickUpgrades[4].cpsMultiplier, statname: "Flannel Factories"},
+			{element: autoclick6, cost: autoclick6cost, cpsMultiplier: autoclickUpgrades[5].cpsMultiplier, statname: "Summoners"},
+			{element: autoclick7, cost: autoclick7cost, cpsMultiplier: autoclickUpgrades[6].cpsMultiplier, statname: "Duplicators"},
+			{element: autoclick8, cost: autoclick8cost, cpsMultiplier: autoclickUpgrades[7].cpsMultiplier, statname: "Wizards"},
+			{element: autoclick9, cost: autoclick9cost, cpsMultiplier: autoclickUpgrades[8].cpsMultiplier, statname: "Blessings"},
+			{element: autoclick10, cost: autoclick10cost, cpsMultiplier: autoclickUpgrades[9].cpsMultiplier, statname: "Stealing Machines"},
+			{element: autoclick11, cost: autoclick11cost, cpsMultiplier: autoclickUpgrades[10].cpsMultiplier, statname: "Shipments"},
+			{element: autoclick12, cost: autoclick12cost, cpsMultiplier: autoclickUpgrades[11].cpsMultiplier, statname: "Treasure Rooms"},
+			{element: autoclick13, cost: autoclick13cost, cpsMultiplier: autoclickUpgrades[12].cpsMultiplier, statname: "Bought Fiverr Offers"},
+			{element: autoclick14, cost: autoclick14cost, cpsMultiplier: autoclickUpgrades[13].cpsMultiplier, statname: "Universes"},
+			{element: autoclick15, cost: autoclick15cost, cpsMultiplier: autoclickUpgrades[14].cpsMultiplier, statname: "Trillion Lumberjacks"},
+			{element: autoclick16, cost: autoclick16cost, cpsMultiplier: autoclickUpgrades[15].cpsMultiplier, statname: "Time Flannels"},
 		];
 	}
 
-
 	autoclickUpgrades.forEach((upgrade, index) => {addAutoclickListener(upgrade.element, upgrade.cost, upgrade.cpsMultiplier, index)});
+
+	// resetting
 	resetbutton.addEventListener('click', () => {
 		if (confirm("Do you want to erase your progress? There is no getting it back!") == true) {
 			if (confirm("Are you certain?") == true) {
-				localStorage.clear();
+				localStorage.removeItem('saveData');
 				location.reload();
 			}
 		}
 	});
 
-	//changelog
+	// changelog
 	changelog.addEventListener('click', () => {changelog.style.bottom = (changelog.style.bottom === "40%") ? "-100%" : changelog.style.bottom});
 	changelogbutton.addEventListener('click', () => {changelog.style.bottom = (changelog.style.bottom === "40%") ? "-100%" : "40%"});
 
-	//clicks
+	// clicks
 	alec.addEventListener('click', () => {
-		let clickAmount = Math.ceil(cps * 0.6 + totalAlecAmount * 0.0006);
+		clickAmount = Math.ceil(clickMultiplier);
 		if (clickAmount <= 0) clickAmount = 1;
 		clickSFX.cloneNode().play();
 		totalClicks += 1;
 		alecAmount += (clickAmount < 1) ? 1 : clickAmount;
 		totalAlecAmount += (clickAmount < 1) ? 1 : clickAmount;
-		document.getElementById('totalnum').innerText = totalAlecAmount;
-		document.getElementById('num').innerText = 'Alecs: ' + alecAmount;
+		num.innerText = 'Alecs: ' + alecAmount;
+		totalnum.innerText = totalAlecAmount;
 		updateDisplay();
 		const number = document.createElement('div');
 		number.textContent = "+" + abbreviateNumber(clickAmount);
@@ -581,31 +692,59 @@ function Game() {
 		setTimeout(() => {number.remove()}, 1500);
 	});
 
-	//more
-	function handleMouseOver(event, text) {
+	// tooltips
+	function handleMouseOver(event, text, achdescbox) {
 		descbox.style.display = 'block';
-		descbox.innerText = text;
-		document.addEventListener('mousemove', (event) => {
+
+		if (achdescbox === true) {
+			descbox.innerHTML = text;
+		} else {
+			descbox.innerText = text;
+		}
+
+		const moveHandler = (event) => {
 			const x = event.clientX;
 			const y = event.clientY;
-			descbox.style.left = x + 'px';
-			descbox.style.top = (y + 20) + 'px';
-		});
+
+			const tooltipWidth = descbox.offsetWidth;
+			const tooltipHeight = descbox.offsetHeight;
+			const padding = 10;
+
+			let left = x + padding;
+			let top = y + 20;
+
+			if (x + tooltipWidth + padding > window.innerWidth) {
+				left = x - tooltipWidth - padding;
+			}
+
+			if (y + tooltipHeight + 20 > window.innerHeight) {
+				top = y - tooltipHeight - padding;
+			}
+
+			descbox.style.left = left + 'px';
+			descbox.style.top = top + 'px';
+		};
+
+		document.addEventListener('mousemove', moveHandler);
+
+		descbox._moveHandler = moveHandler;
 	}
 
 	function handleMouseOut() {
 		descbox.style.display = 'none';
-		document.removeEventListener('mousemove', () => {});
-	}
 
+		if (descbox._moveHandler) {
+			document.removeEventListener('mousemove', descbox._moveHandler);
+			delete descbox._moveHandler;
+		}
+	}
+	
 	buttons.forEach((button) => {
 		button.addEventListener('mouseover', (event) => {
 			let text = '';
-
 			const updateText = () => {
 				switch (button) {
 					case aps:
-						const upgradeTextElement = document.getElementById(button.id);
 						text = commifyNumber(Math.floor(cps)) + `\n`;
 						autoclickUpgrades.forEach((upgrade, index) => {
 							let amount = autoclickamounts[`ac${index + 1}`] || 0;
@@ -697,7 +836,7 @@ function Game() {
 						text = `"Oh, yeah, a flannel stealing machine. That'll help." Fine then, I'll make a machine that'll take away everything next.`;
 						break;
 					case autoclick11:
-						text = `You'll get a bunch of flannels, but the best part is that they're from ZE MOOOOOOON!!!`;
+						text = `You'll get a bunch of flannels, but the best part is that they're from ZE MOOOOOOON!!! NOTE: The shipments are NOT affiliated with SpaceX.`;
 						break;
 					case autoclick12:
 						text = `Well, actually, you fund an expedition to a treasure room... and that treasure room has like a bajillion flannels but shhhh,`;
@@ -748,16 +887,18 @@ function Game() {
 		});
 	});
 
-	//(gasp) MATH?!?!?!??!? but the math is BAD, is very very BAD!
-	function updateAlecAmount(currentTime) {
+	// tick
+	function tick(currentTime) {
+		// (gasp) MATH?!?!?!??!? but the math is BAD, is very very BAD!
+		requestAnimationFrame(tick);
+		updateDisplay();
 		const frameTime = currentTime - lastFrameTime;
 		const secondsElapsed = frameTime / 1000;
 		alecAmount += cps * secondsElapsed;
 		totalAlecAmount += cps * secondsElapsed;
-		document.getElementById('num').innerText = 'Alecs: ' + '$' + abbreviateNumber(Math.floor(alecAmount));
-		document.getElementById('totalnum').innerText = abbreviateNumber(Math.floor(totalAlecAmount));
+		num.innerText = 'Alecs: ' + '$' + abbreviateNumber(Math.floor(alecAmount));
+		totalnum.innerText = abbreviateNumber(Math.floor(totalAlecAmount));
 		lastFrameTime = currentTime;
-		requestAnimationFrame(updateAlecAmount);
 		autoclickUpgrades.forEach((upgrade, index) => {
 			if (upgrade.cost >= alecAmount) {
 				upgrade.element.style.backgroundColor = `grey`;
@@ -767,10 +908,35 @@ function Game() {
 				document.getElementById(upgrade.element.id + 'cost').style.backgroundColor = `white`;
 			}
 		});
-		saveProgress()
-		getAutoClickUpgrades()
+		
+		achchecker();
+		getAutoClickUpgrades();
 	}
-	requestAnimationFrame(updateAlecAmount);
+
+	const updateDisplay = () => {
+		num.innerText = 'Alecs: ' + abbreviateNumber(alecAmount);
+		aps.innerText = abbreviateNumber(cps);
+		totalnum.innerText = abbreviateNumber(totalAlecAmount);
+		timeplayedstat.innerText = formatTime(timeplayed);
+		totalclicks.innerText = abbreviateNumber(totalClicks);
+		autoclickUpgrades.forEach((upgrade, index) => {
+			document.getElementById(`autoclick${index + 1}cost`).innerText = `$${abbreviateNumber(upgrade.cost)}`;
+		});
+
+		if (uploadedSkin === "none") {
+			alec.src = 'images/skins/alec.png';
+		} else {
+			alec.src = uploadedSkin;
+		}
+	};
+
+	requestAnimationFrame(tick);
 	startTimer();
-	updateDisplay();
+	updateAchievements();
+	setInterval(saveProgress, 10000);
+
+	// bug report
+	document.getElementById("bugreport").addEventListener('click', () => {
+		window.open("https://forms.gle/TD3pJgVs6twkjBr37")
+	})
 }
