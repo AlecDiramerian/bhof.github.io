@@ -30,6 +30,8 @@ export const news = [
 	`News: I CALLED MARK LONG AT 3AM (GONE WRONG) (COPS CALLED) 😲😲😲`,
 	`News: Scott has been notified about your Alec buisness`,
 	`News: Researchers provide evidence that Chris is more powerful than God, Jod, Thor, Zeus, Allah, and Buddha, all combined`,
+	`News: Mark Long called Marcus Length, world ended`,
+	`News: Theodore comments on how Alec clicker needs more gameplay elements, shot dead in an alleyway in Whitter`,
 	`Quote from an Asylum: "𝘙𝘰𝘰𝘮𝘴? 𝘐 𝘸𝘢𝘴 𝘳𝘰𝘰𝘮𝘴 𝘰𝘯𝘤𝘦. 𝘛𝘩𝘦𝘺 𝘤𝘳𝘢𝘻𝘪𝘦𝘥 𝘮𝘦 𝘪𝘯 𝘢 𝘭𝘰𝘤𝘬. 𝘈 𝘳𝘢𝘵𝘴 𝘭𝘰𝘤𝘬. 𝘈 𝘳𝘢𝘵𝘴 𝘭𝘰𝘤𝘬𝘦𝘥 𝘧𝘶𝘭𝘭 𝘰𝘧 𝘤𝘳𝘢𝘻𝘺, 𝘢𝘯𝘥 𝘤𝘳𝘢𝘻𝘺 𝘮𝘢𝘬𝘦𝘴 𝘮𝘦 𝘳𝘰𝘰𝘮𝘴", says man convicted for ratslaughter`,
 	`Quote from an Asylum: "𝘔𝘳. 𝘓𝘰𝘯𝘨... 𝘐 𝘥𝘰𝘯'𝘵 𝘧𝘦𝘦𝘭 𝘴𝘰 𝘨𝘰𝘰𝘥", says insect-eating teen`,
 	`Quote from an Asylum: "𝘏𝘌𝘌𝘌𝘌𝘓𝘗! 𝘏𝘌𝘓𝘗 𝘔𝘌!", says boy who doesn't even live in the asylum, but he's powerful enough to teleport in there`,
@@ -82,6 +84,7 @@ export const achievements = [
 	{name: "Aunt", description: "Buy 25 sewing kits", achieved: false},
 	{name: "Unc", description: "Buy 50 sewing kits", achieved: false},
 	{name: "They/them sibling of parent", description: `Buy 100 sewing kits<br><i>"It's kinda interesting how there isn't a word for this, isn't it?"</i>`, achieved: false},
+	{name: "Oh wait it was 'pibling'", description: `Buy 150 sewing kits<br><i>"Man I wish I didn't find out now"</i>`, achieved: false},
 
 	// ac4 (farm)
 	{name: "Old MacDonald", description: `Buy a farm<br><i>"Eeieeio"</i>`, achieved: false},
@@ -98,6 +101,7 @@ export const achievements = [
 	{name: "Birther", description: "Buy 25 factory II's", achieved: false},
 	{name: "FORTY ONE?", description: "Buy 41 factory II's", achieved: false},
 	{name: "Too many!!!", description: "Buy 100 factory II's", achieved: false},
+	{name: "Factory, the sequel", description: "Buy 150 factory II's", achieved: false},
 
 	// ac6 (summoner)
 	{name: "Terraprisma", description: "Buy a summoner", achieved: false},
@@ -122,6 +126,7 @@ export const achievements = [
 	{name: "The Wizard & I", description: "Buy 25 wizards", achieved: false},
 	{name: "Bippity boppity boo!", description: "Buy 50 wizards", achieved: false},
 	{name: "We love casting spells.", description: "Buy 100 wizards", achieved: false},
+	{name: "Orb ponderer", description: "Buy 150 wizards", achieved: false},
 
 	// ac9 (blessing)
 	{name: "Der Voghormya", description: "Buy a blessing", achieved: false},
@@ -178,6 +183,7 @@ export const achievements = [
 	{name: "#TeamNoTrees", description: "Buy 25 trillion lumberjacks", achieved: false},
 	{name: "Chopped chin", description: "Buy 50 trillion lumberjacks", achieved: false},
 	{name: "Mr. Worldwide", description: "Buy 100 trillion lumberjacks", achieved: false},
+	{name: "Certified Lumberjack", description: "Buy 150 trillion lumberjacks", achieved: false},
 
 	// ac16 (time flannels)
 	{name: "90's kid", description: "Buy a flannel from another time", achieved: false},
@@ -186,6 +192,7 @@ export const achievements = [
 	{name: "SKIBIDI TOILET", description: `Buy 25 flannels from another time<br><i>"Oops, wrong decade..."</i>`, achieved: false},
 	{name: "Alec in Chains", description: "Buy 50 flannels from another time", achieved: false},
 	{name: "The next Kurt Cobain", description: "Buy 100 flannels from another time", achieved: false},
+	{name: "Secretly Scottish", description: `Buy 150 flannels from another time<br><i>"Flannels are Scottish too btw"<>/i`, achieved: false},
 
 	// ac17 (???)
 
