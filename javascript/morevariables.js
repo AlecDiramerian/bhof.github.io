@@ -186,6 +186,7 @@ export const achievements = [
 	{name: "My doctor is really strange", description: `Buy 50 Flannelverses<br><i>"...say that again?"</i>`, achieved: false},
 	{name: "Till you're 90", description: "Buy 90 Flannelverses", achieved: false},
 	{name: "What is this, some sort of a reference?", description: "Buy 150 Flannelverses", achieved: false},
+	{name: "Who the hell is Peter Parker?", description: "Buy 200 Flannelverses", achieved: false},
 
 	// ac15 (trillion lumberjacks)
 	{name: "Timber!", description: "Buy a trillion lumberjacks", achieved: false},
@@ -200,10 +201,11 @@ export const achievements = [
 	{name: "90's kid", description: "Buy a flannel from another time", achieved: false},
 	{name: "Smells like teen flannels", description: "Buy 5 flannels from another time", achieved: false},
 	{name: "Flannellong", description: "Buy 10 flannels from another time", achieved: false},
-	{name: "SKIBIDI TOILET", description: `Buy 25 flannels from another time<br><i>"Oops, wrong decade..."</i>`, achieved: false},
+	{name: "SIX SEVENNN", description: `Buy 25 flannels from another time<br><i>"Oops, wrong decade..."</i>`, achieved: false},
 	{name: "Alec in Chains", description: "Buy 50 flannels from another time", achieved: false},
-	{name: "The next Kurt Cobain", description: "Buy 100 flannels from another time", achieved: false},
-	{name: "Secretly Scottish", description: `Buy 150 flannels from another time<br><i>"Flannels are Scottish too btw"<>/i`, achieved: false},
+	{name: "The next Kurt Cobain (minus... yknow)", description: "Buy 100 flannels from another time", achieved: false},
+	{name: "Secretly Scottish", description: `Buy 150 flannels from another time<br><i>"Flannels are Scottish too btw"</i>`, achieved: false},
+    {name: "Ruler of Everything", description: `Buy 200 flannels from another time <br><i>"It's a metaphor for time, you wouldn't get it"</i>`, achieved: false},
 
 	// ac17 (???)
 
