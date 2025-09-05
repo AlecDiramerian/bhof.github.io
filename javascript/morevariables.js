@@ -68,7 +68,8 @@ export const achievements = [
 	{name: "Quarter click", description: "Buy 25 autoclickers", achieved: false},
 	{name: "Half click", description: "Buy 50 autoclickers", achieved: false},
 	{name: "Full click", description: "Buy 100 autoclickers", achieved: false},
-	{name: "Click AND A HALF!", description: "Buy 150 autocklickers", achieved: false},
+	{name: "Click and A HALF!", description: "Buy 150 autoclickers", achieved: false},
+    {name: "Click and THREE QUARTERS", description: "Buy 200 autoclickers", achieved: false},
 
 	// ac2 (factory)
 	{name: "Womber", description: "Buy a factory", achieved: false},
@@ -78,6 +79,7 @@ export const achievements = [
 	{name: "FORTY?", description: "Buy 40 factories", achieved: false},
 	{name: "Why him?", description: "Buy 100 factories", achieved: false},
 	{name: "Man factory is great I sure hope they make a factory 2", description: "Buy 150 factories", achieved: false},
+    {name: "Oh my god", description: "Buy 200 factories", achieved: false},
 
 	// ac3 (sewing kit)
 	{name: "Granny", description: "Buy a sewing kit", achieved: false},
@@ -87,6 +89,7 @@ export const achievements = [
 	{name: "Unc", description: "Buy 50 sewing kits", achieved: false},
 	{name: "They/them sibling of parent", description: `Buy 100 sewing kits<br><i>"It's kinda interesting how there isn't a word for this, isn't it?"</i>`, achieved: false},
 	{name: `Oh wait it was "pibling"`, description: `Buy 150 sewing kits<br><i>"Man I wish I didn't find out now"</i>`, achieved: false},
+    {name: "Do they call you the sewer?", description: `Buy 200 sewing kits<br><i>"Because you are sewing"</i>`, achieved: false},
 
 	// ac4 (farm)
 	{name: "Old MacDonald", description: `Buy a farm<br><i>"Eeieeio"</i>`, achieved: false},
@@ -96,15 +99,17 @@ export const achievements = [
 	{name: "Serious dedication", description: "Buy 50 farms", achieved: false},
 	{name: "Young MacDonald", description: "Buy 100 farms", achieved: false},
 	{name: "Farming simulator gaming??", description: "Buy 150 farms", achieved: false},
+    {name: "Garden grower", description: `Buy 200 farms <br><i>"That game is probably dead by the time you're reading this"</i>`, achieved: false},
 
 	// ac5 (factory II)
 	{name: "Womber II", description: "Buy a factory II", achieved: false},
-	{name: "It's eggs!", description: `Buy 2 factory II's<br><i>"It's eggs, woo!"</i>`, achieved: false},
-	{name: "Banker", description: "Buy 10 factory II's", achieved: false},
-	{name: "Birther", description: "Buy 25 factory II's", achieved: false},
-	{name: "FORTY ONE?", description: "Buy 41 factory II's", achieved: false},
-	{name: "Too many!!!", description: "Buy 100 factory II's", achieved: false},
-	{name: "Factory, the sequel", description: "Buy 150 factory II's", achieved: false},
+	{name: "It's eggs!", description: `Buy 2 factory IIs<br><i>"It's eggs, woo!"</i>`, achieved: false},
+	{name: "Banker", description: "Buy 10 factory IIs", achieved: false},
+	{name: "Birther", description: "Buy 25 factory IIs", achieved: false},
+	{name: "FORTY ONE?", description: "Buy 41 factory IIs", achieved: false},
+	{name: "Too many!!!", description: "Buy 100 factory IIs", achieved: false},
+	{name: "Factory, the sequel", description: "Buy 150 factory IIs", achieved: false},
+    {name: "Factory squared", description: "Buy 200 factory IIs", achieved: false},
 
 	// ac6 (summoner)
 	{name: "Terraprisma", description: "Buy a summoner", achieved: false},
@@ -114,6 +119,7 @@ export const achievements = [
 	{name: "Fourth class", description: "Buy 50 summoners", achieved: false},
 	{name: "...I made the summoner", description: `Buy 100 summoners<br><i>"My name is Edwin..."</i>`, achieved: false},
 	{name: "Summoner of the summoner", description: "Buy 150 summoners", achieved: false},
+    {name: "League of Legends", description: `Buy 200 summoners<br><i>"Death"</i>`, achieved: false},
 
 	// ac7 (duplicator)
 	{name: "Command-C", description: "Buy a duplicator", achieved: false},
@@ -122,7 +128,8 @@ export const achievements = [
 	{name: "Lagspike", description: "Buy 25 duplicators", achieved: false},
 	{name: "Beware of Hausemaster", description: "Buy 50 duplicators", achieved: false},
 	{name: "Ohhh MY PC!!!!!", description: "Buy 100 duplicators", achieved: false},
-	{name: "Git clone", description: `Buy 150 descripters<br><i>"A git clone is a thing on github where I am uploading my code Alec please free me from this he-"</i>`, achieved: false},
+	{name: "Git clone", description: `Buy 150 duplicators<br><i>"A git clone is a thing on github where I am uploading my code Alec please free me from this he-"</i>`, achieved: false},
+    {name: "Clone tycoon 2", description: "Buy 200 duplicators", achieved: false},
 
 	// ac8 (wizard)
 	{name: "Alecazam", description: "Buy a wizard", achieved: false},
@@ -132,6 +139,7 @@ export const achievements = [
 	{name: "Bippity boppity boo!", description: "Buy 50 wizards", achieved: false},
 	{name: "We love casting spells.", description: "Buy 100 wizards", achieved: false},
 	{name: "Orb ponderer", description: "Buy 150 wizards", achieved: false},
+    {name: "Wizard poster", description: `Buy 200 wizards`, achieved: false},
 
 	// ac9 (blessing)
 	{name: "Der Voghormya", description: "Buy a blessing", achieved: false},
@@ -141,6 +149,7 @@ export const achievements = [
 	{name: "Marmin Deroonagan", description: "Buy 50 blessings", achieved: false},
 	{name: "Amen", description: "Buy 100 blessings", achieved: false},
 	{name: "#Blessed", description: `Buy 150 blessings<br><i>"Kill me now"</i>`, achieved: false},
+    {name: "New religion just dropped", description: `Buy 200 blessings<br><i>"Now to start a crusade"</i>`, achieved: false},
 
 	// ac10 (stealing machine)
 	{name: "Jailbreak", description: "Buy a stealing machine", achieved: false},
@@ -150,6 +159,7 @@ export const achievements = [
 	{name: "youtu.be/WZa_aZP91wQ?si=HDE1SNvG_aWp-AEe&t=892", description: `Buy 50 stealing machines<br><i>"Hey, Michael, what are your favorite qualities about your wife?"</i>`, achieved: false, clickable: true},
 	{name: "We thugs", description: "Buy 100 stealing machines", achieved: false},
 	{name: "A THIEF!!! CALL THE POLICE!!!", description: "Buy 150 stealing machines", achieved: false},
+    {name: "The police are dead, what have you done?", description: "Buy 200 stealing machines", achieved: false},
 
 	// ac11 (moon shipment)
 	{name: "A dream that's coming true", description: "Buy a moon shipment", achieved: false},
@@ -159,6 +169,7 @@ export const achievements = [
 	{name: "Blood moon plus black substance (for flannel)", description: "Buy 50 moon shipments", achieved: false},
 	{name: `When the moon says "I love you"`, description: "Buy 100 moon shipments", achieved: false},
 	{name: "Gru, the CEO of Amazon", description: "Buy 150 moon shipments", achieved: false},
+    {name: "You, the CEO of the moon", description: "Buy 200 moon shipments", achieved: false},
 
 	// ac12 (treasure room)
 	{name: "Captain Toad", description: "Buy a treasure room", achieved: false},
@@ -167,7 +178,8 @@ export const achievements = [
 	{name: "Midas from Fortnite", description: "Buy 25 treasure rooms", achieved: false},
 	{name: "Ralecs to raleches", description: "Buy 50 treasure rooms", achieved: false},
 	{name: "The next Mr. Krabs", description: "Buy 100 treasure rooms", achieved: false},
-	{name: "Tax dodger", description: `Buy 150 treasure rooms<br><i>"You aren't paying your taxes, but it's fine according to the Alec government"</i>`, achieved: false},
+	{name: "Tax dodger", description: `Buy 150 treasure rooms<br><i>"You aren't paying your taxes, but it's fine according to the Alec-controlled government"</i>`, achieved: false},
+    {name: "IRS's most wanted", description: "Buy 200 treasure rooms", achieved: false},
 
 	// ac13 (fiverr offer)
 	{name: "What does this even do?", description: "Buy a Fiverr offer", achieved: false},
@@ -177,6 +189,7 @@ export const achievements = [
 	{name: "Who's even buying these?", description: "Buy 50 Fiverr offers", achieved: false},
 	{name: "Couch potato", description: "Buy 100 Fiverr offers", achieved: false},
 	{name: "Comms are open!", description: "Buy 150 Fiverr offers", achieved: false},
+    {name: "Job application", description: `Buy 200 Fiverr offers <br><i>"You can't say that!"</i>`, achieved: false},
 
 	// ac14 (flannelverse)
 	{name: "Don't tell Feige", description: "Buy a Flannelverse", achieved: false},
@@ -196,6 +209,7 @@ export const achievements = [
 	{name: "Chopped chin", description: "Buy 50 trillion lumberjacks", achieved: false},
 	{name: "Mr. Worldwide", description: "Buy 100 trillion lumberjacks", achieved: false},
 	{name: "Certified Lumberjack", description: "Buy 150 trillion lumberjacks", achieved: false},
+    {name: "Certified-Certified Lumberjack", description: "Buy 200 trillion lumberjacks", achieved: false},
 
 	// ac16 (time flannels)
 	{name: "90's kid", description: "Buy a flannel from another time", achieved: false},
