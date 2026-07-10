@@ -146,7 +146,15 @@
 				position: fixed;
 				top: 10px;
 				left: 10px;
-				z-index: 100;
+				z-index: 101;
+				padding: 8px 16px;
+				font-family: sans-serif;
+				cursor: pointer;
+			}
+			#score {
+				position: fixed;
+				top: 10px;
+				z-index: 102;
 				padding: 8px 16px;
 				font-family: sans-serif;
 				cursor: pointer;
@@ -155,6 +163,8 @@
 	</head>
 	<body>
 		<button id="creditsbutton" style="display: none;">Credits</button>
+		<button id="lettersused" style="display: none;">letters used: </button>
+		<button id="score" style="display: none;">score: 0</button>
 		<div id="startscreen" class="screen active">
 			click to start
 		</div>
@@ -171,7 +181,6 @@
 			</div>
 		</div>
 		<div id="gameoverscreen" class="screen"></div>
-		
 		<div id="creditsscreen" class="screen">
 			<h2>credits</h2>
 			<p>created by Alec Diramerian</p>
@@ -189,12 +198,13 @@
 			let counter = 0;
 			let word = "";
 			let guessed = [];
-			let hp = 5;
+			let hp = 10;
 			let guessedLetters = [];
 			let lastFeedback = "press a key to guess";
 			let winMsg = "";
 			let nextWordTimer = 0;
 			let timer;
+			let score = 0;
 			const typespeed = 10;
 			const fullword = "Hanggus";
 			const startScreen = document.getElementById('startscreen');
@@ -208,8 +218,11 @@
 			const feedbackDisplay = document.getElementById('feedbackdisplay');
 			const gusText = document.getElementById('gustext');
 			const bgMusic = document.getElementById('bgmusic');
-			
-			const wordList = ["alec", "gus", "itsmeimgus", "poop", "six", "seven", "eat", "apple", "hamburger", "cookie", "monkey", "word", "stevens", "lime", "sam", "nelson", "pneumonoultramicroscopicsilicovolcanoconiosis"];
+			const lettersUsed = document.getElementById('lettersused');
+			const scoreelem = document.getElementById('score');
+
+
+			const wordList = ["alec", "gus", "itsmeimgus", "poop", "six", "seven", "eat", "apple", "hamburger", "cookie", "monkey", "word", "stevens", "lime", "sam", "nelson", "pneumonoultramicroscopicsilicovolcanoconiosis", "giasfclfebrehber"];
 			const possibleComments = ["dude please i sWEAR i didnt do it", "i gotta pee", "i am Bisexual", "im hungry", "any minute now", "i may have to get CHESTER on you bro", "please dude help me out i was kidding about your mom i bet shes great", "we're friends, right?", "i eat poop"];
 			const hurtComments = ["HEY HEY WOAH WOAH WAIT", "NONONONONON STOP", "PLEASE BRO DONT LET ME DIE", "I WANT MY MOMMY!", "HEY WAIT STOP", "WHAT ARE YOU DOING!?!?!?", "HEY YOURE SUPPOSED TO BE SAVING ME???"];
 
@@ -217,7 +230,7 @@
 				word = wordList[Math.floor(Math.random() * wordList.length)];
 				guessed = new Array(word.length).fill(0);
 				guessedLetters = [];
-				hp = 5;
+				hp = 10;
 				lastFeedback = "next word";
 			}
 
@@ -229,7 +242,8 @@
 				if (gameState === 'clicktostart') {
 					gameState = 'typing';
 					creditsButton.style.display = 'block'; 
-					
+					lettersUsed.style.display = 'block'; 
+					scoreelem.style.display = 'block'; 
 					bgMusic.play().catch(error => {
 						console.log("audio fail lmao", error);
 					});
@@ -269,8 +283,10 @@
 						return; 
 					}
 					guessedLetters.push(lt);
+					lettersUsed.innerText = `letters used: ${guessedLetters}`
 					if (word.includes(lt)) {
 						lastFeedback = "yea";
+						
 						for (let i = 0; i < word.length; i++) {
 							if (word[i] === lt) {
 								guessed[i] = 1;
@@ -294,10 +310,12 @@
 					}
 
 					if (!guessed.includes(0) && gameState === 'playing') {	
-						let msg = `you got it`
-						hp = 5;
+						score += 1;
+						hp = 10;
 						guessedLetters = [];
-						lastFeedback = msg;
+						lastFeedback = `you got it`;
+						lettersUsed.innerText = `letters used: ${guessedLetters}`;
+						scoreelem.innerText = `score: ${score}`;
 						gameState = 'nextwordpause';
 						nextWordTimer = 0;
 					}
@@ -341,7 +359,7 @@
 					else if (gameState === 'playing' || gameState === 'nextwordpause') {
 						playingScreen.classList.add('active');
 						
-						hpDisplay.innerText = `HP: ${hp} / 5`;
+						hpDisplay.innerText = `guesses: ${hp} / 10`;
 
 						let display = "";
 						for (let i = 0; i < word.length; i++) {
@@ -362,6 +380,8 @@
 						gameoverScreen.classList.add('active');
 						gameoverScreen.innerText = winMsg;
 						creditsButton.style.display = 'none'; 
+						lettersUsed.style.display = 'none'; 
+
 					}
 					else if (gameState === 'credits') {
 						creditsScreen.classList.add('active');
