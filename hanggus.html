@@ -142,6 +142,15 @@
 				font-size: 24px;
 				margin-top: 50px;
 			}
+			#lettersused {
+				position: fixed;
+				top: 10px;
+				left: 10px;
+				z-index: 100;
+				padding: 8px 16px;
+				font-family: sans-serif;
+				cursor: pointer;
+			}
 		</style>
 	</head>
 	<body>
@@ -171,7 +180,7 @@
 			<p>with samples by Toby Fox</p>
 		</div>
 		<audio id="bgmusic" loop>
-		    <source src="./audio/itsmeimgus.mp3" type="audio/mpeg">
+			<source src="./audio/itsmeimgus.mp3" type="audio/mpeg">
 		</audio>
 		<script>
 			let gameState = 'clicktostart';
@@ -200,7 +209,7 @@
 			const gusText = document.getElementById('gustext');
 			const bgMusic = document.getElementById('bgmusic');
 			
-			const wordList = ["alec", "gus", "itsmeimgus", "poop", "six", "seven", "eat", "apple", "hamburger", "cookie", "monkey", "word", "stevens", "lime"];
+			const wordList = ["alec", "gus", "itsmeimgus", "poop", "six", "seven", "eat", "apple", "hamburger", "cookie", "monkey", "word", "stevens", "lime", "sam", "nelson", "pneumonoultramicroscopicsilicovolcanoconiosis"];
 			const possibleComments = ["dude please i sWEAR i didnt do it", "i gotta pee", "i am Bisexual", "im hungry", "any minute now", "i may have to get CHESTER on you bro", "please dude help me out i was kidding about your mom i bet shes great", "we're friends, right?", "i eat poop"];
 			const hurtComments = ["HEY HEY WOAH WOAH WAIT", "NONONONONON STOP", "PLEASE BRO DONT LET ME DIE", "I WANT MY MOMMY!", "HEY WAIT STOP", "WHAT ARE YOU DOING!?!?!?", "HEY YOURE SUPPOSED TO BE SAVING ME???"];
 
@@ -215,18 +224,18 @@
 			pickNextWord();
 
 			window.addEventListener('click', (e) => {
-			    if (e.target === creditsButton) return;
-			    
-			    if (gameState === 'clicktostart') {
-			        gameState = 'typing';
-			        creditsButton.style.display = 'block'; 
-			        
-			        bgMusic.play().catch(error => {
-			            console.log("audio fail lmao", error);
-			        });
+				if (e.target === creditsButton) return;
+				
+				if (gameState === 'clicktostart') {
+					gameState = 'typing';
+					creditsButton.style.display = 'block'; 
+					
+					bgMusic.play().catch(error => {
+						console.log("audio fail lmao", error);
+					});
 
-			        start();
-			    }
+					start();
+				}
 			});
 
 			creditsButton.addEventListener('click', () => {
