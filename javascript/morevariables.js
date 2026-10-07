@@ -41,7 +41,7 @@ export const news = [
 	`Brainrot culture is raving about your Alecs!`,
 	`Triple T LOVES Alec Clicker!`,
 	`-2`,
-	`News: Anna plays Alec clicker, gets hooked.`
+	`News: Anna plays Alec clicker, gets hooked.`,
 	`Gus is Bisexual.`,
 	`"It's me, I'm Gus." -Gus`
 ];
