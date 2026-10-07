@@ -830,7 +830,7 @@ function Game() {
 						text = `Love this guy. Met him at a party and we clicked instantly. Really great dude.`;
 						break;
 					case autoclick9:
-						text = `Technically, this money is actually just a bribe to the Flannelanity Religion following churches. This is a reference to the fact that Bridges is miserly and won't fix thier campus or students (not naming names but NINTH GRADE)`;
+						text = `Technically, this money is actually just a bribe to the Flannelanity Religion following churches. This is a reference to the fact that Bridges is miserly and won't fix thier campus or students (cough cough Alec)`;
 						break;
 					case autoclick10:
 						text = `"Oh, yeah, a flannel stealing machine. That'll help." Fine then, I'll make a machine that'll take away everything next.`;
@@ -854,7 +854,7 @@ function Game() {
 						text = `Ah, the classic vintage flannels! The modern day flannels! The futuristic flannels with jetpacks!`;
 						break;
 					case soonupg:
-						text = `Waiting for the day that fine shyt finally relizes she's in love with me.`;
+						text = `later lmao`;
 						break;
 					case statsbutton:
 						text = `View some statistics recorded from your adventure.`;

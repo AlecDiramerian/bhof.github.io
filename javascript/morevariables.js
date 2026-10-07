@@ -7,6 +7,7 @@ export const news = [
 	`News: Shoe gets thrown at fundraiser guy, students agree it was justified`,
 	`News: Something Rotten is a smashing success!`,
 	`News: Addams Family is a smashing success!`,
+	`News: Mamma Mia! is a smashing success!`,
 	`News: Iceberg causes a school panic... by school, we mean 4 or 5 people`,
 	`News: Student goes to Boulder, Colorado, meets Dr. Nefario`,
 	`News: Student almost beats a younger student to death with a water bottle`,
@@ -38,6 +39,11 @@ export const news = [
 	`Strange beings come from distant planets to buy your Alecs`,
 	`Pop culture loves your Alecs!`,
 	`Brainrot culture is raving about your Alecs!`,
+	`Triple T LOVES Alec Clicker!`,
+	`-2`,
+	`News: Anna plays Alec clicker, gets hooked.`
+	`Gus is Bisexual.`,
+	`"It's me, I'm Gus." -Gus`
 ];
 
 export const tips = [
